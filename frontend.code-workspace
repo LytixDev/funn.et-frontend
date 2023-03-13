@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/build": true,
+      "**/coverage": true
+    },
+    "[typescript]": {
+      "editor.formatOnPaste": true,
+      "editor.formatOnSave": true
+    },
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "eslint.validate": ["html", "vue", "react", "javascriptreact", "typescriptreact", "javascript", "typescript"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.tslint": true,
+      "source.fixAll.stylelint": true
+    }
+  },
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+  }
+}
