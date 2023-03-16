@@ -3,11 +3,7 @@
 </script>
 
 <template>
-  <h1>
-    Wagwan
-  </h1>
+  <h1>Wagwan</h1>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
