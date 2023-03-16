@@ -1,21 +1,22 @@
 <template>
   <div :class="ddlWrapperClass">
     <label :id="labelId" :for="fieldId">{{ labelText }}</label>
-    <select
-      :data-test-id="dataTestId"
-      :id="fieldId"
-      :name="fieldName"
-      v-model="fieldModelValue"
-      :required="fieldRequired">
-      <option v-for="option in fieldOptions" v-bind:key="option.key" v-bind:value="option.value">
-        {{ option.value }}
-      </option>
-      <option value="" disabled selected hidden>Select an option</option>
-      <option value="all" v-if="optionAll">All</option>
-      <option value="none" v-if="optionNone">None</option>
-    </select>
-
-    <div v-if="error" id="error">
+    <div :class="ddlClass">
+      <select
+        :data-test-id="dataTestId"
+        :id="fieldId"
+        :name="fieldName"
+        v-model="fieldModelValue"
+        :required="fieldRequired">
+        <option v-for="option in fieldOptions" v-bind:key="option.key" v-bind:value="option.value">
+          {{ option.value }}
+        </option>
+        <option value="" disabled selected hidden>Select an option</option>
+        <option value="all" v-if="optionAll">All</option>
+        <option value="none" v-if="optionNone">None</option>
+      </select>
+    </div>
+    <div v-if="error" :data-testid="dataTestId + '-error'" id="error">
       {{ errorMessage }}
     </div>
   </div>
@@ -23,9 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-
-import { FormInputWrapperClasses } from '../../enums/FormEnums';
-
+import { FormDropdownClasses, FormInputWrapperClasses } from '../../enums/FormEnums';
 import { DropDownItem } from '../../types/FormTypes';
 
 export default defineComponent({
@@ -34,6 +33,11 @@ export default defineComponent({
       type: String as PropType<FormInputWrapperClasses>,
       required: false,
       default: FormInputWrapperClasses.FormInputDropdown,
+    },
+    ddlClass: {
+      type: String as PropType<FormDropdownClasses>,
+      required: false,
+      default: FormDropdownClasses.Default,
     },
     labelId: {
       type: String,
@@ -90,4 +94,7 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<!-- 
+    TODO
+    Create style for form dropdown list
+-->

@@ -1,13 +1,12 @@
 <template>
-  <button class="form-button" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestId">
+  <button :class="formButtonClass" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestId">
     {{ buttonText }}
   </button>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-
-import { FormButtonTypes } from '../../enums/FormEnums';
+import { FormButtonClasses, FormButtonTypes } from '../../enums/FormEnums';
 
 export default defineComponent({
   props: {
@@ -29,6 +28,11 @@ export default defineComponent({
       required: false,
       default: 'Submit',
     },
+    formButtonClass: {
+      type: String as PropType<FormButtonClasses>,
+      required: false,
+      default: FormButtonClasses.Default,
+    },
     dataTestId: {
       type: String,
       required: false,
@@ -39,5 +43,5 @@ export default defineComponent({
 
 <!-- 
     TODO
-    Create style for form input
+    Create style for form buttons
 -->

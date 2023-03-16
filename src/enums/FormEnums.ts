@@ -24,3 +24,16 @@ export enum FormButtonTypes {
   Reset = 'reset',
   Button = 'button',
 }
+
+export enum RadioButtonClasses {
+    RadioButtonVertical = 'radio_button_vertical',
+    RadioButtonHorizontal = 'radio_button_horizontal',
+}
+
+export enum FormDropdownClasses {
+    Default = 'form_dropdown',
+}
+
+export enum FormButtonClasses {
+    Default = 'form_button',
+}

@@ -1,5 +1,5 @@
 <template>
-  <div :class="formWrapperClass">
+  <div :class="inputWrapperClass">
     <label :for="fieldId" :id="labelId">{{ labelText }}</label>
     <input
       :placeholder="fieldPlaceholder"
@@ -8,7 +8,7 @@
       :type="fieldType"
       v-model="fieldModelValue"
       :required="fieldRequired" />
-    <div v-if="error" id="error">
+    <div v-if="error" :data-testid="dataTestId + '-error'" id="error">
       {{ errorMessage }}
     </div>
   </div>
@@ -16,12 +16,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-
 import { FormInputTypes, FormInputWrapperClasses } from '../../enums/FormEnums';
 
 export default defineComponent({
   props: {
-    formWrapperClass: {
+    inputWrapperClass: {
       type: String as PropType<FormInputWrapperClasses>,
       required: false,
       default: FormInputWrapperClasses.FormInput,
