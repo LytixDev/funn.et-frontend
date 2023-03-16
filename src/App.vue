@@ -3,9 +3,7 @@
 </script>
 
 <template>
-  <h1>
-    Wagwan
-  </h1>
+  <router-view />
 </template>
 
 <style scoped>
