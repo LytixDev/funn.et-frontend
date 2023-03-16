@@ -8,6 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "test": "vitest --environment happy-dom",
+    "prettier": "prettier --write .",
     "api-generate": "openapi --useOptions  --input \"http://localhost:8080/v3/api-docs\" --output ./src/api --client axios"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "eslint-plugin-vue": "^9.9.0",
     "happy-dom": "^8.9.0",
     "openapi-typescript-codegen": "^0.23.0",
+    "prettier": "2.8.4",
     "typescript": "*",
     "vite": "^4.1.0",
     "vitest": "^0.29.2",
