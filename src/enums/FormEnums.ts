@@ -25,19 +25,19 @@ export enum FormButtonTypes {
 }
 
 export enum FormRadioButtonClasses {
-    Vertical = 'radio_button_vertical',
-    Horizontal = 'radio_button_horizontal',
+  Vertical = 'radio_button_vertical',
+  Horizontal = 'radio_button_horizontal',
 }
 
 export enum FormCheckboxClasses {
-    Vertical = 'checkbox_vertical',
-    Horizontal = 'checkbox_horizontal',
+  Vertical = 'checkbox_vertical',
+  Horizontal = 'checkbox_horizontal',
 }
 
 export enum FormDropdownClasses {
-    Default = 'form_dropdown',
+  Default = 'form_dropdown',
 }
 
 export enum FormButtonClasses {
-    Default = 'form_button',
+  Default = 'form_button',
 }
