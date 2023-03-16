@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { RadioButtonClasses, FormInputWrapperClasses } from '../../enums/FormEnums';
+import { FormRadioButtonClasses, FormInputWrapperClasses } from '../../enums/FormEnums';
 import { RadioButton } from '../../types/FormTypes';
 
 export default defineComponent({
@@ -38,9 +38,9 @@ export default defineComponent({
       required: true,
     },
     radioClass: {
-      type: String as PropType<RadioButtonClasses>,
+      type: String as PropType<FormRadioButtonClasses>,
       required: false,
-      default: RadioButtonClasses.RadioButtonHorizontal,
+      default: FormRadioButtonClasses.Horizontal,
     },
     error: {
       type: Boolean,

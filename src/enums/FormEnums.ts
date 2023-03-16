@@ -1,7 +1,6 @@
 export enum FormInputWrapperClasses {
   FormInput = 'form_input',
   FormInputTextArea = 'form_input_textarea',
-  FormInputSelect = 'form_input_select',
   FormInputCheckBox = 'form_input_checkbox',
   FormInputRadio = 'form_input_radio',
   FormInputDropdown = 'form_input_dropdown',
@@ -25,9 +24,14 @@ export enum FormButtonTypes {
   Button = 'button',
 }
 
-export enum RadioButtonClasses {
-    RadioButtonVertical = 'radio_button_vertical',
-    RadioButtonHorizontal = 'radio_button_horizontal',
+export enum FormRadioButtonClasses {
+    Vertical = 'radio_button_vertical',
+    Horizontal = 'radio_button_horizontal',
+}
+
+export enum FormCheckboxClasses {
+    Vertical = 'checkbox_vertical',
+    Horizontal = 'checkbox_horizontal',
 }
 
 export enum FormDropdownClasses {
