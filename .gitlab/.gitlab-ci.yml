@@ -1,0 +1,27 @@
+image: node:latest
+
+stages:
+  - install
+  - prettier
+  - test
+
+install:
+  stage: install
+  script:
+    - npm install
+
+prettier:
+  stage: prettier
+  script:
+    - npm run prettier
+  artifacts:
+    paths:
+      - node_modules
+
+test:unit:
+  stage: test
+  script:
+    - npm run test:unit
+  artifacts:
+    paths:
+      - node_modules
