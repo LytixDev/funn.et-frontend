@@ -5,6 +5,10 @@ stages:
   - prettier
   - test
 
+cache:
+  paths:
+    - node_modules
+
 install:
   stage: install
   script:
@@ -14,14 +18,8 @@ prettier:
   stage: prettier
   script:
     - npm run prettier
-  artifacts:
-    paths:
-      - node_modules
 
 test:unit:
   stage: test
   script:
     - npm run test:unit
-  artifacts:
-    paths:
-      - node_modules
