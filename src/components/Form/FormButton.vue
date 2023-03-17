@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { FormButtonClasses, FormButtonTypes } from '../../enums/FormEnums';
+import { FormButtonClasses, FormButtonTypes } from '@/enums/FormEnums';
 
 export default defineComponent({
   props: {

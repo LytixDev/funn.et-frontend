@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { FormRadioButtonClasses, FormInputWrapperClasses } from '../../enums/FormEnums';
-import { RadioButton } from '../../types/FormTypes';
+import { FormRadioButtonClasses, FormInputWrapperClasses } from '@/enums/FormEnums';
+import { RadioButton } from '@/types/FormTypes';
 
 export default defineComponent({
   props: {

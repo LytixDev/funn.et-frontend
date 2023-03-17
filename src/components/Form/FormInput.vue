@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { FormInputTypes, FormInputWrapperClasses } from '../../enums/FormEnums';
+import { FormInputTypes, FormInputWrapperClasses } from '@/enums/FormEnums';
 
 export default defineComponent({
   props: {

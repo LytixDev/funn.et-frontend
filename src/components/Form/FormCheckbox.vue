@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { FormInputWrapperClasses, FormCheckboxClasses } from '../../enums/FormEnums';
-import { Checkbox } from '../../types/FormTypes';
+import { FormInputWrapperClasses, FormCheckboxClasses } from '@/enums/FormEnums';
+import { Checkbox } from '@/types/FormTypes';
 
 export default defineComponent({
   props: {

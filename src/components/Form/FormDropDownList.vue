@@ -24,8 +24,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { FormDropdownClasses, FormInputWrapperClasses } from '../../enums/FormEnums';
-import { DropDownItem } from '../../types/FormTypes';
+import { FormDropdownClasses, FormInputWrapperClasses } from '@/enums/FormEnums';
+import { DropDownItem } from '@/types/FormTypes';
 
 export default defineComponent({
   props: {
