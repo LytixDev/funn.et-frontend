@@ -3,5 +3,9 @@
   "locale": {
     "en": "English",
     "no": "Norsk"
+  },
+
+  "ListingCard": {
+    "published": "Published by"
   }
 }
