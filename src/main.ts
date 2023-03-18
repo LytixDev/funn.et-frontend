@@ -5,12 +5,18 @@ import App from './App.vue';
 import { createI18n } from 'vue-i18n';
 import en from '@/locales/en.json';
 import no from '@/locales/no.json';
+import { createPinia } from 'pinia';
+import { useLanguageStore } from './stores/LanguageStore';
 
 const app = createApp(App);
+const pinia = createPinia();
 
+app.use(pinia);
+
+let localeStore = useLanguageStore();
 type MessageSchema = typeof en;
 const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
-  locale: 'en',
+  locale: localeStore.language,
   allowComposition: true,
   messages: {
     en: en,

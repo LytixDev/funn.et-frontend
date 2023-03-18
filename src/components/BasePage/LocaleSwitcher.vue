@@ -22,6 +22,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useLanguageStore } from '@/stores/LanguageStore';
+
 export default defineComponent({
   data: () => ({
     showLocales: false,
@@ -35,10 +37,9 @@ export default defineComponent({
   },
   methods: {
     switchToLocale(locale: string) {
+      let store = useLanguageStore();
+      store.setLanguage(locale);
       this.$i18n.locale = locale;
-    },
-    logToConsole(message: string) {
-      console.log(message);
     },
   },
 });

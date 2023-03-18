@@ -4,7 +4,9 @@
     "en": "English",
     "no": "Norsk"
   },
-
+  "navigation": {
+    "home": "Home"
+  },
   "ListingCard": {
     "published": "Published by"
   }
