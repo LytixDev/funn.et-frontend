@@ -1,6 +1,4 @@
-<script setup lang="ts">
-// imports here
-</script>
+<script lang="ts"></script>
 
 <template>
   <router-view />

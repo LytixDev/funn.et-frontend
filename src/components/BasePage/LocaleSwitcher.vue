@@ -5,7 +5,7 @@
       v-on:mouseleave="() => (showLocales = false)"
       v-on:click="() => (showLocales = !showLocales)">
       {{ $t('locale.' + $i18n.locale) }}
-      <div :class="showLocales ? 'block': 'hidden'">
+      <div :class="showLocales ? 'block' : 'hidden'">
         <ul>
           <li v-for="(lang, i) in selectableLocales" :key="lang">
             <div v-on:click="switchToLocale(lang)">
@@ -73,7 +73,7 @@ button ul li:hover {
 }
 
 button > div {
-    border-top: 1px solid #333;
+  border-top: 1px solid #333;
 }
 
 .hidden {
