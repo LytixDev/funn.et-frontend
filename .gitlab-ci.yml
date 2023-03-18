@@ -8,6 +8,7 @@ stages:
 cache:
   paths:
     - node_modules
+    - .npm
 
 install:
   stage: install
