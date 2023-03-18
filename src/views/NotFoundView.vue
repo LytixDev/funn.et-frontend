@@ -3,7 +3,10 @@
         <div id="not-found-card">
             <h1>{{ $t('basePage.404.title') }} - 404</h1>
             <p>{{ $t('basePage.404.text') }}</p>
-            <button @click="goBack">{{ $t('basePage.404.goBack') }}</button>
+            <span>
+                <button @click="goBack">{{ $t('basePage.404.goBack') }}</button>
+                <button @click="goHome">{{ $t('basePage.404.goHome') }}</button>
+            </span>
         </div>
     </div>
 </template>
@@ -14,6 +17,9 @@ export default defineComponent({
     methods: {
         goBack() {
             this.$router.go(-1)
+        },
+        goHome() {
+            this.$router.push("/")
         }
     }
 })
@@ -43,6 +49,7 @@ button {
   border-radius: 5px;
   font-size: 1.2rem;
   cursor: pointer;
+  margin: 0 0.5rem;
 }
 
 
