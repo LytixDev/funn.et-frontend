@@ -9,5 +9,11 @@
   },
   "ListingCard": {
     "published": "Lagt ut av"
+  },
+  "NotFoundView": {
+    "title": "Fant ikke siden",
+    "text": "Siden du leter etter finnes ikke. Sjekk at du har skrevet riktig adresse.",
+    "goBack": "Gå tilbake til forrige side",
+    "goHome": "Gå til forsiden"
   }
 }

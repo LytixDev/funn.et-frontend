@@ -3,7 +3,7 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/">{{ $t('navigation.home')}}</router-link>
+          <router-link to="/">{{ $t('navigation.home') }}</router-link>
         </li>
       </ul>
       <locale-selector />
