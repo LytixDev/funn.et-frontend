@@ -4,7 +4,9 @@
     "en": "English",
     "no": "Norsk"
   },
-
+  "navigation": {
+    "home": "Hjem"
+  },
   "ListingCard": {
     "published": "Lagt ut av"
   }
