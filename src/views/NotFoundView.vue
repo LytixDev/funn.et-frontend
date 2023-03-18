@@ -45,7 +45,27 @@ button {
   cursor: pointer;
 }
 
+
+/*
+    Slow color animation for button
+*/
+button {
+  animation: color-change 2s infinite;
+}
+@keyframes color-change {
+    0% {
+        background-color: #2ecc71;
+    }
+    50% {
+        background-color: #2cbe69;
+    }
+    100% {
+        background-color: #2ecc71;
+    }
+}
+
 button:hover {
   background-color: #27ae60;
+  animation: none;
 }
 </style>
