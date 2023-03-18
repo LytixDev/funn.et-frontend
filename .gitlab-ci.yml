@@ -8,15 +8,22 @@ stages:
 cache:
   paths:
     - node_modules
-    - .npm
 
 install:
   stage: install
   script:
     - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - node_modules/
+      - dist/
 
 prettier:
   stage: prettier
+  needs:
+    - job: install
+      artifacts: true
   script:
     - npm run prettier
 
