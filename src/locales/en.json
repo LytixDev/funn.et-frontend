@@ -10,12 +10,10 @@
   "ListingCard": {
     "published": "Published by"
   },
-  "basePage": {
-    "404": {
-      "title": "Page not found",
-      "text": "The page you are looking for does not exist. Please check the URL and try again.",
-      "goBack": "Go back to the previous page",
-      "goHome": "Go to the front page"
-    }
+  "NotFoundView": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist. Please check the URL and try again.",
+    "goBack": "Go back to the previous page",
+    "goHome": "Go to the front page"
   }
 }
