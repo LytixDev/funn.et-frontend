@@ -9,5 +9,12 @@
   },
   "ListingCard": {
     "published": "Lagt ut av"
+  },
+  "basePage": {
+    "404": {
+      "title": "Fant ikke side",
+      "text": "Siden du leter etter finnes ikke. Sjekk at du har skrevet riktig adresse.",
+      "goBack": "Gå tilbake til forrige side"
+    }
   }
 }
