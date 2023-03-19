@@ -34,9 +34,9 @@ test:unit:
     - npm run test:unit
 
 test:e2e:
-  image: cypress/browsers:node12.14.1-chrome85-ff81
+  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: test:e2e
   script:
-    - npm ci
+    - yarn install --frozen-lockfile
     - npm run start:ci &
     - npx cypress run --browser firefox
