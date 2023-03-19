@@ -37,5 +37,5 @@ test:e2e:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: test:e2e
   script:
-    - yarn install --frozen-lockfile
+    - yarn cypress install
     - yarn test:e2e
