@@ -1,0 +1,41 @@
+image: node:latest
+
+stages:
+  - install
+  - prettier
+  - test:unit
+  - test:e2e
+
+cache:
+  paths:
+    - node_modules
+
+install:
+  stage: install
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - node_modules/
+      - dist/
+
+prettier:
+  stage: prettier
+  needs:
+    - job: install
+      artifacts: true
+  script:
+    - npm run prettier
+
+test:unit:
+  stage: test:unit
+  script:
+    - npm run test:unit
+
+test:e2e:
+  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
+  stage: test:e2e
+  script:
+    - yarn cypress install
+    - yarn test:e2e
