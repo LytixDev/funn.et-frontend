@@ -38,5 +38,4 @@ test:e2e:
   stage: test:e2e
   script:
     - yarn install --frozen-lockfile
-    - npm run start:ci &
-    - npx cypress run --browser firefox
+    - yarn test:e2e
