@@ -3,7 +3,8 @@ image: node:latest
 stages:
   - install
   - prettier
-  - test
+  - test:unit
+  - test:e2e
 
 cache:
   paths:
@@ -28,6 +29,14 @@ prettier:
     - npm run prettier
 
 test:unit:
-  stage: test
+  stage: test:unit
   script:
     - npm run test:unit
+
+test:e2e:
+  image: cypress/browsers:node12.14.1-chrome85-ff81
+  stage: test:e2e
+  script:
+    - npm ci
+    - npm run start:ci &
+    - npx cypress run --browser firefox
