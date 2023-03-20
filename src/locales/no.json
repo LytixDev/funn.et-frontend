@@ -21,6 +21,9 @@
       "clear": "Fjern opplastet bilde",
       "errorBadType": "Filtypen må være en av: %{types}.",
       "errorTooLarge": "Det opplastede bilde er for stor. Filen må være mindre enn %{size} MB."
+    },
+    "DropDownList": {
+      "select": "Velg ett alternativ"
     }
   }
 }

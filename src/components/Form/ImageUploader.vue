@@ -32,6 +32,10 @@ interface Image {
 
 export default defineComponent({
   props: {
+    modelValue: {
+      type: String,
+      required: true,
+    },
     maxFileSizeMb: {
       type: Number,
       default: 100,
@@ -95,7 +99,8 @@ export default defineComponent({
       };
     },
     emitToParent() {
-      this.$emit('image-uploaded', this.image);
+      //this.$emit('image-uploaded', this.image);
+      this.$emit('update:modelValue', this.image);
     },
   },
 });

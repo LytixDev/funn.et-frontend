@@ -5,6 +5,9 @@
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
         </li>
+        <li>
+          <router-link to="/create-listing">create listing</router-link>
+        </li>
       </ul>
       <locale-selector />
     </nav>
