@@ -15,5 +15,8 @@
     "text": "The page you are looking for does not exist. Please check the URL and try again.",
     "goBack": "Go back to the previous page",
     "goHome": "Go to the front page"
+  },
+  "Form": {
+    "select": "Choice an option"
   }
 }

@@ -6,12 +6,14 @@
         :data-test-id="dataTestId"
         :id="fieldId"
         :name="fieldName"
-        v-model="fieldModelValue"
-        :required="fieldRequired">
-        <option v-for="option in fieldOptions" v-bind:key="option.key" v-bind:value="option.value">
-          {{ option.value }}
+        :value="modelValue"
+        :required="fieldRequired"
+        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+        >
+        <option v-for="option in fieldOptions" :value="option.value">
+          {{ option.displayedValue }}
         </option>
-        <option value="" disabled selected hidden>Select an option</option>
+        <option value="" disabled selected hidden>{{ $t('Form.select') }}</option>
         <option value="all" v-if="optionAll">All</option>
         <option value="none" v-if="optionNone">None</option>
       </select>
@@ -51,7 +53,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    fieldModelValue: {
+    modelValue: {
       type: String,
       required: true,
     },
