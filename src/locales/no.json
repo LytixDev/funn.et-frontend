@@ -15,5 +15,12 @@
     "text": "Siden du leter etter finnes ikke. Sjekk at du har skrevet riktig adresse.",
     "goBack": "Gå tilbake til forrige side",
     "goHome": "Gå til forsiden"
+  },
+  "Form": {
+    "ImageUpload": {
+      "clear": "Fjern opplastet bilde",
+      "errorBadType": "Filtypen må være en av: %{types}.",
+      "errorTooLarge": "Det opplastede bilde er for stor. Filen må være mindre enn %{size} MB."
+    }
   }
 }
