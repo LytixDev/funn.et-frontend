@@ -5,14 +5,15 @@
 export type ListingDTO = {
   id?: number;
   username?: string;
+  locationId?: number;
   title?: string;
-  brief_description?: string;
-  full_description?: string;
+  briefDescription?: string;
+  fullDescription?: string;
   category?: ListingDTO.category;
   price?: number;
   publicationDate?: string;
   expirationDate?: string;
-  image?: Array<string>;
+  image?: string;
 };
 
 export namespace ListingDTO {
