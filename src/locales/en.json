@@ -17,6 +17,10 @@
     "goHome": "Go to the front page"
   },
   "Form": {
-    "select": "Choice an option"
+    "ImageUpload": {
+      "clear": "Clear uploaded image",
+      "errorBadType": "File type must be one of: %{types}.",
+      "errorTooLarge": "The image is too large. File size must be less than %{size} MB."
+    }
   }
 }

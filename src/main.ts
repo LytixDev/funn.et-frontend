@@ -15,7 +15,7 @@ app.use(pinia);
 
 let localeStore = useLanguageStore();
 type MessageSchema = typeof en;
-const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
+export const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
   locale: localeStore.language,
   allowComposition: true,
   messages: {

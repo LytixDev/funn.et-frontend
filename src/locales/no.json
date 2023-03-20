@@ -17,6 +17,10 @@
     "goHome": "Gå til forsiden"
   },
   "Form": {
-    "select": "Velg ett alternativ"
+    "ImageUpload": {
+      "clear": "Fjern opplastet bilde",
+      "errorBadType": "Filtypen må være en av: %{types}.",
+      "errorTooLarge": "Det opplastede bilde er for stor. Filen må være mindre enn %{size} MB."
+    }
   }
 }

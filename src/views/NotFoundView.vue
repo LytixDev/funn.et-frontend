@@ -4,8 +4,8 @@
       <h1>{{ $t('basePage.404.title') }} - 404</h1>
       <p>{{ $t('basePage.404.text') }}</p>
       <span>
-        <button @click="goBack">{{ $t('basePage.404.goBack') }}</button>
-        <button @click="goHome">{{ $t('basePage.404.goHome') }}</button>
+        <button @click="goBack" data-testid="goBack">{{ $t('basePage.404.goBack') }}</button>
+        <button @click="goHome" data-testid="goHome">{{ $t('basePage.404.goHome') }}</button>
       </span>
     </div>
   </div>
