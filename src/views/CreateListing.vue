@@ -2,7 +2,7 @@
   <base-page-view>
     <h2>Create a new listing</h2>
 
-    <form @submit.prevent="submit">
+    <form @submit.prevent="onSubmit">
       <fieldset>
       <FormInput
         labelId="listing-title-label"
