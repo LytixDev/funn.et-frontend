@@ -44,6 +44,16 @@
         dataTestId="listing-category"
         fieldName="category"
         :fieldOptions="categories" />
+
+      <ImageUploader 
+        v-model="image"
+      />
+      <FormInput 
+        labelId="listing-image-description-label"
+        labelText="Image description"
+        fieldId="listing-image-description"
+        v-model="imageDescription"
+        dataTestId="listing-image-description" />
       
       <FormButton
         buttonId="create-listing-button"
@@ -66,6 +76,7 @@ import FormButton from '@/components/Form/FormButton.vue';
 import { FormInputWrapperClasses } from '@/enums/FormEnums';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
+import ImageUploader from '@/components/Form/ImageUploader.vue';
 
 const { handleSubmit, isSubmitting } = useForm();
 const { value: title } = useField('title') as FieldContext<string>;
@@ -73,6 +84,8 @@ const { value: briefDescription } = useField('briefDescription') as FieldContext
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
+const { value: image } = useField('image') as FieldContext<string>;
+const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 
 //TODO: use the enum gatheren from the backend
 const categories: Array<DropDownItem> = [

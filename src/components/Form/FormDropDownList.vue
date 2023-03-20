@@ -13,7 +13,7 @@
         <option v-for="option in fieldOptions" :value="option.value">
           {{ option.displayedValue }}
         </option>
-        <option value="" disabled selected hidden>{{ $t('Form.select') }}</option>
+        <option value="" disabled selected hidden>{{ $t('Form.DropDownList.select') }}</option>
         <option value="all" v-if="optionAll">All</option>
         <option value="none" v-if="optionNone">None</option>
       </select>

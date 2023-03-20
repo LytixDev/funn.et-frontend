@@ -32,6 +32,10 @@ interface Image {
 
 export default defineComponent({
   props: {
+    modelValue: {
+      type: String,
+      required: true,
+    },
     maxFileSizeMb: {
       type: Number,
       default: 100,
@@ -60,9 +64,10 @@ export default defineComponent({
   },
   methods: {
     handleImageChange(e: Event) {
-      if (!(e.target.files || e.target.files[0])) return;
+      this.errors = []
+      if (!((e.target as HTMLInputElement).files || (e.target as HTMLInputElement).files!![0])) return;
 
-      const file: File = e.target.files[0];
+      const file: File = (e.target as HTMLInputElement).files!![0];
       const fileSizeMb = file.size / 1024 / 1024;
       if (fileSizeMb > this.maxFileSizeMb) {
         this.errors.push(this.$t('Form.ImageUpload.errorTooLarge', { size: this.maxFileSizeMb }));
@@ -94,7 +99,8 @@ export default defineComponent({
       };
     },
     emitToParent() {
-      this.$emit('image-uploaded', this.image);
+      //this.$emit('image-uploaded', this.image);
+      this.$emit('update:modelValue', this.image);
     },
   },
 });
