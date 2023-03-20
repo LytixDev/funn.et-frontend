@@ -14,7 +14,7 @@
       <img :src="image.url" class="file-image" alt="" />
     </div>
     <div v-if="image.isUploaded">
-      <button @click="resetImage">{{ $t('Form.ImageUpload.clear') }} </button>
+      <button @click="resetImage">{{ $t('Form.ImageUpload.clear') }}</button>
     </div>
   </div>
 </template>
@@ -65,12 +65,12 @@ export default defineComponent({
       const file: File = e.target.files[0];
       const fileSizeMb = file.size / 1024 / 1024;
       if (fileSizeMb > this.maxFileSizeMb) {
-        this.errors.push(this.$t('Form.ImageUpload.errorTooLarge', {size: this.maxFileSizeMb}))
+        this.errors.push(this.$t('Form.ImageUpload.errorTooLarge', { size: this.maxFileSizeMb }));
         return;
       }
 
       if (this.acceptedFileTypes.indexOf(file.type) === -1) {
-        this.errors.push(this.$t('Form.ImageUpload.errorBadType', {types: this.acceptedFileTypes.join(', ')}))
+        this.errors.push(this.$t('Form.ImageUpload.errorBadType', { types: this.acceptedFileTypes.join(', ') }));
         return;
       }
 
@@ -80,16 +80,16 @@ export default defineComponent({
         type: file.type,
         url: URL.createObjectURL(file),
         isUploaded: true,
-      }
+      };
       this.image = image;
       this.emitToParent();
     },
     resetImage() {
       this.image = {
-        name: "",
+        name: '',
         size: 0,
-        type: "",
-        url: "",
+        type: '',
+        url: '',
         isUploaded: false,
       };
     },
