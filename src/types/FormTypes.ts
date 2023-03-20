@@ -1,6 +1,6 @@
 export type DropDownItem = {
-  key: string;
   value: string;
+  displayedValue: string;
 };
 
 export type RadioButton = {

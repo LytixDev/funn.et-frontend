@@ -1,13 +1,16 @@
 <template>
   <div :class="inputWrapperClass">
     <label :for="fieldId" :id="labelId">{{ labelText }}</label>
-    <input
+    <component
+      :is="component"
       :placeholder="fieldPlaceholder"
       :data-testid="dataTestId"
       :id="fieldId"
       :type="fieldType"
-      v-model="fieldModelValue"
-      :required="fieldRequired" />
+      :value="modelValue"
+      :required="fieldRequired"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+      />
     <div v-if="error" :data-testid="dataTestId + '-error'" id="error">
       {{ errorMessage }}
     </div>
@@ -42,7 +45,7 @@ export default defineComponent({
       required: false,
       default: FormInputTypes.Text,
     },
-    fieldModelValue: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -66,6 +69,16 @@ export default defineComponent({
     errorMessage: {
       type: String,
       required: false,
+    },
+  },
+  computed: {
+    component(): string {
+      switch (this.inputWrapperClass) {
+        case FormInputWrapperClasses.FormInputTextArea:
+          return 'textarea'
+        default:
+          return 'input'
+      }
     },
   },
 });

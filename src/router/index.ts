@@ -7,6 +7,12 @@ const routes = [
     name: 'home',
     component: HomeView,
   },
+  // Routing the create listing view just temporary testing purposes
+  {
+    path: '/create-listing',
+    name: 'create-listing',
+    component: () => import('@/views/CreateListing.vue'),
+  },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
