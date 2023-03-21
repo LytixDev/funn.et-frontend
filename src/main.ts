@@ -18,6 +18,7 @@ type MessageSchema = typeof en;
 export const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
   locale: localeStore.language,
   allowComposition: true,
+  // Set locale messages
   messages: {
     en: en,
     no: no,

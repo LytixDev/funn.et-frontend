@@ -9,10 +9,9 @@
       :type="fieldType"
       :value="modelValue"
       :required="fieldRequired"
-      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-      />
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" />
     <div v-if="error" :data-testid="dataTestId + '-error'" id="error">
-      {{ errorMessage }}
+      {{ error }}
     </div>
   </div>
 </template>
@@ -66,18 +65,14 @@ export default defineComponent({
       type: String,
       required: false,
     },
-    errorMessage: {
-      type: String,
-      required: false,
-    },
   },
   computed: {
     component(): string {
       switch (this.inputWrapperClass) {
         case FormInputWrapperClasses.FormInputTextArea:
-          return 'textarea'
+          return 'textarea';
         default:
-          return 'input'
+          return 'input';
       }
     },
   },

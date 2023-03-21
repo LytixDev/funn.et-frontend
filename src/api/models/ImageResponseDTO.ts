@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type GrantedAuthority = {
-  authority?: string;
+export type ImageResponseDTO = {
+  image?: Blob;
+  alt?: string;
 };

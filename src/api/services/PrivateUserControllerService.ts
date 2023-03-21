@@ -16,6 +16,9 @@ export class PrivateUserControllerService {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/api/v1/private/user/me',
+      errors: {
+        500: `Internal Server Error`,
+      },
     });
   }
 }
