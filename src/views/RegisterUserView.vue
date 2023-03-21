@@ -1,5 +1,4 @@
 <template>
-  <base-page-view>
     <h2>{{ $t('RegisterUserView.title') }}</h2>
     <form @submit.prevent="submit">
       <FormInput
@@ -50,10 +49,9 @@
         :buttonText="$t('RegisterUserView.submit')"
         dataTestId="create-user-button"
         @click="submit" />
-    </form>
+    </form> 
 
     <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
-  </base-page-view>
 </template>
 
 <script lang="ts">
