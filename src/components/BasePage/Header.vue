@@ -12,6 +12,9 @@
           <router-link to="/login">{{ $t('navigation.login') }}</router-link>
         </li>
         <li>
+          <router-link to="/signout">{{ $t('navigation.signout') }}</router-link>
+        </li>
+        <li>
           <router-link to="/create-listing">create listing</router-link>
         </li>
       </ul>

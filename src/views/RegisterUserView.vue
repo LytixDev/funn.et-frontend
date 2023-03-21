@@ -3,7 +3,7 @@
   <form @submit.prevent="submit">
     <FormInput
       labelId="username-label"
-      :labelText="$t('RegisterUserView.username')"
+      :labelText="$t('UserForm.username')"
       fieldId="username"
       v-model="username"
       :error="errors?.username"
@@ -11,7 +11,7 @@
       dataTestId="username" />
     <FormInput
       labelId="email-label"
-      :labelText="$t('RegisterUserView.email')"
+      :labelText="$t('UserForm.email')"
       fieldId="email"
       v-model="email"
       :error="errors?.email"
@@ -20,7 +20,7 @@
       dataTestId="email" />
     <FormInput
       labelId="first-name-label"
-      :labelText="$t('RegisterUserView.firstName')"
+      :labelText="$t('UserForm.firstName')"
       fieldId="firstName"
       v-model="firstName"
       :error="errors?.firstName"
@@ -28,7 +28,7 @@
       dataTestId="first-name" />
     <FormInput
       labelId="last-name-label"
-      :labelText="$t('RegisterUserView.lastName')"
+      :labelText="$t('UserForm.lastName')"
       fieldId="lastName"
       v-model="lastName"
       :error="errors?.lastName"
@@ -36,7 +36,7 @@
       dataTestId="last-name" />
     <FormInput
       labelId="password-label"
-      :labelText="$t('RegisterUserView.password')"
+      :labelText="$t('UserForm.password')"
       fieldId="password"
       v-model="password"
       :error="errors?.password"
@@ -84,18 +84,18 @@ export default defineComponent({
 
     const schema = yupObject({
       username: yupString()
-        .min(3, computed(() => t?.('RegisterUserView.Error.usernameMin')).value)
-        .max(32, computed(() => t?.('RegisterUserView.Error.usernameMax')).value)
-        .required(computed(() => t?.('RegisterUserView.Error.usernameRequired')).value),
+        .min(3, computed(() => t?.('UserForm.Error.usernameMin')).value)
+        .max(32, computed(() => t?.('UserForm.Error.usernameMax')).value)
+        .required(computed(() => t?.('UserForm.Error.usernameRequired')).value),
       email: yupString()
-        .required(computed(() => t?.('RegisterUserView.Error.emailRequired')).value)
-        .email(computed(() => t?.('RegisterUserView.Error.emailInvalid')).value),
-      firstName: yupString().required(computed(() => t?.('RegisterUserView.Error.firstNameRequired')).value),
-      lastName: yupString().required(computed(() => t?.('RegisterUserView.Error.lastNameRequired')).value),
+        .required(computed(() => t?.('UserForm.Error.emailRequired')).value)
+        .email(computed(() => t?.('UserForm.Error.emailInvalid')).value),
+      firstName: yupString().required(computed(() => t?.('UserForm.Error.firstNameRequired')).value),
+      lastName: yupString().required(computed(() => t?.('UserForm.Error.lastNameRequired')).value),
       password: yupString()
-        .required(computed(() => t?.('RegisterUserView.Error.passwordRequired')).value)
-        .min(8, computed(() => t?.('RegisterUserView.Error.passwordMin')).value)
-        .test('isValidPass', computed(() => t?.('RegisterUserView.Error.passwordInvalid')).value, (value) => {
+        .required(computed(() => t?.('UserForm.Error.passwordRequired')).value)
+        .min(8, computed(() => t?.('UserForm.Error.passwordMin')).value)
+        .test('isValidPass', computed(() => t?.('UserForm.Error.passwordInvalid')).value, (value) => {
           const hasUpperCase = /[A-Z]/.test(value);
           const hasLowerCase = /[a-z]/.test(value);
           const hasNumber = /[0-9]/.test(value);

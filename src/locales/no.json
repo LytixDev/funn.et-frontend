@@ -6,7 +6,9 @@
   },
   "navigation": {
     "home": "Hjem",
-    "register": "Registrer ny bruker"
+    "register": "Registrer ny bruker",
+    "login": "Logg inn",
+    "signout": "Logg ut"
   },
   "ListingCard": {
     "published": "Lagt ut av"
@@ -19,12 +21,18 @@
   },
   "RegisterUserView": {
     "title": "Registrer en ny bruker",
+    "submit": "Registrer en ny bruker"
+  },
+  "LoginUserView": {
+    "title": "Logg inn med en bruker",
+    "submit": "Logg inn"
+  },
+  "UserForm": {
     "username": "Brukernavn",
     "email": "E-post",
     "firstName": "Fornavn",
     "lastName": "Etternavn",
     "password": "Passord",
-    "submit": "Registrer en ny bruker",
     "Error": {
       "usernameMin": "Brukernavn må være større en 3 karakterer",
       "usernameMax": "Brukernavn kan ikke være større enn 32 karakterer",

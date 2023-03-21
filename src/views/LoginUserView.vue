@@ -3,7 +3,7 @@
   <form @submit.prevent="submit">
     <FormInput
       labelId="username-label"
-      :labelText="$t('RegisterUserView.username')"
+      :labelText="$t('UserForm.username')"
       fieldId="username"
       v-model="username"
       :error="errors?.username"
@@ -11,7 +11,7 @@
       dataTestId="username" />
     <FormInput
       labelId="password-label"
-      :labelText="$t('RegisterUserView.password')"
+      :labelText="$t('UserForm.password')"
       fieldId="password"
       v-model="password"
       :error="errors?.password"
@@ -47,8 +47,8 @@ const { t } = useI18n();
 let errorBoxMsg = ref<string>('');
 
 const schema = yupObject({
-  username: yupString().required(computed(() => t?.('RegisterUserView.Error.usernameRequired')).value),
-  password: yupString().required(computed(() => t?.('RegisterUserView.Error.passwordRequired')).value),
+  username: yupString().required(computed(() => t?.('UserForm.Error.usernameRequired')).value),
+  password: yupString().required(computed(() => t?.('UserForm.Error.passwordRequired')).value),
 });
 
 const { handleSubmit, errors } = useForm({
