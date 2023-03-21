@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ $t('RegisterUserView.title') }}</h2>
+  <h2>{{ $t('LoginUserView.title') }}</h2>
   <form @submit.prevent="submit">
     <FormInput
       labelId="username-label"
@@ -21,7 +21,7 @@
 
     <FormButton
       buttonId="login-user-button"
-      :buttonText="$t('RegisterUserView.submit')"
+      :buttonText="$t('LoginUserView.submit')"
       dataTestId="login-user-button"
       @click="submit" />
   </form>
@@ -47,19 +47,8 @@ const { t } = useI18n();
 let errorBoxMsg = ref<string>('');
 
 const schema = yupObject({
-  username: yupString()
-    .min(3, computed(() => t?.('RegisterUserView.Error.usernameMin')).value)
-    .max(32, computed(() => t?.('RegisterUserView.Error.usernameMax')).value)
-    .required(computed(() => t?.('RegisterUserView.Error.usernameRequired')).value),
-  password: yupString()
-    .required(computed(() => t?.('RegisterUserView.Error.passwordRequired')).value)
-    .min(8, computed(() => t?.('RegisterUserView.Error.passwordMin')).value)
-    .test('isValidPass', computed(() => t?.('RegisterUserView.Error.passwordInvalid')).value, (value) => {
-      const hasUpperCase = /[A-Z]/.test(value);
-      const hasLowerCase = /[a-z]/.test(value);
-      const hasNumber = /[0-9]/.test(value);
-      return hasUpperCase && hasLowerCase && hasNumber;
-    }),
+  username: yupString().required(computed(() => t?.('RegisterUserView.Error.usernameRequired')).value),
+  password: yupString().required(computed(() => t?.('RegisterUserView.Error.passwordRequired')).value),
 });
 
 const { handleSubmit, errors } = useForm({
@@ -72,7 +61,7 @@ const submit = handleSubmit(async (values) => {
     password: values.password,
   };
 
-  await await TokenControllerService.generateToken({ requestBody: loginUserPayload })
+  await TokenControllerService.generateToken({ requestBody: loginUserPayload })
     .then((token) => {
       if (token == null || token == undefined) {
         errorBoxMsg.value = 'Could not log in user';
@@ -83,8 +72,12 @@ const submit = handleSubmit(async (values) => {
       router.push({ name: 'home' });
     })
     .catch((authError) => {
-      errorBoxMsg.value = authError.body;
       console.log(authError.body);
+      if (authError.detail !== undefined) {
+        errorBoxMsg.value = authError.detail;
+      } else {
+        errorBoxMsg.value = authError.body;
+      }
     });
 });
 
