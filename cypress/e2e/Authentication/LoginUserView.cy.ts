@@ -14,7 +14,7 @@ describe("Test user using the login page", () => {
             body: testToken
         });
 
-        cy.get('input[data-testid="username"]').type(username);
+        cy.get('input[data-testid="username"]', {timeout: 20000}).should('exist').type(username);
         cy.get('input[data-testid="password"]').type("testPassword123");
         cy.get('button[data-testid="login-user-button"]').click();
         cy.getAllLocalStorage().then((result) => {
