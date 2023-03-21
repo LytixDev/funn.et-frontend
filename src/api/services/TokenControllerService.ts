@@ -1,21 +1,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ListingDTOObject } from '../models/ListingDTOObject';
+import type { AuthenticateDTO } from '../models/AuthenticateDTO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ListingControllerService {
+export class TokenControllerService {
   /**
-   * @returns ListingDTOObject OK
+   * @returns string Created
    * @throws ApiError
    */
-  public static getListing(): CancelablePromise<ListingDTOObject> {
+  public static generateToken({ requestBody }: { requestBody: AuthenticateDTO }): CancelablePromise<string> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/listing',
+      method: 'POST',
+      url: '/api/v1/public/token',
+      body: requestBody,
+      mediaType: 'application/json',
       errors: {
         500: `Internal Server Error`,
       },

@@ -7,8 +7,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import BasePageView from '@/views/BasePageView.vue';
+import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 export default defineComponent({
-  components: { BasePageView },
+  components: { BasePageView, ErrorBox },
 });
 </script>
 

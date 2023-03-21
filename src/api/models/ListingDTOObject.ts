@@ -2,20 +2,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ListingDTO = {
+export type ListingDTOObject = {
   id?: number;
   username?: string;
+  locationId?: number;
   title?: string;
-  brief_description?: string;
-  full_description?: string;
-  category?: ListingDTO.category;
+  briefDescription?: string;
+  fullDescription?: string;
+  category?: ListingDTOObject.category;
   price?: number;
   publicationDate?: string;
   expirationDate?: string;
-  image?: Array<string>;
+  image?: Array<any>;
 };
 
-export namespace ListingDTO {
+export namespace ListingDTOObject {
   export enum category {
     ELECTRONICS = 'ELECTRONICS',
     CLOTHING = 'CLOTHING',

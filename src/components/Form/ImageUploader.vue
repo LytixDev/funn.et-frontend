@@ -64,7 +64,7 @@ export default defineComponent({
   },
   methods: {
     handleImageChange(e: Event) {
-      this.errors = []
+      this.errors = [];
       if (!((e.target as HTMLInputElement).files || (e.target as HTMLInputElement).files!![0])) return;
 
       const file: File = (e.target as HTMLInputElement).files!![0];
