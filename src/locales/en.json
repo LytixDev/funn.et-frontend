@@ -47,5 +47,8 @@
     "DropDownList": {
       "select": "Choose an option"
     }
+  },
+  "UserDetailView": {
+    "loading": "Loading user details..."
   }
 }
