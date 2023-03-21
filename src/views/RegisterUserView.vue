@@ -1,57 +1,57 @@
 <template>
-    <h2>{{ $t('RegisterUserView.title') }}</h2>
-    <form @submit.prevent="submit">
-      <FormInput
-        labelId="username-label"
-        :labelText="$t('RegisterUserView.username')"
-        fieldId="username"
-        v-model="username"
-        :error="errors?.username"
-        fieldRequired
-        dataTestId="username" />
-      <FormInput
-        labelId="email-label"
-        :labelText="$t('RegisterUserView.email')"
-        fieldId="email"
-        v-model="email"
-        :error="errors?.email"
-        :fieldType="FormInputTypes.Email"
-        fieldRequired
-        dataTestId="email" />
-      <FormInput
-        labelId="first-name-label"
-        :labelText="$t('RegisterUserView.firstName')"
-        fieldId="firstName"
-        v-model="firstName"
-        :error="errors?.firstName"
-        fieldRequired
-        dataTestId="first-name" />
-      <FormInput
-        labelId="last-name-label"
-        :labelText="$t('RegisterUserView.lastName')"
-        fieldId="lastName"
-        v-model="lastName"
-        :error="errors?.lastName"
-        fieldRequired
-        dataTestId="last-name" />
-      <FormInput
-        labelId="password-label"
-        :labelText="$t('RegisterUserView.password')"
-        fieldId="password"
-        v-model="password"
-        :error="errors?.password"
-        :fieldType="FormInputTypes.Password"
-        fieldRequired
-        dataTestId="password" />
+  <h2>{{ $t('RegisterUserView.title') }}</h2>
+  <form @submit.prevent="submit">
+    <FormInput
+      labelId="username-label"
+      :labelText="$t('RegisterUserView.username')"
+      fieldId="username"
+      v-model="username"
+      :error="errors?.username"
+      fieldRequired
+      dataTestId="username" />
+    <FormInput
+      labelId="email-label"
+      :labelText="$t('RegisterUserView.email')"
+      fieldId="email"
+      v-model="email"
+      :error="errors?.email"
+      :fieldType="FormInputTypes.Email"
+      fieldRequired
+      dataTestId="email" />
+    <FormInput
+      labelId="first-name-label"
+      :labelText="$t('RegisterUserView.firstName')"
+      fieldId="firstName"
+      v-model="firstName"
+      :error="errors?.firstName"
+      fieldRequired
+      dataTestId="first-name" />
+    <FormInput
+      labelId="last-name-label"
+      :labelText="$t('RegisterUserView.lastName')"
+      fieldId="lastName"
+      v-model="lastName"
+      :error="errors?.lastName"
+      fieldRequired
+      dataTestId="last-name" />
+    <FormInput
+      labelId="password-label"
+      :labelText="$t('RegisterUserView.password')"
+      fieldId="password"
+      v-model="password"
+      :error="errors?.password"
+      :fieldType="FormInputTypes.Password"
+      fieldRequired
+      dataTestId="password" />
 
-      <FormButton
-        buttonId="create-user-button"
-        :buttonText="$t('RegisterUserView.submit')"
-        dataTestId="create-user-button"
-        @click="submit" />
-    </form> 
+    <FormButton
+      buttonId="create-user-button"
+      :buttonText="$t('RegisterUserView.submit')"
+      dataTestId="create-user-button"
+      @click="submit" />
+  </form>
 
-    <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
+  <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
 </template>
 
 <script lang="ts">

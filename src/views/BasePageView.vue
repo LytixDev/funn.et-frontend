@@ -5,7 +5,7 @@ import Header from '@/components/BasePage/Header.vue';
 
 <template>
   <Header />
-    <router-view />
+  <router-view />
   <Footer />
 </template>
 
