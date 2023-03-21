@@ -12,12 +12,14 @@ export class TokenControllerService {
    * @returns string Created
    * @throws ApiError
    */
-  public static generateToken({ authenticate }: { authenticate: AuthenticateDTO }): CancelablePromise<string> {
+  public static generateToken({ requestBody }: { requestBody: AuthenticateDTO }): CancelablePromise<string> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/api/v1/public/token',
-      query: {
-        authenticate: authenticate,
+      body: requestBody,
+      mediaType: 'application/json',
+      errors: {
+        500: `Internal Server Error`,
       },
     });
   }

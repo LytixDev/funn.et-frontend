@@ -8,8 +8,7 @@
         :name="fieldName"
         :value="modelValue"
         :required="fieldRequired"
-        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        >
+        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)">
         <option v-for="option in fieldOptions" :value="option.value">
           {{ option.displayedValue }}
         </option>

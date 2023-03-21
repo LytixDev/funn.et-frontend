@@ -5,7 +5,8 @@
     "no": "Norsk"
   },
   "navigation": {
-    "home": "Hjem"
+    "home": "Hjem",
+    "register": "Registrer ny bruker"
   },
   "ListingCard": {
     "published": "Lagt ut av"
@@ -15,6 +16,27 @@
     "text": "Siden du leter etter finnes ikke. Sjekk at du har skrevet riktig adresse.",
     "goBack": "Gå tilbake til forrige side",
     "goHome": "Gå til forsiden"
+  },
+  "RegisterUserView": {
+    "title": "Registrer en ny bruker",
+    "username": "Brukernavn",
+    "email": "E-post",
+    "firstName": "Fornavn",
+    "lastName": "Etternavn",
+    "password": "Passord",
+    "submit": "Registrer en ny bruker",
+    "Error": {
+      "usernameMin": "Brukernavn må være større en 3 karakterer",
+      "usernameMax": "Brukernavn kan ikke være større enn 32 karakterer",
+      "usernameRequired": "Brukernavn er obligatorisk",
+      "emailRequired": "E-post er obligatorisk",
+      "emailInvalid": "E-posten du skrev inn er ugyldig",
+      "firstNameRequired": "Fornavn er obligatorisk",
+      "lastNameRequired": "Etternavn er obligatorisk",
+      "passwordRequired": "Passord er obligatorisk",
+      "passwordMin": "Passord må være større enn 8 karakterer",
+      "passwordInvalid": "Passord må inneholde minst en stor bokstav, en liten bokstav og et tall"
+    }
   },
   "Form": {
     "ImageUpload": {

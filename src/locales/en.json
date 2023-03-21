@@ -5,7 +5,8 @@
     "no": "Norsk"
   },
   "navigation": {
-    "home": "Home"
+    "home": "Home",
+    "register": "Register user"
   },
   "ListingCard": {
     "published": "Published by"
@@ -15,6 +16,27 @@
     "text": "The page you are looking for does not exist. Please check the URL and try again.",
     "goBack": "Go back to the previous page",
     "goHome": "Go to the front page"
+  },
+  "RegisterUserView": {
+    "title": "Register a new user",
+    "username": "Username",
+    "email": "Email",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "password": "Password",
+    "submit": "Register new user",
+    "Error": {
+      "usernameMin": "Username must be larger than 3 characters",
+      "usernameMax": "Username can be no larger than 32 characters",
+      "usernameRequired": "Username is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is invalid",
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordInvalid": "Password must contain at least one number, one upperletter and one lowercase letter"
+    }
   },
   "Form": {
     "ImageUpload": {

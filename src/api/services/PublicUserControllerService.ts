@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { User } from '../models/User';
+import type { RegisterDTO } from '../models/RegisterDTO';
 import type { UserDTO } from '../models/UserDTO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -13,12 +13,14 @@ export class PublicUserControllerService {
    * @returns string OK
    * @throws ApiError
    */
-  public static createUser({ user }: { user: User }): CancelablePromise<string> {
+  public static createUser({ requestBody }: { requestBody: RegisterDTO }): CancelablePromise<string> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/api/v1/public/user',
-      query: {
-        user: user,
+      body: requestBody,
+      mediaType: 'application/json',
+      errors: {
+        500: `Internal Server Error`,
       },
     });
   }
@@ -33,6 +35,9 @@ export class PublicUserControllerService {
       url: '/api/v1/public/user/{username}',
       path: {
         username: username,
+      },
+      errors: {
+        500: `Internal Server Error`,
       },
     });
   }
