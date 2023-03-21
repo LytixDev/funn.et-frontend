@@ -47,5 +47,8 @@
     "DropDownList": {
       "select": "Velg ett alternativ"
     }
+  },
+  "UserDetailView": {
+    "loading": "Laster bruker detaljer..."
   }
 }
