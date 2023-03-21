@@ -27,6 +27,13 @@
     "title": "Login with an account",
     "submit": "Login"
   },
+  "SignoutUserView": {
+    "titleSigningOut": "Signing out...",
+    "titleSignedOut": "Signed out",
+    "goToHomePageButton": "Go to the home page",
+    "goToLoginPageButton": "Log back in",
+    "goToRegisterPageButton": "Registrer a new user"
+  },
   "UserForm": {
     "username": "Username",
     "email": "Email",
