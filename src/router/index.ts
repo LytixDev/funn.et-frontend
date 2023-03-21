@@ -1,17 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import BasePageViewVue from '@/views/BasePageView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'base',
-    component: BasePageViewVue,
+    component: import('@/views/BasePageView.vue'),
     children: [
       {
         path: '',
         name: 'home',
-        component: HomeView,
+        component: import('@/views/HomeView.vue'),
       },
       // Routing the create listing view just temporary testing purposes
       {
