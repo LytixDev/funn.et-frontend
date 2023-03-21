@@ -1,5 +1,4 @@
 <template>
-  <base-page-view>
     <h2>Create a new listing</h2>
 
     <form @submit.prevent="submit">
@@ -59,7 +58,6 @@
           @click="submit" />
       </fieldset>
     </form>
-  </base-page-view>
 </template>
 
 <script lang="ts" setup>
