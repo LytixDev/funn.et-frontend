@@ -28,11 +28,10 @@
     "submit": "Login"
   },
   "SignoutUserView": {
-    "titleSigningOut": "Signing out...",
     "titleSignedOut": "Signed out",
-    "goToHomePageButton": "Go to the home page",
-    "goToLoginPageButton": "Log back in",
-    "goToRegisterPageButton": "Registrer a new user"
+    "goToHomePageLink": "Go to the home page",
+    "goToLoginPageLink": "Log back in",
+    "goToRegisterPageLink": "Registrer a new user"
   },
   "UserForm": {
     "username": "Username",

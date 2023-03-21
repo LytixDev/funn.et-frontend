@@ -30,7 +30,7 @@ const routes = [
       {
         path: '/signout',
         name: 'signout',
-        component: () => import('@/views/LoginUserView.vue'),
+        component: () => import('@/views/SignoutUserView.vue'),
       },
       {
         path: '/user/:id',

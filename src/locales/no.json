@@ -28,11 +28,10 @@
     "submit": "Logg inn"
   },
   "SignoutUserView": {
-    "titleSigningOut": "Logger deg ut...",
     "titleSignedOut": "Du er nå logget ut",
-    "goToHomePageButton": "Gå til forsiden",
-    "goToLoginPageButton": "Logg inn igjen",
-    "goToRegisterPageButton": "Registrer en ny bruker"
+    "goToHomePageLink": "Gå til forsiden",
+    "goToLoginPageLink": "Logg inn igjen",
+    "goToRegisterPageLink": "Registrer en ny bruker"
   },
   "UserForm": {
     "username": "Brukernavn",
