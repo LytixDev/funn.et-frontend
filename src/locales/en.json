@@ -6,7 +6,9 @@
   },
   "navigation": {
     "home": "Home",
-    "register": "Register user"
+    "register": "Register user",
+    "login": "Login",
+    "signout": "Sign out"
   },
   "ListingCard": {
     "published": "Published by"
@@ -19,12 +21,24 @@
   },
   "RegisterUserView": {
     "title": "Register a new user",
+    "submit": "Register new user"
+  },
+  "LoginUserView": {
+    "title": "Login with an account",
+    "submit": "Login"
+  },
+  "SignoutUserView": {
+    "titleSignedOut": "Signed out",
+    "goToHomePageLink": "Go to the home page",
+    "goToLoginPageLink": "Log back in",
+    "goToRegisterPageLink": "Registrer a new user"
+  },
+  "UserForm": {
     "username": "Username",
     "email": "Email",
     "firstName": "First name",
     "lastName": "Last name",
     "password": "Password",
-    "submit": "Register new user",
     "Error": {
       "usernameMin": "Username must be larger than 3 characters",
       "usernameMax": "Username can be no larger than 32 characters",
