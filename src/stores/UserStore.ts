@@ -1,5 +1,5 @@
-import { OpenAPI } from "@/api";
-import { defineStore } from "pinia";
+import { OpenAPI } from '@/api';
+import { defineStore } from 'pinia';
 
 export type UserStoreInfo = {
   username?: string;
@@ -30,13 +30,9 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
   getters: {
     isLoggedIn(): boolean {
       return this.accessToken !== '';
-    }
+    },
   },
   persist: {
     enabled: true,
   },
-})  
-
-
-
-
+});

@@ -14,7 +14,7 @@ describe('Test user using the register page', () => {
       body: testToken,
     });
     cy.intercept('POST', `${apiUrl}api/v1/public/user`, {
-        statusCode: 201,
+      statusCode: 201,
     });
 
     cy.get('input[data-testid="username"]', { timeout: 60000 }).should('exist').type(username);
@@ -40,7 +40,7 @@ describe('Test user using the register page', () => {
       body: 'TestTokenFromMockBackend',
     });
     cy.intercept('POST', `${apiUrl}api/v1/public/user`, {
-        statusCode: 409,
+      statusCode: 409,
     });
 
     cy.get('input[data-testid="username"]', { timeout: 60000 }).should('exist').type(username);
@@ -52,5 +52,5 @@ describe('Test user using the register page', () => {
     cy.getAllLocalStorage().then((result) => {
       expect(result).to.deep.equal({});
     });
-  })
+  });
 });

@@ -18,6 +18,5 @@ const route = useRoute();
 const id = route.params.id as string;
 user.value = await PublicUserControllerService.getUser({ username: id });
 
-
 console.log(user);
 </script>

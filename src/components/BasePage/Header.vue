@@ -9,7 +9,7 @@
           <router-link to="/register">{{ $t('navigation.register') }}</router-link>
         </li>
         <li v-if="!loggedIn">
-          <router-link  to="/login">{{ $t('navigation.login') }}</router-link>
+          <router-link to="/login">{{ $t('navigation.login') }}</router-link>
         </li>
         <li v-else>
           <router-link to="/signout">{{ $t('navigation.signout') }}</router-link>

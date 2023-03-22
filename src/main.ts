@@ -7,12 +7,11 @@ import en from '@/locales/en.json';
 import no from '@/locales/no.json';
 import { createPinia } from 'pinia';
 import { useLanguageStore } from './stores/LanguageStore';
-import piniaPersist from 'pinia-plugin-persist'
-
+import piniaPersist from 'pinia-plugin-persist';
 
 const app = createApp(App);
 const pinia = createPinia();
-pinia.use(piniaPersist)
+pinia.use(piniaPersist);
 
 app.use(pinia);
 

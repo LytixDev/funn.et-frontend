@@ -78,7 +78,6 @@ const submit = handleSubmit(async (values) => {
     let user = await PrivateUserControllerService.getUser1();
     userStore.setUserInfo({ accessToken: token, username: values.username, role: user.role });
     router.push({ name: 'home' });
-    
   } catch (authError: any) {
     if (authError.detail !== undefined) {
       errorBoxMsg.value = authError.detail;

@@ -59,16 +59,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   let user = useUserInfoStore();
-  const isAuthenticated = user.isLoggedIn // Replace with your authentication logic
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = user.isLoggedIn; // Replace with your authentication logic
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
   if (requiresAuth && !isAuthenticated) {
-    next('/login')
+    next('/login');
   } else {
-    next()
+    next();
   }
-})
-
-
+});
 
 export default router;
