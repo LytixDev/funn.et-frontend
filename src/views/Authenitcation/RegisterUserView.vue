@@ -117,7 +117,7 @@ const submit = handleSubmit(async (values) => {
             return;
           }
 
-          userStore.setUserInfo({ token: token, username: values.username });
+          userStore.setUserInfo({ accessToken: token, username: values.username });
           router.push({ name: 'home' });
         })
         .catch((authError) => {
