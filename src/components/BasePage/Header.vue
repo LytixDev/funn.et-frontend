@@ -26,10 +26,10 @@
 <script setup lang="ts">
 import LocaleSelector from '@/components/BasePage/LocaleSwitcher.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { ref } from 'vue';
+import { computed } from 'vue';
 
 const user = useUserInfoStore();
-const loggedIn = ref(user.isLoggedIn);
+const loggedIn = computed(() => user.isLoggedIn);
 </script>
 
 <style scoped>
