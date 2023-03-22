@@ -1,28 +1,30 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ListingDTO } from '../models/ListingDTO';
-import type { SearchRequest } from '../models/SearchRequest';
+import type { LocationCreateDTO } from '../models/LocationCreateDTO';
+import type { LocationResponseDTO } from '../models/LocationResponseDTO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ListingControllerService {
+export class LocationControllerService {
   /**
-   * @returns ListingDTO OK
+   * Update location by id
+   * Updates a location by id.
+   * @returns LocationResponseDTO OK
    * @throws ApiError
    */
-  public static updateListing({
+  public static updateLocationById({
     id,
     requestBody,
   }: {
     id: number;
-    requestBody: ListingDTO;
-  }): CancelablePromise<ListingDTO> {
+    requestBody: LocationResponseDTO;
+  }): CancelablePromise<LocationResponseDTO> {
     return __request(OpenAPI, {
       method: 'PUT',
-      url: '/api/v1/private/listings/{id}',
+      url: '/api/v1/private/locations/{id}',
       path: {
         id: id,
       },
@@ -35,13 +37,15 @@ export class ListingControllerService {
   }
 
   /**
+   * Delete location by id
+   * Deletes a location by id.
    * @returns any OK
    * @throws ApiError
    */
-  public static deleteListing({ id }: { id: number }): CancelablePromise<any> {
+  public static deleteLocation({ id }: { id: number }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'DELETE',
-      url: '/api/v1/private/listings/{id}',
+      url: '/api/v1/private/locations/{id}',
       path: {
         id: id,
       },
@@ -52,19 +56,19 @@ export class ListingControllerService {
   }
 
   /**
-   * Get listings by search and filter
-   * Returns all listings in the database. Possible to search for keywords in listing
-   * @returns ListingDTO OK
+   * Create location
+   * Creates a location.
+   * @returns LocationResponseDTO OK
    * @throws ApiError
    */
-  public static getListingsByFilter({
+  public static createLocation({
     requestBody,
   }: {
-    requestBody: SearchRequest;
-  }): CancelablePromise<Array<ListingDTO>> {
+    requestBody: LocationCreateDTO;
+  }): CancelablePromise<LocationResponseDTO> {
     return __request(OpenAPI, {
       method: 'POST',
-      url: '/api/v1/public/listings',
+      url: '/api/v1/private/locations',
       body: requestBody,
       mediaType: 'application/json',
       errors: {
@@ -74,29 +78,31 @@ export class ListingControllerService {
   }
 
   /**
-   * @returns ListingDTO OK
+   * Get all locations
+   * Returns all locations in the database.
+   * @returns LocationResponseDTO OK
    * @throws ApiError
    */
-  public static createListing({ requestBody }: { requestBody: ListingDTO }): CancelablePromise<ListingDTO> {
-    return __request(OpenAPI, {
-      method: 'POST',
-      url: '/api/v1/private/listings',
-      body: requestBody,
-      mediaType: 'application/json',
-      errors: {
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * @returns ListingDTO OK
-   * @throws ApiError
-   */
-  public static getListing({ id }: { id: number }): CancelablePromise<ListingDTO> {
+  public static getAllLocations(): CancelablePromise<Array<LocationResponseDTO>> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/v1/public/listings/{id}',
+      url: '/api/v1/public/locations',
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Get location by id
+   * Returns a location by id.
+   * @returns LocationResponseDTO OK
+   * @throws ApiError
+   */
+  public static getLocationById({ id }: { id: number }): CancelablePromise<LocationResponseDTO> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/public/locations/{id}',
       path: {
         id: id,
       },
