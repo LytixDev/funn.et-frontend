@@ -15,7 +15,7 @@ const routes = [
       {
         path: '/create-listing',
         name: 'create-listing',
-        component: () => import('@/views/CreateListing.vue'),
+        component: () => import('@/views/Listing/CreateListingView.vue'),
       },
       {
         path: '/register',
@@ -36,6 +36,11 @@ const routes = [
         path: '/user/:id',
         name: 'user',
         component: () => import('@/views/UserDetailView.vue'),
+      },
+      {
+        path: '/listing/:id',
+        name: 'listing',
+        component: () => import('@/views/Listing/ListingDetailView.vue'),
       },
     ],
   },
