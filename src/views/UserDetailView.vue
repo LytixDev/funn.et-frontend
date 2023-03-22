@@ -3,7 +3,7 @@
     <template #fallback>
       <h2>{{ $t('UserDetailView.loading') }}</h2>
     </template>
-    <UserDetail/>
+    <UserDetail />
   </Suspense>
 </template>
 

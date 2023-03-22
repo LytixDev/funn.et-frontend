@@ -6,6 +6,6 @@ export default defineConfig({
     video: false,
   },
   env: {
-    apiUrl: 'http://localhost:8080/'
-  }
+    apiUrl: 'http://localhost:8080/',
+  },
 });
