@@ -1,3 +1,4 @@
+import { OpenAPI } from "@/api";
 import { defineStore } from "pinia";
 
 export type UserStoreInfo = {
@@ -16,13 +17,14 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
     setUserInfo(userinfo: UserStoreInfo) {
       userinfo.username && (this.$state.username = userinfo.username);
       userinfo.accessToken && (this.$state.accessToken = userinfo.accessToken);
+      userinfo.accessToken && (OpenAPI.TOKEN = this.$state.accessToken);
       userinfo.role && (this.$state.role = userinfo.role);
     },
     clearUserInfo() {
-      localStorage.removeItem('username');
-      localStorage.removeItem('token');
       this.$state.username = '';
-      this.$state.token = '';
+      this.$state.accessToken = '';
+      this.$state.role = '';
+      OpenAPI.TOKEN = undefined;
     },
   },
   getters: {

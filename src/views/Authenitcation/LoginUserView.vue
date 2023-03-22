@@ -39,8 +39,9 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { TokenControllerService, AuthenticateDTO } from '@/api';
+import { TokenControllerService, AuthenticateDTO, OpenAPI, ApiError } from '@/api';
 import router from '@/router';
+import { PrivateUserControllerService } from '@/api/services/PrivateUserControllerService';
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -63,25 +64,30 @@ const submit = handleSubmit(async (values) => {
     password: values.password,
   };
 
-  await TokenControllerService.generateToken({ requestBody: loginUserPayload })
-    .then((token) => {
-      if (token == null || token == undefined) {
-        errorBoxMsg.value = 'A valid token could not be created';
-        return;
-      }
+  try {
+    // Fetch token
+    let token = await TokenControllerService.generateToken({ requestBody: loginUserPayload });
+    if (token == null || token == undefined) {
+      errorBoxMsg.value = 'A valid token could not be created';
+      return;
+    }
+    // Set token
+    OpenAPI.TOKEN = token;
 
-      userStore.setUserInfo({ token: token, username: values.username });
-      router.push({ name: 'home' });
-    })
-    .catch((authError) => {
-      if (authError.detail !== undefined) {
-        errorBoxMsg.value = authError.detail;
-      } else if (authError.message !== undefined) {
-        errorBoxMsg.value = authError.message;
-      } else {
-        errorBoxMsg.value = 'Could not log with the given credentials';
-      }
-    });
+    // Fetch user info
+    let user = await PrivateUserControllerService.getUser1();
+    userStore.setUserInfo({ accessToken: token, username: values.username, role: user.role });
+    router.push({ name: 'home' });
+    
+  } catch (authError: any) {
+    if (authError.detail !== undefined) {
+      errorBoxMsg.value = authError.detail;
+    } else if (authError.message !== undefined) {
+      errorBoxMsg.value = authError.message;
+    } else {
+      errorBoxMsg.value = 'Could not log with the given credentials';
+    }
+  }
 });
 
 /* form values */
