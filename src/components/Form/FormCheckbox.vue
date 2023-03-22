@@ -9,7 +9,7 @@
           type="radio"
           :value="checkbox.value"
           v-model="checkbox.vModel"
-          :data-testid="checkbox.dataTestId" />
+          :data-testid="checkbox.dataTestid" />
         <label :for="checkbox.key">{{ checkbox.value }}</label>
       </div>
     </fieldset>

@@ -8,7 +8,7 @@ export type RadioButton = {
   key: string;
   name?: string;
   value: string;
-  dataTestId?: string;
+  dataTestid?: string;
 };
 
 export type Checkbox = {
@@ -16,5 +16,5 @@ export type Checkbox = {
   key: string;
   name?: string;
   value: string;
-  dataTestId?: string;
+  dataTestid?: string;
 };

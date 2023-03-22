@@ -8,7 +8,7 @@
       v-model="username"
       :error="errors?.username"
       fieldRequired
-      dataTestId="username" />
+      dataTestid="username" />
     <form-input
       labelId="password-label"
       :labelText="$t('UserForm.password')"
@@ -17,12 +17,12 @@
       :error="errors?.password"
       :fieldType="FormInputTypes.Password"
       fieldRequired
-      dataTestId="password" />
+      dataTestid="password" />
 
     <form-button
       buttonId="login-user-button"
       :buttonText="$t('LoginUserView.submit')"
-      dataTestId="login-user-button"
+      dataTestid="login-user-button"
       @click="submit" />
   </form>
 
