@@ -2,21 +2,25 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ListingDTOObject = {
+import type { ImageResponseDTO } from './ImageResponseDTO';
+import type { ImageUploadDTO } from './ImageUploadDTO';
+
+export type ListingDTO = {
   id?: number;
-  username?: string;
-  locationId?: number;
-  title?: string;
-  briefDescription?: string;
+  username: string;
+  location?: number;
+  title: string;
+  briefDescription: string;
   fullDescription?: string;
-  category?: ListingDTOObject.category;
+  category: ListingDTO.category;
   price?: number;
   publicationDate?: string;
   expirationDate?: string;
-  image?: Array<any>;
+  imageResponse?: Array<ImageResponseDTO>;
+  imageUpload?: Array<ImageUploadDTO>;
 };
 
-export namespace ListingDTOObject {
+export namespace ListingDTO {
   export enum category {
     ELECTRONICS = 'ELECTRONICS',
     CLOTHING = 'CLOTHING',

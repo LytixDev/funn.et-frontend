@@ -9,7 +9,7 @@ const routes = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/HomeView.vue'),
+        component: () => import('@/views/Listings/ListingListView.vue'),
       },
       // Routing the create listing view just temporary testing purposes
       {
