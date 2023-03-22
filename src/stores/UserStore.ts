@@ -1,26 +1,4 @@
-import { defineStore } from 'pinia';
-import Cookies from 'js-cookie';
-
-const cookiesStorage: Storage = {
-  setItem(key, item) {
-    return Cookies.set(key, item, { expires: 3 });
-  },
-  getItem(key) {
-    return JSON.stringify({
-      accessToken: Cookies.get(key),
-    });
-  },
-  clear: () => {
-    throw new Error('Function not implemented.');
-  },
-  key: () => {
-    throw new Error('Function not implemented.');
-  },
-  removeItem: () => {
-    throw new Error('Function not implemented.');
-  },
-  length: 0
-}
+import { defineStore } from "pinia";
 
 export type UserStoreInfo = {
   username?: string;
@@ -54,11 +32,6 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
   },
   persist: {
     enabled: true,
-    strategies: [
-      {
-        storage: cookiesStorage,
-      },
-    ],
   },
 })  
 
