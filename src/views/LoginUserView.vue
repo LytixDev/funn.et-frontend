@@ -26,7 +26,7 @@
       @click="submit" />
   </form>
 
-  <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
+  <error-box v-model="errorBoxMsg" />
 </template>
 
 <script setup lang="ts">
@@ -66,7 +66,7 @@ const submit = handleSubmit(async (values) => {
   await TokenControllerService.generateToken({ requestBody: loginUserPayload })
     .then((token) => {
       if (token == null || token == undefined) {
-        errorBoxMsg.value = 'Could not log in user';
+        errorBoxMsg.value = 'A valid token could not be created';
         return;
       }
 
@@ -74,11 +74,12 @@ const submit = handleSubmit(async (values) => {
       router.push({ name: 'home' });
     })
     .catch((authError) => {
-      console.log(authError.body);
       if (authError.detail !== undefined) {
         errorBoxMsg.value = authError.detail;
+      } else if (authError.message !== undefined) {
+        errorBoxMsg.value = authError.message;
       } else {
-        errorBoxMsg.value = authError.body;
+        errorBoxMsg.value = 'Could not log with the given credentials';
       }
     });
 });
