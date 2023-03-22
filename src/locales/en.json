@@ -38,6 +38,30 @@
       "passwordInvalid": "Password must contain at least one number, one upperletter and one lowercase letter"
     }
   },
+  "CreateListingView": {
+    "title": "Create a new listing",
+    "briefDescription": "Brief description",
+    "description": "Description",
+    "price": "Price",
+    "category": "category",
+    "address": "Address",
+    "city": "City",
+    "postcode": "Postcode",
+    "image": "Image",
+    "imageDescription": "Image description",
+    "submit": "Publish listing",
+    "Error": {
+      "titleRequired": "Title is required",
+      "briefDescriptionRequired": "Brief description is required",
+      "briefDescriptionMax": "Brief description can not be larger than 128 characters",
+      "descriptionMax": "Description can not be larger than 512 characters",
+      "priceRequired": "Price is required",
+      "priceMin": "Price must be larger than 0",
+      "addressRequired": "Address is required",
+      "cityRequired": "City is required",
+      "postcodeRequired": "Postcode is required"
+    }
+  },
   "Form": {
     "ImageUpload": {
       "clear": "Clear uploaded image",
