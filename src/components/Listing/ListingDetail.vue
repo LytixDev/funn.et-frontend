@@ -42,23 +42,21 @@ const id: number = +(route.params.id as string);
 
 listing.value = await ListingControllerService.getListing({ id: id });
 
-/*
-Unsure how the image will be passed from the backend.
-
-const image = computed(() => {
-  if (listing.value?.imageResponse) {
-    return listing.value.imageResponse[0].image?.toString();
-  }
-  return '';
-});
-
-const imageAlt = computed(() => {
-  if (listing.value?.imageResponse) {
-    return listing.value.imageResponse[0].alt;
-  }
-  return '';
-});
-/*
+//Unsure how the image will be passed from the backend.
+//
+//const image = computed(() => {
+//  if (listing.value?.imageResponse) {
+//    return listing.value.imageResponse[0].image?.toString();
+//  }
+//  return '';
+//});
+//
+//const imageAlt = computed(() => {
+//  if (listing.value?.imageResponse) {
+//    return listing.value.imageResponse[0].alt;
+//  }
+//  return '';
+//});
 </script>
 
 <style scoped></style>
