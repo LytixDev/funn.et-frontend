@@ -11,16 +11,15 @@ const cookiesStorage: Storage = {
   },
   length: 0,
   clear: function (): void {
-    throw new Error('Function not implemented.');
+    Cookies.remove('userInfo');
   },
   key: function (index: number): string | null {
     throw new Error('Function not implemented.');
   },
   removeItem: function (key: string): void {
     throw new Error('Function not implemented.');
-  }
-}
-
+  },
+};
 
 export type UserStoreInfo = {
   username?: string;
@@ -55,8 +54,6 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
   },
   persist: {
     enabled: true,
-    strategies: [
-      { key: 'userInfo', storage: cookiesStorage }
-    ]
+    strategies: [{ key: 'userInfo', storage: cookiesStorage }],
   },
 });

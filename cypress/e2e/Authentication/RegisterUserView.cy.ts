@@ -2,7 +2,7 @@ apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the register page', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.clearAllCookies();
     cy.visit('/register');
   });
 
@@ -23,14 +23,11 @@ describe('Test user using the register page', () => {
     cy.get('input[data-testid="last-name"]').type('my last name');
     cy.get('input[data-testid="password"]').type('testPassword123');
     cy.get('button[data-testid="create-user-button"]').click().wait(1000);
-    cy.getAllLocalStorage().then((result) => {
-      expect(result).to.deep.equal({
-        'http://localhost:4173': {
-          token: testToken,
-          username: username,
-        },
+    cy.getCookie('userInfo')
+      .should('have.property', 'value')
+      .then((value) => {
+        expect(value).to.include(testToken);
       });
-    });
   });
 
   it('Test user registering with username that already exists shows error box', () => {
@@ -49,8 +46,8 @@ describe('Test user using the register page', () => {
     cy.get('input[data-testid="last-name"]').type('my last name');
     cy.get('input[data-testid="password"]').type('testPassword123');
     cy.get('button[data-testid="create-user-button"]').click().wait(1000);
-    cy.getAllLocalStorage().then((result) => {
-      expect(result).to.deep.equal({});
+    cy.getAllCookies().then((result) => {
+      expect(result).to.deep.equal([]);
     });
   });
 });
