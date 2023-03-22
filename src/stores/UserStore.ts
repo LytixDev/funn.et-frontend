@@ -1,21 +1,44 @@
 import { defineStore } from 'pinia';
+import Cookies from 'js-cookie';
+
+const cookiesStorage: Storage = {
+  setItem(key, item) {
+    return Cookies.set(key, item, { expires: 3 });
+  },
+  getItem(key) {
+    return JSON.stringify({
+      accessToken: Cookies.get(key),
+    });
+  },
+  clear: () => {
+    throw new Error('Function not implemented.');
+  },
+  key: () => {
+    throw new Error('Function not implemented.');
+  },
+  removeItem: () => {
+    throw new Error('Function not implemented.');
+  },
+  length: 0
+}
 
 export type UserStoreInfo = {
   username?: string;
-  token?: string;
+  accessToken?: string;
+  role?: string;
 };
 
 export const useUserInfoStore = defineStore('UserInfoStore', {
   state: () => ({
-    username: localStorage.getItem('username') ?? '',
-    token: localStorage.getItem('token') ?? '',
+    username: '',
+    accessToken: '',
+    role: '',
   }),
   actions: {
     setUserInfo(userinfo: UserStoreInfo) {
-      localStorage.setItem('username', userinfo.username ?? this.$state.username);
-      localStorage.setItem('token', userinfo.token ?? this.$state.token);
-      this.$state.username = localStorage.getItem('username') ?? '';
-      this.$state.token = localStorage.getItem('token') ?? '';
+      userinfo.username && (this.$state.username = userinfo.username);
+      userinfo.accessToken && (this.$state.accessToken = userinfo.accessToken);
+      userinfo.role && (this.$state.role = userinfo.role);
     },
     clearUserInfo() {
       localStorage.removeItem('username');
@@ -24,4 +47,21 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
       this.$state.token = '';
     },
   },
-});
+  getters: {
+    isLoggedIn(): boolean {
+      return this.accessToken !== '';
+    }
+  },
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        storage: cookiesStorage,
+      },
+    ],
+  },
+})  
+
+
+
+
