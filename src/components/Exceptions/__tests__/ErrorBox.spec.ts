@@ -8,8 +8,8 @@ describe('Test error box message', () => {
     const wrapper = mount(ErrorBox, {
       props: {
         modelValue: 'Error message',
-        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
-      }
+        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e }),
+      },
     });
 
     expect(wrapper.find('div').isVisible()).toBe(true);
@@ -21,7 +21,7 @@ describe('Test error box message', () => {
     const wrapper = mount(ErrorBox, {
       props: {
         modelValue: '',
-      }
+      },
     });
 
     expect(wrapper.find('div').exists()).toBe(false);

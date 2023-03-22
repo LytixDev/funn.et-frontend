@@ -1,16 +1,10 @@
 <template>
-  <base-page-view>
-    <h1>{{ $t('hello') }}</h1>
-  </base-page-view>
+  <h1>{{ $t('hello') }}</h1>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import BasePageView from '@/views/BasePageView.vue';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-export default defineComponent({
-  components: { BasePageView, ErrorBox },
-});
 </script>
 
 <style scoped></style>
