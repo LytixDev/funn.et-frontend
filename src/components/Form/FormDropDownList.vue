@@ -13,8 +13,8 @@
           {{ option.displayedValue }}
         </option>
         <option value="" disabled selected hidden>{{ $t('Form.DropDownList.select') }}</option>
-        <option value="all" v-if="optionAll">All</option>
-        <option value="none" v-if="optionNone">None</option>
+        <option value="all" v-if="optionAll">{{ $t('Form.DropDownList.all') }}</option>
+        <option value="none" v-if="optionNone">{{ $t('Form.DropDownList.none') }}</option>
       </select>
     </div>
     <div v-if="error" :data-testid="dataTestId + '-error'" id="error">

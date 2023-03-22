@@ -1,7 +1,7 @@
 <template>
   <div class="listing-card">
     <div class="listing-image">
-      <img :src="listingData.image" />
+      <img src="@/assets/images/default-placeholder.png" />
     </div>
 
     <div class="listing-info">
@@ -15,21 +15,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
-export interface ListingCardData {
-  username: string;
-  title: string;
-  price: number;
-  image: string;
-  briefDescription: string;
-}
+import { ListingDTO } from '@/api/models/ListingDTO';
 
 export default defineComponent({
   name: 'ListingCard',
   props: {
     listingData: {
-      type: Object as () => ListingCardData,
+      type: Object as () => ListingDTO,
       required: true,
+    },
+    testDataId: {
+      type: String,
+      required: false,
     },
   },
 });

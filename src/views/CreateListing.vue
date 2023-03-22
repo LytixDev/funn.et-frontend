@@ -62,7 +62,6 @@
 
 <script lang="ts" setup>
 import { useForm, useField, FieldContext } from 'vee-validate';
-import BasePageView from '@/views/BasePageView.vue';
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { FormInputWrapperClasses } from '@/enums/FormEnums';

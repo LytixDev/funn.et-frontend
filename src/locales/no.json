@@ -13,6 +13,29 @@
   "ListingCard": {
     "published": "Lagt ut av"
   },
+  "ListingListView": {
+    "Categories": {
+      "BOOKS": "Bøker",
+      "CLOTHING": "Klær",
+      "ELECTRONICS": "Elektronikk",
+      "FURNITURE": "Møbler",
+      "SPORTS": "Sport",
+      "OTHER": "Andre"
+    },
+    "Sorting": {
+      "priceAsc": "Pris (lavest til høyest)",
+      "priceDesc": "Pris (høyest til lavest)",
+      "titleAsc": "Tittel (alfabetisk)",
+      "titleDesc": "Tittel (motsatt alfabetisk)",
+      "publicationDateAsc": "Dato (eldst først)",
+      "publicationDateDesc": "Dato (nyest først)"
+    },
+    "searchLabel": "Søk",
+    "categoryLabel": "Kategori",
+    "priceMinLabel": "Min pris",
+    "priceMaxLabel": "Max pris",
+    "sortingLabel": "Sortering"
+  },
   "NotFoundView": {
     "title": "Fant ikke siden",
     "text": "Siden du leter etter finnes ikke. Sjekk at du har skrevet riktig adresse.",
@@ -59,7 +82,9 @@
       "errorTooLarge": "Det opplastede bilde er for stor. Filen må være mindre enn %{size} MB."
     },
     "DropDownList": {
-      "select": "Velg ett alternativ"
+      "select": "Velg ett alternativ",
+      "none": "Ingen",
+      "all": "Alle"
     }
   },
   "UserDetailView": {
