@@ -13,6 +13,29 @@
   "ListingCard": {
     "published": "Published by"
   },
+  "ListingListView": {
+    "Categories": {
+      "BOOKS": "Books",
+      "CLOTHING": "Clothing",
+      "ELECTRONICS": "Electronics",
+      "FURNITURE": "Furniture",
+      "SPORTS": "Sports",
+      "OTHER": "Other"
+    },
+    "Sorting": {
+      "priceAsc": "Price (low to high)",
+      "priceDesc": "Price (high to low)",
+      "titleAsc": "Title (alphabetical)",
+      "titleDesc": "Title (reversed alphabetical)",
+      "publicationDateAsc": "Date (oldest first)",
+      "publicationDateDesc": "Date (newest first)"
+    },
+    "searchLabel": "Search",
+    "categoryLabel": "Category",
+    "priceMinLabel": "Min price",
+    "priceMaxLabel": "Max price",
+    "sortingLabel": "Sort by"
+  },
   "NotFoundView": {
     "title": "Page not found",
     "text": "The page you are looking for does not exist. Please check the URL and try again.",
@@ -59,7 +82,9 @@
       "errorTooLarge": "The image is too large. File size must be less than %{size} MB."
     },
     "DropDownList": {
-      "select": "Choose an option"
+      "select": "Choose an option",
+      "none": "None",
+      "all": "All"
     }
   },
   "UserDetailView": {

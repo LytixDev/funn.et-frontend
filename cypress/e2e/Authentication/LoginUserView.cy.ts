@@ -1,4 +1,4 @@
-const apiUrl = Cypress.env('apiUrl');
+let apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the login page', () => {
   beforeEach(() => {
