@@ -89,5 +89,8 @@
   },
   "UserDetailView": {
     "loading": "Loading user details..."
+  },
+  "ListingDetailView": {
+    "loading": "Loading listing details..."
   }
 }

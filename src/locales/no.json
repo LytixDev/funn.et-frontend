@@ -89,5 +89,8 @@
   },
   "UserDetailView": {
     "loading": "Laster bruker detaljer..."
+  },
+  "ListingDetailView": {
+    "loading": "Laster inn annonse ..."
   }
 }
