@@ -1,5 +1,26 @@
 import { OpenAPI } from '@/api';
+import Cookies from 'js-cookie';
 import { defineStore } from 'pinia';
+
+const cookiesStorage: Storage = {
+  setItem(key, state) {
+    return Cookies.set(key, state, { expires: 3 });
+  },
+  getItem(key) {
+    return Cookies.get(key) || '';
+  },
+  length: 0,
+  clear: function (): void {
+    throw new Error('Function not implemented.');
+  },
+  key: function (index: number): string | null {
+    throw new Error('Function not implemented.');
+  },
+  removeItem: function (key: string): void {
+    throw new Error('Function not implemented.');
+  }
+}
+
 
 export type UserStoreInfo = {
   username?: string;
@@ -34,5 +55,8 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
   },
   persist: {
     enabled: true,
+    strategies: [
+      { key: 'userInfo', storage: cookiesStorage }
+    ]
   },
 });
