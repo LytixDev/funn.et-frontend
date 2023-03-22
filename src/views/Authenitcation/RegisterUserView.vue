@@ -1,6 +1,6 @@
 <template>
   <h2>{{ $t('RegisterUserView.title') }}</h2>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" method="post">
     <FormInput
       labelId="username-label"
       :labelText="$t('UserForm.username')"
@@ -108,6 +108,8 @@ export default defineComponent({
     });
 
     const submit = handleSubmit(async (values) => {
+      console.log(values);
+
       const createUserPayload: RegisterDTO = {
         username: values.username,
         email: values.email,

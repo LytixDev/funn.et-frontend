@@ -1,6 +1,6 @@
 <template>
   <h2>{{ $t('LoginUserView.title') }}</h2>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" method="post">
     <form-input
       labelId="username-label"
       :labelText="$t('UserForm.username')"
