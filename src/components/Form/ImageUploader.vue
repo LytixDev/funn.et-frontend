@@ -35,6 +35,7 @@ export default defineComponent({
     modelValue: {
       type: String,
       required: true,
+      default: '',
     },
     maxFileSizeMb: {
       type: Number,

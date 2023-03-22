@@ -1,5 +1,5 @@
 <template>
-  <h2>Create a new listing</h2>
+  <h2>{{ $t('navigation.createListing') }}</h2>
 
   <form @submit.prevent="submit">
     <fieldset>
@@ -34,6 +34,7 @@
         fieldId="listing-price"
         v-model="price"
         :error="errors?.price"
+        :field-type="FormInputTypes.Number"
         fieldRequired
         dataTestId="listing-price" />
     </fieldset>
@@ -73,6 +74,7 @@
         fieldId="listing-postcode-description"
         v-model="postcode"
         :error="errors?.postcode"
+        :field-type="FormInputTypes.Number"
         fieldRequired
         dataTestId="listing-city" />
     </fieldset>
@@ -102,6 +104,7 @@ import FormButton from '@/components/Form/FormButton.vue';
 import { FormInputWrapperClasses } from '@/enums/FormEnums';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
+import { FormInputTypes } from '@/enums/FormEnums';
 import ImageUploader from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
 import { computed } from 'vue';
@@ -115,20 +118,23 @@ const userStore = useUserInfoStore();
 
 const schema = computed(() =>
   yupObject({
-    title: yupString().required(t('CreateListingView.Error.titleRequired')),
+    title: yupString()
+      .required(t('CreateListingView.Error.titleRequired'))
+      .max(256, t('CreateListingView.Error.titleMax')),
     briefDescription: yupString()
       .required(t('CreateListingView.Error.briefDescriptionRequired'))
+      .min(32, t('CreateListingView.Error.briefDescriptionMin'))
       .max(128, t('CreateListingView.Error.briefDescriptionMax')),
     description: yupString().max(512, t('CreateListingView.Error.descriptionMax')),
     price: yupNumber()
       .required(t('CreateListingView.Error.priceRequired'))
       .min(0, t('CreateListingView.Error.priceMin')),
-    category: yupString().default('other'),
+    category: yupString().default('OTHER'),
     address: yupString().required(t('CreateListingView.Error.addressRequired')),
     city: yupString().required(t('CreateListingView.Error.cityRequired')),
-    postcode: yupString().required(t('CreateListingView.Error.postcodeRequired')).min(4).max(4),
-    image: yupString(),
-    imageDescription: yupString(),
+    postcode: yupNumber().required(t('CreateListingView.Error.postcodeRequired')).min(4).max(4),
+    //image: yupString(),
+    //imageDescription: yupString(),
   }),
 );
 
@@ -137,7 +143,7 @@ const { handleSubmit, errors } = useForm({
 });
 
 const submit = handleSubmit((values) => {
-  console.log(values)
+  console.log(values);
   let payload = {
     id: undefined,
     username: userStore.username,

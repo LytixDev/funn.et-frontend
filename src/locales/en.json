@@ -8,7 +8,8 @@
     "home": "Home",
     "register": "Register user",
     "login": "Login",
-    "signout": "Sign out"
+    "signout": "Sign out",
+    "createListing": "Create new listing"
   },
   "ListingCard": {
     "published": "Published by"
@@ -66,7 +67,9 @@
     "submit": "Publish listing",
     "Error": {
       "titleRequired": "Title is required",
+      "titleMax": "Title is too large",
       "briefDescriptionRequired": "Brief description is required",
+      "briefDescriptionMin": "Kort beskrivelse må være større enn 32 karakterer",
       "briefDescriptionMax": "Brief description can not be larger than 128 characters",
       "descriptionMax": "Description can not be larger than 512 characters",
       "priceRequired": "Price is required",

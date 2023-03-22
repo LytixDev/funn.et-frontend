@@ -11,7 +11,6 @@ const routes = [
         name: 'home',
         component: () => import('@/views/HomeView.vue'),
       },
-      // Routing the create listing view just temporary testing purposes
       {
         path: '/create-listing',
         name: 'create-listing',

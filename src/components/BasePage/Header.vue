@@ -15,7 +15,7 @@
           <router-link to="/signout">{{ $t('navigation.signout') }}</router-link>
         </li>
         <li>
-          <router-link to="/create-listing">create listing</router-link>
+          <router-link to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
         </li>
       </ul>
       <locale-selector />
