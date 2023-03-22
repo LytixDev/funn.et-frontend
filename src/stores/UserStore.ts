@@ -17,5 +17,11 @@ export const useUserInfoStore = defineStore('UserInfoStore', {
       this.$state.username = localStorage.getItem('username') ?? '';
       this.$state.token = localStorage.getItem('token') ?? '';
     },
+    clearUserInfo() {
+      localStorage.removeItem('username');
+      localStorage.removeItem('token');
+      this.$state.username = '';
+      this.$state.token = '';
+    },
   },
 });

@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: 'base',
-    component: import('@/views/BasePageView.vue'),
+    component: () => import('@/views/BasePageView.vue'),
     children: [
       {
         path: '',
@@ -20,7 +20,17 @@ const routes = [
       {
         path: '/register',
         name: 'register',
-        component: () => import('@/views/RegisterUserView.vue'),
+        component: () => import('@/views/Authenitcation/RegisterUserView.vue'),
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/Authenitcation/LoginUserView.vue'),
+      },
+      {
+        path: '/signout',
+        name: 'signout',
+        component: () => import('@/views/Authenitcation/SignoutUserView.vue'),
       },
       {
         path: '/user/:id',

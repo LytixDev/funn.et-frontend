@@ -47,6 +47,7 @@ export default defineComponent({
     modelValue: {
       type: String,
       required: true,
+      default: '',
     },
     fieldRequired: {
       type: Boolean,
