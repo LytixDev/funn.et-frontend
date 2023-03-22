@@ -1,7 +1,7 @@
 <template>
   <h2>{{ $t('LoginUserView.title') }}</h2>
   <form @submit.prevent="submit">
-    <FormInput
+    <form-input
       labelId="username-label"
       :labelText="$t('UserForm.username')"
       fieldId="username"
@@ -9,7 +9,7 @@
       :error="errors?.username"
       fieldRequired
       dataTestId="username" />
-    <FormInput
+    <form-input
       labelId="password-label"
       :labelText="$t('UserForm.password')"
       fieldId="password"
@@ -19,7 +19,7 @@
       fieldRequired
       dataTestId="password" />
 
-    <FormButton
+    <form-button
       buttonId="login-user-button"
       :buttonText="$t('LoginUserView.submit')"
       dataTestId="login-user-button"
@@ -46,10 +46,12 @@ const userStore = useUserInfoStore();
 const { t } = useI18n();
 let errorBoxMsg = ref<string>('');
 
-const schema = yupObject({
-  username: yupString().required(computed(() => t?.('UserForm.Error.usernameRequired')).value),
-  password: yupString().required(computed(() => t?.('UserForm.Error.passwordRequired')).value),
-});
+const schema = computed(() =>
+  yupObject({
+    username: yupString().required(t('UserForm.Error.usernameRequired')),
+    password: yupString().required(t('UserForm.Error.passwordRequired')),
+  }),
+);
 
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,

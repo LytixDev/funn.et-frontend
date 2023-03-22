@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: 'base',
-    component: import('@/views/BasePageView.vue'),
+    component: () => import('@/views/BasePageView.vue'),
     children: [
       {
         path: '',
