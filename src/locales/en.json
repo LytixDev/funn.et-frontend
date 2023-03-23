@@ -171,7 +171,7 @@
     "searchLabel": "Search for an address",
     "locationsSelectLabel": "Select an address",
     "submitButton": "Create new location",
-    "numberOfLocationsDisplaying": "Number of addresses shown",
+    "numberOfLocationsDisplaying": "Number of addresses in selectable list",
     "Error": {
       "AddressRequired": "Location is required"
     }

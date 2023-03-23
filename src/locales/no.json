@@ -171,7 +171,7 @@
     "searchLabel": "Søk etter en adresse",
     "locationsSelectLabel": "Velg en adresse fra listen",
     "submitButton": "Opprett lokasjon",
-    "numberOfLocationsDisplaying": "Antall adresser vist",
+    "numberOfLocationsDisplaying": "Antall valbare adresser",
     "Error": {
       "AddressRequired": "Adresse er obligatorisk"
     }
