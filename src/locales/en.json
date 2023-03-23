@@ -8,7 +8,8 @@
     "home": "Home",
     "register": "Register user",
     "login": "Login",
-    "signout": "Sign out"
+    "signout": "Sign out",
+    "createListing": "Create new listing"
   },
   "ListingCard": {
     "published": "Published by"
@@ -74,6 +75,33 @@
       "passwordRequired": "Password is required",
       "passwordMin": "Password must be at least 8 characters",
       "passwordInvalid": "Password must contain at least one number, one upperletter and one lowercase letter"
+    }
+  },
+  "CreateListingView": {
+    "loading": "Loading ...",
+    "title": "Title",
+    "briefDescription": "Brief description",
+    "description": "Description",
+    "price": "Price",
+    "category": "category",
+    "address": "Address",
+    "city": "City",
+    "postcode": "Postcode",
+    "image": "Image",
+    "imageDescription": "Image description",
+    "submit": "Publish listing",
+    "Error": {
+      "titleRequired": "Title is required",
+      "titleMax": "Title is too large",
+      "briefDescriptionRequired": "Brief description is required",
+      "briefDescriptionMin": "Brief description must be larger than 32 characters",
+      "briefDescriptionMax": "Brief description can not be larger than 128 characters",
+      "descriptionMax": "Description can not be larger than 512 characters",
+      "priceRequired": "Price is required",
+      "priceMin": "Price must be larger than 0",
+      "addressRequired": "Address is required",
+      "cityRequired": "City is required",
+      "postcodeRequired": "Postcode is required"
     }
   },
   "Form": {

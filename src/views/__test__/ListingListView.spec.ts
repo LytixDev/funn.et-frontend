@@ -1,6 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils';
 import { describe, test, expect, beforeEach } from 'vitest';
-import ListingListView from '@/views/Listings/ListingListView.vue';
+import ListingListView from '@/views/Listing/ListingListView.vue';
 import { i18n } from '@/main';
 
 describe('Testing listing list view', () => {

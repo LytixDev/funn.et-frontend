@@ -7,6 +7,13 @@ const cookiesStorage: Storage = {
     return Cookies.set(key, state, { expires: 3 });
   },
   getItem(key) {
+    const store = Cookies.get(key);
+    if (store === undefined) {
+      OpenAPI.TOKEN = '';
+      return '';
+    }
+
+    OpenAPI.TOKEN = JSON.parse(Cookies.get(key) || '').accessToken;
     return Cookies.get(key) || '';
   },
   length: 0,

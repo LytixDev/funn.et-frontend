@@ -8,7 +8,8 @@
     "home": "Hjem",
     "register": "Registrer ny bruker",
     "login": "Logg inn",
-    "signout": "Logg ut"
+    "signout": "Logg ut",
+    "createListing": "Ny annonse"
   },
   "ListingCard": {
     "published": "Lagt ut av"
@@ -74,6 +75,33 @@
       "passwordRequired": "Passord er obligatorisk",
       "passwordMin": "Passord må være større enn 8 karakterer",
       "passwordInvalid": "Passord må inneholde minst en stor bokstav, en liten bokstav og et tall"
+    }
+  },
+  "CreateListingView": {
+    "loading": "Laster inn ...",
+    "title": "Tittel",
+    "briefDescription": "Kort beskrivelse",
+    "description": "Beskrivelse",
+    "price": "Pris",
+    "category": "Kategori",
+    "address": "Adresse",
+    "city": "By",
+    "postcode": "Postnummer",
+    "image": "Bilde",
+    "imageDescription": "Bildebeskrivelse",
+    "submit": "Legg ut annonse",
+    "Error": {
+      "titleRequired": "Tittel er obligatorisk",
+      "titleMax": "Tittelen er for stor",
+      "briefDescriptionRequired": "Kort beskrivelse er obligatorisk",
+      "briefDescriptionMin": "Kort beskrivelse må være større enn 32 karakterer",
+      "briefDescriptionMax": "Kort beskrivelse kan ikke være større enn 128 karakterer",
+      "descriptionMax": "Beskrivelse kan ikke være større enn 512 karakterer",
+      "priceRequired": "Pris er obligatorisk",
+      "priceMin": "Pris må være positivt og større enn 0",
+      "addressRequired": "Adresse er obligatorisk",
+      "cityRequired": "By er obligatorisk",
+      "postcodeRequired": "Postnummer er obligatorisk"
     }
   },
   "Form": {

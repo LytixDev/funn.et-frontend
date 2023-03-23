@@ -80,12 +80,12 @@ export class ListingControllerService {
    * @returns ListingDTO OK
    * @throws ApiError
    */
-  public static createListing({ requestBody }: { requestBody?: ListingCreateDTO }): CancelablePromise<ListingDTO> {
+  public static createListing({ formData }: { formData?: ListingCreateDTO }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/api/v1/private/listings',
-      body: requestBody,
-      mediaType: 'application/json',
+      formData: formData,
+      mediaType: 'multipart/form-data',
       errors: {
         500: `Internal Server Error`,
       },

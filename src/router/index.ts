@@ -10,13 +10,12 @@ const routes = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/Listings/ListingListView.vue'),
+        component: () => import('@/views/Listing/ListingListView.vue'),
       },
-      // Routing the create listing view just temporary testing purposes
       {
         path: '/create-listing',
         name: 'create-listing',
-        component: () => import('@/views/Listing/CreateListingView.vue'),
+        component: () => import('@/views/Listing/ListingCreateView.vue'),
         meta: { requiresAuth: true },
       },
       {
