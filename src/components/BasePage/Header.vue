@@ -1,6 +1,7 @@
 <template>
   <header id="navigation-bar">
     <nav>
+      <FunnLogo/>
       <ul>
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
@@ -23,14 +24,10 @@
   </header>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent } from 'vue';
 import LocaleSelector from '@/components/BasePage/LocaleSwitcher.vue';
-export default defineComponent({
-  components: {
-    LocaleSelector,
-  },
-});
+import FunnLogo from '@/components/BaseComponents/FunnLogo.vue';
 </script>
 
 <style scoped>
