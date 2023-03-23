@@ -5,13 +5,13 @@
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
         </li>
-        <li>
+        <li v-if="!loggedIn">
           <router-link to="/register">{{ $t('navigation.register') }}</router-link>
         </li>
-        <li>
+        <li v-if="!loggedIn">
           <router-link to="/login">{{ $t('navigation.login') }}</router-link>
         </li>
-        <li>
+        <li v-else>
           <router-link to="/signout">{{ $t('navigation.signout') }}</router-link>
         </li>
         <li>
@@ -23,14 +23,13 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import LocaleSelector from '@/components/BasePage/LocaleSwitcher.vue';
-export default defineComponent({
-  components: {
-    LocaleSelector,
-  },
-});
+import { useUserInfoStore } from '@/stores/UserStore';
+import { computed } from 'vue';
+
+const user = useUserInfoStore();
+const loggedIn = computed(() => user.isLoggedIn);
 </script>
 
 <style scoped>
