@@ -10,7 +10,7 @@
         v-model="title"
         :error="errors?.title"
         fieldRequired
-        dataTestid="listing-title" />
+        dataTestId="listing-title" />
       <FormInput
         labelId="listing-brief-description-label"
         :labelText="$t('CreateListingView.briefDescription')"
@@ -18,7 +18,7 @@
         v-model="briefDescription"
         :error="errors?.briefDescription"
         fieldRequired
-        dataTestid="listing-brief-description" />
+        dataTestId="listing-brief-description" />
       <FormInput
         labelId="listing-description-label"
         :labelText="$t('CreateListingView.description')"
@@ -26,7 +26,7 @@
         v-model="description"
         :error="errors?.description"
         fieldRequired
-        dataTestid="listing.description"
+        dataTestId="listing.description"
         :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
       <FormInput
         labelId="listing-price-label"
@@ -36,7 +36,7 @@
         :error="errors?.price"
         :field-type="FormInputTypes.Number"
         fieldRequired
-        dataTestid="listing-price" />
+        dataTestId="listing-price" />
     </fieldset>
 
     <fieldset>
@@ -46,37 +46,29 @@
         fieldId="listing-category"
         v-model="category"
         fieldRequired
-        dataTestid="listing-category"
+        dataTestId="listing-category"
         fieldName="category"
         :fieldOptions="categories" />
     </fieldset>
 
     <fieldset>
-      <FormInput
-        labelId="listing-address-label"
-        :labelText="$t('CreateListingView.address')"
-        fieldId="listing-address-description"
-        v-model="address"
-        :error="errors?.address"
+      <FormDropDownList
+        v-if="locations.length > 0"
+        labelId="listing-locations-label"
+        :labelText="$t('CreateListingView.locations')"
+        fieldId="listing-locations"
+        v-model="location"
         fieldRequired
-        dataTestid="listing-address" />
-      <FormInput
-        labelId="listing-city-label"
-        :labelText="$t('CreateListingView.city')"
-        fieldId="listing-city-description"
-        v-model="city"
-        :error="errors?.city"
-        fieldRequired
-        dataTestid="listing-city" />
-      <FormInput
-        labelId="listing-postcode-label"
-        :labelText="$t('CreateListingView.postcode')"
-        fieldId="listing-postcode-description"
-        v-model="postcode"
-        :error="errors?.postcode"
-        :field-type="FormInputTypes.Number"
-        fieldRequired
-        dataTestid="listing-city" />
+        dataTestId="listing-locations"
+        fieldName="locations"
+        :fieldOptions="locations" />
+
+      <div v-else>
+        <p>{{ $t('CreateListingView.noLocations') }}</p>
+        <RouterLink :to="{ name: 'user', params: { id: username } }">
+          {{ $t('CreateListingView.createLocation') }}
+        </RouterLink>
+      </div>
     </fieldset>
 
     <fieldset>
@@ -86,12 +78,12 @@
         :labelText="$t('CreateListingView.imageDescription')"
         fieldId="listing-image-description"
         v-model="imageDescription"
-        dataTestid="listing-image-description" />
+        dataTestId="listing-image-description" />
 
       <FormButton
         buttonId="create-listing-button"
         :buttonText="$t('CreateListingView.submit')"
-        dataTestid="create-listing-button"
+        dataTestId="create-listing-button"
         @click="submit" />
     </fieldset>
   </form>
@@ -109,12 +101,15 @@ import ImageUploader from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ListingDTO } from '@/api';
-import { ListingControllerService } from '@/api';
+import { ListingDTO, ListingCreateDTO } from '@/api';
+import { ListingControllerService, LocationControllerService, LocationResponseDTO } from '@/api';
 import { useUserInfoStore } from '@/stores/UserStore';
+
+import { OpenAPI } from '@/api';
 
 const { t } = useI18n();
 const userStore = useUserInfoStore();
+const username = computed(() => userStore.username);
 
 const schema = computed(() =>
   yupObject({
@@ -130,11 +125,7 @@ const schema = computed(() =>
       .required(t('CreateListingView.Error.priceRequired'))
       .min(0, t('CreateListingView.Error.priceMin')),
     category: yupString().default('OTHER'),
-    address: yupString().required(t('CreateListingView.Error.addressRequired')),
-    city: yupString().required(t('CreateListingView.Error.cityRequired')),
-    postcode: yupNumber().required(t('CreateListingView.Error.postcodeRequired')),
-    //image: yupString(),
-    //imageDescription: yupString(),
+    location: yupString().required(t('CreateListingView.Error.locationRequired')),
   }),
 );
 
@@ -143,28 +134,35 @@ const { handleSubmit, errors } = useForm({
 });
 
 const submit = handleSubmit((values) => {
-  //console.log(values);
-  //let payload = {
-  //  id: undefined,
-  //  username: userStore.username,
-  //  location: undefined,
-  //  title: values.title,
-  //  briefDescription: values.briefDescription,
-  //  fullDescription: values.description,
-  //  category: values.category,
-  //  price: values.price,
-  //  publicationDate: undefined,
-  //  expirationDate: undefined,
-  //  imageResponse: undefined,
-  //  imageUpload: undefined,
-  //} as ListingDTO;
-  //ListingControllerService.createListing({ requestBody: payload })
-  //  .then((response) => {
-  //    console.log(response);
-  //  })
-  //  .catch((error) => {
-  //    console.log(error);
-  //  });
+  /* This code was written by a soidev. Probably callum. */
+  const date: Date = new Date();
+  let day: string = date.getDate().toString();
+  if (day.length == 1) day = '0'.concat(day);
+  let month: string = (date.getMonth() + 1).toString();
+  if (month.length == 1) month = '0'.concat(month);
+  const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
+
+  let payload = {
+    username: username.value,
+    location: values.location,
+    title: values.title,
+    briefDescription: values.briefDescription,
+    fullDescription: values.description,
+    category: values.category,
+    price: values.price,
+    publicationDate: dateStr,
+    expirationDate: dateStr,
+    imageResponse: undefined,
+    imageUpload: undefined,
+  } as ListingCreateDTO;
+
+  ListingControllerService.createListing({ formData: payload })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 const categories = computed(() => {
@@ -178,14 +176,24 @@ const categories = computed(() => {
   return listOfCategories;
 });
 
+const locations = await computed(async () => {
+  const locationResponse: Array<LocationResponseDTO> = await LocationControllerService.getAllLocations();
+  const ListOfLocations = [] as DropDownItem[];
+  for (const value of locationResponse) {
+    ListOfLocations.push({
+      value: value.id.toString(),
+      displayedValue: value.address.concat(', ').concat(value.city).concat(', ').concat(value.postCode.toString()),
+    });
+  }
+  return ListOfLocations;
+}).value;
+
 const { value: title } = useField('title') as FieldContext<string>;
 const { value: briefDescription } = useField('briefDescription') as FieldContext<string>;
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
-const { value: address } = useField('address') as FieldContext<string>;
-const { value: postcode } = useField('postcode') as FieldContext<string>;
-const { value: city } = useField('city') as FieldContext<string>;
+const { value: location } = useField('location') as FieldContext<string>;
 const { value: image } = useField('image') as FieldContext<string>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>

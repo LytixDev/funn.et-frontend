@@ -78,7 +78,8 @@
     }
   },
   "CreateListingView": {
-    "title": "Legg ut en ny annonse",
+    "loading": "Laster inn ...",
+    "title": "Tittel",
     "briefDescription": "Kort beskrivelse",
     "description": "Beskrivelse",
     "price": "Pris",

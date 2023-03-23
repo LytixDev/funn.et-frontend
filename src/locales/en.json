@@ -78,7 +78,8 @@
     }
   },
   "CreateListingView": {
-    "title": "Create a new listing",
+    "loading": "Loading ...",
+    "title": "Title",
     "briefDescription": "Brief description",
     "description": "Description",
     "price": "Price",
@@ -93,7 +94,7 @@
       "titleRequired": "Title is required",
       "titleMax": "Title is too large",
       "briefDescriptionRequired": "Brief description is required",
-      "briefDescriptionMin": "Kort beskrivelse må være større enn 32 karakterer",
+      "briefDescriptionMin": "Brief description must be larger than 32 characters",
       "briefDescriptionMax": "Brief description can not be larger than 128 characters",
       "descriptionMax": "Description can not be larger than 512 characters",
       "priceRequired": "Price is required",
