@@ -27,6 +27,7 @@ interface Image {
   size: number;
   type: string;
   url: string;
+  data?: Blob;
   isUploaded: boolean;
 }
 
@@ -58,6 +59,7 @@ export default defineComponent({
         size: 0,
         type: '',
         url: '',
+        data: undefined,
         isUploaded: false,
       } as Image,
       errors: [] as string[],
@@ -80,11 +82,18 @@ export default defineComponent({
         return;
       }
 
+      let reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => this.handleReaderLoaded(reader, file);
+    },
+    handleReaderLoaded(reader: FileReader, file: File) {
+      const buffer: ArrayBuffer = reader.result!! as ArrayBuffer;
       const image: Image = {
         name: file.name,
         size: file.size,
         type: file.type,
         url: URL.createObjectURL(file),
+        data: new Blob([buffer]) as Blob,
         isUploaded: true,
       };
       this.image = image;
@@ -96,11 +105,11 @@ export default defineComponent({
         size: 0,
         type: '',
         url: '',
+        data: undefined,
         isUploaded: false,
       };
     },
     emitToParent() {
-      //this.$emit('image-uploaded', this.image);
       this.$emit('update:modelValue', this.image);
     },
   },

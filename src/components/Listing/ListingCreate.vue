@@ -87,6 +87,7 @@
         @click="submit" />
     </fieldset>
   </form>
+  <error-box v-model="errorMessage" />
 </template>
 
 <script lang="ts" setup>
@@ -99,17 +100,19 @@ import { DropDownItem } from '@/types/FormTypes';
 import { FormInputTypes } from '@/enums/FormEnums';
 import ImageUploader from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ListingDTO, ListingCreateDTO } from '@/api';
 import { ListingControllerService, LocationControllerService, LocationResponseDTO } from '@/api';
 import { useUserInfoStore } from '@/stores/UserStore';
-
-import { OpenAPI } from '@/api';
+import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
+import { useRouter } from 'vue-router';
 
 const { t } = useI18n();
+const router = useRouter();
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
+const errorMessage = ref('');
 
 const schema = computed(() =>
   yupObject({
@@ -142,6 +145,11 @@ const submit = handleSubmit((values) => {
   if (month.length == 1) month = '0'.concat(month);
   const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
 
+  const imageResponse = [] as Array<Blob>;
+  imageResponse.push(values.image.data);
+  const imageAltResponse = [] as Array<string>;
+  if (values.image.alt) imageAltResponse.push(values.image.alt);
+
   let payload = {
     username: username.value,
     location: values.location,
@@ -152,16 +160,16 @@ const submit = handleSubmit((values) => {
     price: values.price,
     publicationDate: dateStr,
     expirationDate: dateStr,
-    imageResponse: undefined,
-    imageUpload: undefined,
+    imageResponse: imageResponse,
+    imageUpload: imageAltResponse.length > 0 ? imageAltResponse : undefined,
   } as ListingCreateDTO;
 
   ListingControllerService.createListing({ formData: payload })
     .then((response) => {
-      console.log(response);
+      router.push({ name: 'listing', params: { id: response.id } });
     })
     .catch((error) => {
-      console.log(error);
+      errorMessage.value = error.message;
     });
 });
 
