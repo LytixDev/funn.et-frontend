@@ -43,7 +43,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { TokenControllerService, AuthenticateDTO, OpenAPI, ApiError } from '@/api';
+import { TokenControllerService, AuthenticateDTO, OpenAPI } from '@/api';
 import router from '@/router';
 import { UserService } from '@/api';
 

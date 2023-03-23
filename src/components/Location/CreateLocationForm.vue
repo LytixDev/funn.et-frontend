@@ -1,60 +1,83 @@
 <template>
-  <form @submit.prevent="">
+  <form @submit.prevent="submit">
     <!-- Inputs for creating location -->
     <form-input
-      labelId="location-address-label"
-      fieldId="location-address"
-      :labelText="$t('CreateLocationForm.addressLabel') + ': '"
+      labelId="location-search-label"
+      fieldId="location-search"
+      :labelText="$t('CreateLocationForm.searchLabel') + ': '"
       v-model="address"
-      data-testid="address-input" />
-    <form-input
-      labelId="location-postcode-label"
-      fieldId="location-postcode"
-      :labelText="$t('CreateLocationForm.postcodeLabel') + ': '"
-      :field-type="FormInputTypes.Number"
-      v-model="postCode"
-      data-testid="postcode-input" />
-    <form-input
-      labelId="location-city-label"
-      fieldId="location-city"
-      :labelText="$t('CreateLocationForm.cityLabel') + ': '"
-      v-model="city"
-      data-testid="city-input" />
+      data-testid="search-input" />
+
     <form-drop-down-list
       label-id="locations-label"
       field-id="locations-select"
       :label-text="$t('CreateLocationForm.locationsSelectLabel') + ': '"
-      v-model="chosenLocation"
+      v-model="selectField"
       :field-options="locationOptions"
       field-name="locations-select"
-      data-testid="locations-select" />
-      <form-button
-        button-id="submit-button"
-        :button-text="$t('CreateLocationForm.submitButton')"
-        data-testid="submit-button" />
+      data-testid="locations-select"
+      :error="errors?.select" />
+    <form-button
+      button-id="submit-button"
+      :button-text="$t('CreateLocationForm.submitButton')"
+      data-testid="submit-button" />
   </form>
   <p>{{ errorMessage }}</p>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { FormInputTypes } from '@/enums/FormEnums';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
+import { LocationControllerService } from '@/api';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
+import { object as yupObject, string as yupString } from 'yup';
+import { useForm, useField, FieldContext } from 'vee-validate';
+import { useI18n } from 'vue-i18n';
 
 const address = ref('');
-const postCode = ref(undefined as string | undefined);
-const city = ref(undefined as string | undefined);
 const chosenLocation = ref('');
 
 const errorMessage = ref('');
 
 const locationOptions = ref([] as DropDownItem[]);
 const locationList = ref([] as OutputAdresse[]);
+
+const { t } = useI18n();
+
+const schema = computed(() =>
+  yupObject({
+    select: yupString().required(t('CreateLocationForm.Error.AddressRequired')),
+  }),
+);
+
+const { handleSubmit, errors } = useForm({
+  validationSchema: schema,
+});
+
+const submit = handleSubmit(async (values) => {
+  console.log(values);
+  const location = locationList.value.at(locationList.value.map(location => location.adressekode?.toString()).indexOf(values.select))!!;
+  LocationControllerService.createLocation({
+    requestBody: {
+      address: location.adressetekst!!,
+      latitude: location.representasjonspunkt?.lat!!,
+      longitude: location.representasjonspunkt?.lon!!,
+      postCode: +(location.postnummer!!),
+      city: location.poststed!!,
+    }
+  }).then(() => {
+    console.log('Location created');
+  }).catch((error: any) => {
+    errorMessage.value = error.message;
+  });
+})
+
+const { value: selectField } = useField('select') as FieldContext<string>;
 
 watchEffect(async () => {
   if (address.value === '') {
@@ -64,8 +87,6 @@ watchEffect(async () => {
   try {
     locations = await DefaultService.getSok({
       sok: address.value ?? '',
-      postnummer: postCode.value === '' ? undefined : postCode.value,
-      poststed: city.value === '' ? undefined : city.value,
       fuzzy: true,
     });
   } catch (error: any) {
@@ -77,7 +98,7 @@ watchEffect(async () => {
   locationList.value = locations.adresser!!;
   locationOptions.value = locationList.value.map((location: OutputAdresse) => ({
     value: location.adressekode!!.toString(),
-    displayedValue: location.adressetekst!!,
+    displayedValue: `${location.adressetekst} ${location.postnummer} ${location.poststed}`,
   }))!!;
   return;
 });
