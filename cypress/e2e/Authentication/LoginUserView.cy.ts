@@ -1,8 +1,8 @@
-const apiUrl = Cypress.env('apiUrl');
+let apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the login page', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.clearAllCookies();
     cy.visit('/login');
   });
 
@@ -13,17 +13,25 @@ describe('Test user using the login page', () => {
       statusCode: 200,
       body: testToken,
     });
+    cy.intercept('GET', `${apiUrl}api/v1/private/user/me`, {
+      statusCode: 200,
+      body: {
+        id: 1,
+        username: username,
+        email: '',
+        role: 'USER',
+        firstName: '',
+        lastName: '',
+      },
+    });
 
     cy.get('input[data-testid="username"]', { timeout: 60000 }).should('exist').type(username);
     cy.get('input[data-testid="password"]').type('testPassword123');
-    cy.get('button[data-testid="login-user-button"]').click();
-    cy.getAllLocalStorage().then((result) => {
-      expect(result).to.deep.equal({
-        'http://localhost:4173': {
-          token: testToken,
-          username: username,
-        },
+    cy.get('button[data-testid="login-user-button"]').click().wait(1000);
+    cy.getCookie('userInfo')
+      .should('have.property', 'value')
+      .then((value) => {
+        expect(value).to.include(testToken);
       });
-    });
   });
 });

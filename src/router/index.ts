@@ -1,3 +1,4 @@
+import { useUserInfoStore } from '@/stores/UserStore';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -9,12 +10,13 @@ const routes = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/HomeView.vue'),
+        component: () => import('@/views/Listings/ListingListView.vue'),
       },
       {
         path: '/create-listing',
         name: 'create-listing',
-        component: () => import('@/views/CreateListing.vue'),
+        component: () => import('@/views/Listing/CreateListingView.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: '/register',
@@ -36,6 +38,11 @@ const routes = [
         name: 'user',
         component: () => import('@/views/UserDetailView.vue'),
       },
+      {
+        path: '/listing/:id',
+        name: 'listing',
+        component: () => import('@/views/Listing/ListingDetailView.vue'),
+      },
     ],
   },
   {
@@ -48,6 +55,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  let user = useUserInfoStore();
+  const isAuthenticated = user.isLoggedIn;
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
+  if (requiresAuth && !isAuthenticated) {
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 export default router;

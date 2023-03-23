@@ -1,56 +1,58 @@
 <template>
-  <h2>{{ $t('RegisterUserView.title') }}</h2>
-  <form @submit.prevent="submit">
-    <FormInput
-      labelId="username-label"
-      :labelText="$t('UserForm.username')"
-      fieldId="username"
-      v-model="username"
-      :error="errors?.username"
-      fieldRequired
-      dataTestId="username" />
-    <FormInput
-      labelId="email-label"
-      :labelText="$t('UserForm.email')"
-      fieldId="email"
-      v-model="email"
-      :error="errors?.email"
-      :fieldType="FormInputTypes.Email"
-      fieldRequired
-      dataTestId="email" />
-    <FormInput
-      labelId="first-name-label"
-      :labelText="$t('UserForm.firstName')"
-      fieldId="firstName"
-      v-model="firstName"
-      :error="errors?.firstName"
-      fieldRequired
-      dataTestId="first-name" />
-    <FormInput
-      labelId="last-name-label"
-      :labelText="$t('UserForm.lastName')"
-      fieldId="lastName"
-      v-model="lastName"
-      :error="errors?.lastName"
-      fieldRequired
-      dataTestId="last-name" />
-    <FormInput
-      labelId="password-label"
-      :labelText="$t('UserForm.password')"
-      fieldId="password"
-      v-model="password"
-      :error="errors?.password"
-      :fieldType="FormInputTypes.Password"
-      fieldRequired
-      dataTestId="password" />
+  <div class="form">
+    <h2 class="form-header">{{ $t('RegisterUserView.title') }}</h2>
+    <form @submit.prevent="submit">
+      <FormInput
+        labelId="username-label"
+        :labelText="$t('UserForm.username')"
+        fieldId="username"
+        v-model="username"
+        :error="errors?.username"
+        fieldRequired
+        dataTestid="username" />
+      <FormInput
+        labelId="email-label"
+        :labelText="$t('UserForm.email')"
+        fieldId="email"
+        v-model="email"
+        :error="errors?.email"
+        :fieldType="FormInputTypes.Email"
+        fieldRequired
+        dataTestid="email" />
+      <FormInput
+        labelId="first-name-label"
+        :labelText="$t('UserForm.firstName')"
+        fieldId="firstName"
+        v-model="firstName"
+        :error="errors?.firstName"
+        fieldRequired
+        dataTestid="first-name" />
+      <FormInput
+        labelId="last-name-label"
+        :labelText="$t('UserForm.lastName')"
+        fieldId="lastName"
+        v-model="lastName"
+        :error="errors?.lastName"
+        fieldRequired
+        dataTestid="last-name" />
+      <FormInput
+        labelId="password-label"
+        :labelText="$t('UserForm.password')"
+        fieldId="password"
+        v-model="password"
+        :error="errors?.password"
+        :fieldType="FormInputTypes.Password"
+        fieldRequired
+        dataTestid="password" />
 
-    <FormButton
-      buttonId="create-user-button"
-      :buttonText="$t('RegisterUserView.submit')"
-      dataTestId="create-user-button"
-      @click="submit" />
-  </form>
-
+      <FormButton
+        buttonId="create-user-button"
+        class="attention"
+        :buttonText="$t('RegisterUserView.submit')"
+        dataTestid="create-user-button"
+        @click="submit" />
+    </form>
+  </div>
   <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
 </template>
 
@@ -62,7 +64,7 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { PublicUserControllerService, RegisterDTO } from '@/api';
+import { UserService, RegisterDTO } from '@/api';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO } from '@/api';
@@ -106,7 +108,7 @@ const submit = handleSubmit(async (values) => {
     password: values.password,
   };
 
-  await PublicUserControllerService.createUser({ requestBody: createUserPayload })
+  await UserService.createUser({ requestBody: createUserPayload })
     .then(() => {
       let auth: AuthenticateDTO = { username: values.username, password: values.password };
 
@@ -117,7 +119,7 @@ const submit = handleSubmit(async (values) => {
             return;
           }
 
-          userStore.setUserInfo({ token: token, username: values.username });
+          userStore.setUserInfo({ accessToken: token, username: values.username });
           router.push({ name: 'home' });
         })
         .catch((authError) => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="error-box" v-if="modelValue">
+  <div class="error-box" v-if="modelValue" data-testid="error-box">
     <span>
       <v-icon name="bi-exclamation-triangle" />
       <button @click="wrapText = !wrapText" class="error-message-button">
