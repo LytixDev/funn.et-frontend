@@ -1,7 +1,7 @@
 <template>
   <header id="navigation-bar">
     <nav>
-      <FunnLogo/>
+      <FunnLogo />
       <ul>
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
@@ -34,10 +34,4 @@ const loggedIn = computed(() => user.isLoggedIn);
 #navigation-bar {
   position: sticky;
 }
-
-.attention {
-  background-color: var(--primary-color);
-  color: white;
-}
-
 </style>

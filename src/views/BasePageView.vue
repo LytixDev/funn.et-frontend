@@ -23,11 +23,10 @@ import Header from '@/components/BasePage/Header.vue';
   height: max(100%, 100vh);
 }
 
-.app-content {  
+.app-content {
   width: var(--content-width);
   min-width: var(--content-width);
   display: flex;
   justify-content: center;
-
 }
 </style>

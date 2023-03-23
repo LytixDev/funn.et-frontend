@@ -1,6 +1,6 @@
 <template>
-  <div class="login-form">
-    <h2>{{ $t('LoginUserView.title') }}</h2>
+  <div class="form">
+    <h2 class="form-header">{{ $t('LoginUserView.title') }}</h2>
     <form @submit.prevent="submit">
       <form-input
         labelId="username-label"
@@ -22,6 +22,7 @@
 
       <form-button
         buttonId="login-user-button"
+        class="attention"
         :buttonText="$t('LoginUserView.submit')"
         dataTestid="login-user-button"
         @click="submit" />
@@ -98,37 +99,7 @@ const { value: password } = useField('password') as FieldContext<string>;
 </script>
 
 <style scoped>
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
-  width: fit-content;
-  margin: 2em;
-  padding: 2em;
-  border-radius: 1em;
-  width: min(400px, 100%);
-  height: fit-content;
-}
-
-h2 {
-  color: var(--primary-color);
-  margin-bottom: 1.5em;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
 span {
   margin: 2em 0em 0.5em 0em;
-}
-
-#login-user-button {
-  background-color: var(--primary-color);
-  color: var(--primary-text-color);
 }
 </style>
