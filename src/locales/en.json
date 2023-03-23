@@ -44,12 +44,12 @@
   },
   "RegisterUserView": {
     "title": "Register a new user",
-    "submit": "Register new user",
-    "register": "Do you not have an account?"
+    "submit": "Register new user"
   },
   "LoginUserView": {
     "title": "Login with an account",
-    "submit": "Login"
+    "submit": "Login",
+    "register": "Do you not have an account?"
   },
   "SignoutUserView": {
     "titleSignedOut": "Signed out",
