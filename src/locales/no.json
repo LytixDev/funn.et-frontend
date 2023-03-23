@@ -48,7 +48,8 @@
   },
   "LoginUserView": {
     "title": "Logg inn med en bruker",
-    "submit": "Logg inn"
+    "submit": "Logg inn",
+    "register": "Har du ikke ny bruker?"
   },
   "SignoutUserView": {
     "titleSignedOut": "Du er nå logget ut",

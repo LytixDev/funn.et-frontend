@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="button-wrapper">
     <button
       v-on:mouseenter="() => (showLocales = !showLocales)"
       v-on:mouseleave="() => (showLocales = false)"
@@ -46,26 +46,32 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.button-wrapper {
+  position: relative;
+  width: 3em;
+}
+
 button {
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 16px;
-  background-color: #fff;
-  color: #333;
-  border: 2px solid #333;
-  border-radius: 4px;
-  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  overflow: hidden;
+  max-width: 200%;
 }
 
 ul {
   list-style-type: none;
   padding: 0.5em;
   margin: 0;
+  max-width: 200%;
 }
 
 li {
   padding: 0.2rem 0.4rem;
   border-radius: 10%;
+  max-width: 200%;
 }
 
 button ul li:hover {

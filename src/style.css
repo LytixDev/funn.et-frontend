@@ -1,9 +1,37 @@
 :root {
-  --content-width: min(100%, 1300px);
+  --content-width: min(100vw, 1300px);
   --primary-color: #09CA4B;
   --secondary-color: #25D49F;
   --background-color: #f9f9f9;
+  --primary-text-color: white;
 
+}
+
+.form_input {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.form_input input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body, html {
@@ -25,6 +53,7 @@ button, a {
   border-radius: 10px;
   border: none;
   padding: 0.7em 1.5em;
+  font-size: 1em;
 }
 
 nav ul {
@@ -44,7 +73,8 @@ nav {
   display: flex;
   justify-content: space-between;
   margin: 1.5em 2em;
-  max-width: var(--content-width);
+  min-width: var(--content-width);
+
 }
 
 header {
@@ -55,4 +85,12 @@ header {
 
 nav #funn-logo {
   width: 10em;
+}
+
+footer {
+  background-color: var(--primary-color);
+  width: 100%;
+  color: white;
+  text-align: center;
+  height: 5em;
 }
