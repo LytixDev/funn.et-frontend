@@ -1,5 +1,5 @@
 <template>
-  <ListingFilter v-model="filterData"/>
+  <ListingFilter v-model="filterData" />
   <div class="list-container">
     <div class="listing-grid">
       <div v-for="listing in listings" :key="listing.id" class="listing-div">
@@ -41,8 +41,14 @@ const currentPage = ref(0);
 
 const { t } = useI18n();
 
-const filterData = ref<ListingFilterType>({ searchMessage: '', searchRequests: [], categoryRequest: undefined, priceRequest: undefined, sortRequests: [] });
-const {searchMessage,  searchRequests, categoryRequest, priceRequest, sortRequests} = filterData.value;
+const filterData = ref<ListingFilterType>({
+  searchMessage: '',
+  searchRequests: [],
+  categoryRequest: undefined,
+  priceRequest: undefined,
+  sortRequests: [],
+});
+const { searchMessage, searchRequests, categoryRequest, priceRequest, sortRequests } = filterData.value;
 
 watch(filterData, () => {
   console.log(filterData.value.searchMessage);
@@ -55,7 +61,7 @@ watch(filterData, () => {
 // Create api request
 let listings = ref([] as ListingDTO[]);
 
-const getListings = ({ page, size, filterRequests, sortRequests }: SearchRequest) => {
+const getListings = async ({ page, size, filterRequests, sortRequests }: SearchRequest) => {
   return ListingControllerService.getListingsByFilter({
     requestBody: { page, size, filterRequests, sortRequests },
   })

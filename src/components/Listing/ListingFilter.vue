@@ -1,5 +1,5 @@
 <template>
-<div class="listing-filters">
+  <div class="listing-filters">
     <form-input
       labelId="listing-search-label"
       fieldId="liting-search"
@@ -40,23 +40,23 @@
       field-name="sorting"
       :field-options="sortingOptions"
       data-testid="sorting-drop-down" />
-  </div>    
+  </div>
 </template>
 
 <script lang="ts">
 export interface ListingFilterType {
-  searchMessage: string,
-  searchRequests: FilterRequest[], 
-  categoryRequest?: FilterRequest,
-  priceRequest?: FilterRequest,
-  sortRequests: SortRequest[]
+  searchMessage: string;
+  searchRequests: FilterRequest[];
+  categoryRequest?: FilterRequest;
+  priceRequest?: FilterRequest;
+  sortRequests: SortRequest[];
 }
 </script>
 
 <script setup lang="ts">
 import FormInput from '@/components/Form/FormInput.vue';
 import { FilterRequest, ListingDTO, SortRequest } from '@/api';
-import { ref, computed, ComponentObjectPropsOptions, watchEffect, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { ComputedRef } from '@vue/reactivity';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
@@ -65,7 +65,7 @@ import { FormInputTypes } from '@/enums/FormEnums';
 
 const { t } = useI18n();
 
-defineProps({modelValue: {type: Object as () => ListingFilterType}});
+defineProps({ modelValue: { type: Object as () => ListingFilterType } });
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -171,12 +171,4 @@ watch([searchMessage, chosenCategory, priceMin, priceMax, chosenSorting], () => 
     sortRequests: sortRequests.value,
   });
 });
-
-emit('update:modelValue', {
-    searchMessage: searchMessage.value,
-    searchRequests: searchRequests.map((request) => request.value),
-    categoryRequest: categoryRequest.value,
-    priceRequest: priceRequest.value,
-    sortRequests: sortRequests.value,
-  });
 </script>
