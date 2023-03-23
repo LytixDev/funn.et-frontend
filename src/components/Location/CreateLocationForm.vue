@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="createLocation">
     <!-- Inputs for creating location -->
     <form-input
       labelId="location-search-label"
@@ -17,16 +17,15 @@
         :field-options="locationOptions"
         field-name="locations-select"
         data-testid="locations-select"
-        :error="errors?.select" />
+        :error-message="$t(errorMessage)"
+        :error="true" />
       <p>{{ $t('CreateLocationForm.numberOfLocationsDisplaying') }}: {{ locationList.length }}</p>
     </div>
     <form-button
       button-id="submit-button"
       :button-text="$t('CreateLocationForm.submitButton')"
-      data-testid="submit-button"
-      @click="submit" />
+      data-testid="submit-button" />
   </form>
-  <p>{{ errorMessage }} {{ selectField }}</p>
   <location-map :center="{ lat: mapCenterLat, lon: matCenterLon }" :marker-coords="markerCoords" :zoom="zoom" />
 </template>
 
@@ -39,10 +38,14 @@ import { LocationControllerService } from '@/api';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
-import { object as yupObject, string as yupString } from 'yup';
-import { useForm, useField, FieldContext } from 'vee-validate';
 import { useI18n } from 'vue-i18n';
 import LocationMap from '@/components/Location/LocationMap.vue';
+import { useRouter } from 'vue-router';
+import {useUserInfoStore} from '@/stores/UserStore';
+
+const router = useRouter();
+const userStore = useUserInfoStore();
+
 
 const address = ref('');
 
@@ -53,6 +56,8 @@ const locationList = ref([] as OutputAdresse[]);
 
 const mapCenterLat = ref(0);
 const matCenterLon = ref(0);
+
+const selectField = ref('');
 
 const selectedLocation = computed(() => {
   if (locationList.value.length === 0) {
@@ -82,17 +87,7 @@ const zoom = ref(2);
 
 const { t } = useI18n();
 
-const schema = computed(() =>
-  yupObject({
-    select: yupString().required(t('CreateLocationForm.Error.AddressRequired')),
-  }),
-);
-
-const { handleSubmit, errors } = useForm({
-  validationSchema: schema,
-});
-
-const submit = handleSubmit(async (values) => {
+const createLocation = async () => {
   if (selectedLocation.value === undefined) {
     errorMessage.value = t('CreateLocationForm.Error.AddressRequired');
   }
@@ -109,11 +104,14 @@ const submit = handleSubmit(async (values) => {
       console.log('Location created');
     })
     .catch((error: any) => {
-      errorMessage.value = error.message;
+      // if 403, then user is not logged in and redirect to login page
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }
+      errorMessage.value = `Exceptions.${error.body.detail}`;
     });
-});
-
-const { value: selectField } = useField('select') as FieldContext<string>;
+};
 
 watchEffect(async () => {
   if (address.value === '') {
@@ -122,11 +120,11 @@ watchEffect(async () => {
   let locations: OutputAdresseList | undefined;
   try {
     locations = await DefaultService.getSok({
-      sok: address.value ?? '',
-      fuzzy: true,
+      sok: address.value,
+      fuzzy: address.value?.length > 12,
     });
   } catch (error: any) {
-    errorMessage.value = error.message;
+    errorMessage.value = error.body.detail;
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;
