@@ -6,6 +6,7 @@
     <p>{{ user.firstName }} {{ user.lastName }}</p>
     <p>{{ user.email }}</p>
   </div>
+  <create-location-form />
 </template>
 
 <script setup lang="ts">
