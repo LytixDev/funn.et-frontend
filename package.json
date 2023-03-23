@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "prettier": "prettier --write .",
     "test:unit": "vitest --environment happy-dom",
-    "test:e2e": "start-server-and-test preview :4173 'cypress run --e2e'",
+    "test:e2e": "start-server-and-test 'vite dev --port 4173' :4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' :4173 'cypress open --e2e'",
     "api-generate": "openapi --useOptions  --input \"http://localhost:8080/swagger/api-docs\" --output ./src/api --client axios"
   },

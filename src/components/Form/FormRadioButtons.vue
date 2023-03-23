@@ -2,18 +2,18 @@
   <div :class="radioWrapperClass">
     <fieldset>
       <legend>{{ legendText }}</legend>
-      <div :class="radioClass" :data-test-id="dataTestId" v-for="radioButton in radioButtons" :key="radioButton.key">
+      <div :class="radioClass" :data-testid="dataTestid" v-for="radioButton in radioButtons" :key="radioButton.key">
         <input
           :id="radioButton.key"
           :name="radioButton?.name"
           type="radio"
           :value="radioButton.value"
           v-model="radioButton.vModel"
-          :data-testid="radioButton.dataTestId" />
+          :data-testid="radioButton.dataTestid" />
         <label :for="radioButton.key">{{ radioButton.value }}</label>
       </div>
     </fieldset>
-    <div v-if="error" :data-testid="dataTestId + '-error'" id="error">{{ errorMessage }}</div>
+    <div v-if="error" :data-testid="dataTestid + '-error'" id="error">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default defineComponent({
       type: String,
       required: false,
     },
-    dataTestId: {
+    dataTestid: {
       type: String,
       required: false,
     },
