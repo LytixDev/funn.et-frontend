@@ -47,8 +47,9 @@
     "submit": "Registrer en ny bruker"
   },
   "LoginUserView": {
-    "title": "Logg inn med en bruker",
-    "submit": "Logg inn"
+    "title": "Logg inn",
+    "submit": "Logg inn",
+    "register": "Har du ikke bruker?"
   },
   "SignoutUserView": {
     "titleSignedOut": "Du er nå logget ut",

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="button-wrapper">
     <button
       v-on:mouseenter="() => (showLocales = !showLocales)"
       v-on:mouseleave="() => (showLocales = false)"
       v-on:click="() => (showLocales = !showLocales)">
       {{ $t('locale.' + $i18n.locale) }}
-      <div :class="showLocales ? 'block' : 'hidden'">
+      <div class="list" :class="showLocales ? '' : 'hidden'">
         <ul>
           <li v-for="(lang, i) in selectableLocales" :key="lang">
             <div v-on:click="switchToLocale(lang)">
@@ -46,26 +46,35 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.button-wrapper {
+  position: relative;
+  width: 5em;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+}
+
 button {
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 16px;
-  background-color: #fff;
-  color: #333;
-  border: 2px solid #333;
-  border-radius: 4px;
-  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  overflow: hidden;
+  width: 6em;
 }
 
 ul {
   list-style-type: none;
-  padding: 0.5em;
   margin: 0;
+  padding: 0;
 }
 
 li {
-  padding: 0.2rem 0.4rem;
   border-radius: 10%;
+  margin: 0.5em 0;
+  padding: 0;
 }
 
 button ul li:hover {
@@ -79,9 +88,5 @@ button > div {
 
 .hidden {
   display: none;
-}
-
-.block {
-  display: block;
 }
 </style>

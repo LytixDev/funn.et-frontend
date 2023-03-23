@@ -1,24 +1,21 @@
 <template>
   <header id="navigation-bar">
     <nav>
+      <FunnLogo />
       <ul>
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
         </li>
         <li v-if="!loggedIn">
-          <router-link to="/register">{{ $t('navigation.register') }}</router-link>
-        </li>
-        <li v-if="!loggedIn">
-          <router-link to="/login">{{ $t('navigation.login') }}</router-link>
+          <router-link to="/login" class="attention">{{ $t('navigation.login') }}</router-link>
         </li>
         <li v-else>
-          <router-link to="/signout">{{ $t('navigation.signout') }}</router-link>
+          <router-link to="/signout" class="attention">{{ $t('navigation.signout') }}</router-link>
         </li>
         <li>
-          <router-link to="/create-listing">create listing</router-link>
+          <locale-selector />
         </li>
       </ul>
-      <locale-selector />
     </nav>
   </header>
 </template>
@@ -27,6 +24,7 @@
 import LocaleSelector from '@/components/BasePage/LocaleSwitcher.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { computed } from 'vue';
+import FunnLogo from '@/components/BaseComponents/FunnLogo.vue';
 
 const user = useUserInfoStore();
 const loggedIn = computed(() => user.isLoggedIn);
