@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import './style.css';
-import router from './router';
-import App from './App.vue';
+import router from '@/router';
+import App from '@/App.vue';
 import { createI18n } from 'vue-i18n';
 import en from '@/locales/en.json';
 import no from '@/locales/no.json';
@@ -26,5 +26,12 @@ export const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
     no: no,
   },
 });
+app.use(i18n);
 
-app.use(router).use(i18n).mount('#app');
+if (process.env.NODE_ENV === 'test') {
+  router.isReady().then(() => {
+    app.use(router).mount('#app');
+  });
+} else {
+  app.use(router).mount('#app');
+}
