@@ -45,7 +45,7 @@ import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO, OpenAPI, ApiError } from '@/api';
 import router from '@/router';
-import { PrivateUserControllerService } from '@/api/services/PrivateUserControllerService';
+import { UserService } from '@/api';
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -79,7 +79,7 @@ const submit = handleSubmit(async (values) => {
     OpenAPI.TOKEN = token;
 
     // Fetch user info
-    let user = await PrivateUserControllerService.getUser1();
+    let user = await UserService.getUser1();
     userStore.setUserInfo({ accessToken: token, username: values.username, role: user.role });
     router.push({ name: 'home' });
   } catch (authError: any) {

@@ -143,29 +143,28 @@ const { handleSubmit, errors } = useForm({
 });
 
 const submit = handleSubmit((values) => {
-  console.log(values);
-  let payload = {
-    id: undefined,
-    username: userStore.username,
-    location: undefined,
-    title: values.title,
-    briefDescription: values.briefDescription,
-    fullDescription: values.description,
-    category: values.category,
-    price: values.price,
-    publicationDate: undefined,
-    expirationDate: undefined,
-    imageResponse: undefined,
-    imageUpload: undefined,
-  } as ListingDTO;
-
-  ListingControllerService.createListing({ requestBody: payload })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  //console.log(values);
+  //let payload = {
+  //  id: undefined,
+  //  username: userStore.username,
+  //  location: undefined,
+  //  title: values.title,
+  //  briefDescription: values.briefDescription,
+  //  fullDescription: values.description,
+  //  category: values.category,
+  //  price: values.price,
+  //  publicationDate: undefined,
+  //  expirationDate: undefined,
+  //  imageResponse: undefined,
+  //  imageUpload: undefined,
+  //} as ListingDTO;
+  //ListingControllerService.createListing({ requestBody: payload })
+  //  .then((response) => {
+  //    console.log(response);
+  //  })
+  //  .catch((error) => {
+  //    console.log(error);
+  //  });
 });
 
 const categories = computed(() => {

@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ListingCreateDTO } from '../models/ListingCreateDTO';
 import type { ListingDTO } from '../models/ListingDTO';
 import type { SearchRequest } from '../models/SearchRequest';
 
@@ -18,7 +19,7 @@ export class ListingControllerService {
     requestBody,
   }: {
     id: number;
-    requestBody: ListingDTO;
+    requestBody?: ListingCreateDTO;
   }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'PUT',
@@ -74,10 +75,12 @@ export class ListingControllerService {
   }
 
   /**
+   * Create listing
+   * Creates a listing from a listing dto
    * @returns ListingDTO OK
    * @throws ApiError
    */
-  public static createListing({ requestBody }: { requestBody: ListingDTO }): CancelablePromise<ListingDTO> {
+  public static createListing({ requestBody }: { requestBody?: ListingCreateDTO }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/api/v1/private/listings',

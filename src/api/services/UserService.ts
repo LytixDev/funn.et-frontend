@@ -8,8 +8,10 @@ import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class PublicUserControllerService {
+export class UserService {
   /**
+   * Create a new user
+   * Create a new user
    * @returns string OK
    * @throws ApiError
    */
@@ -26,6 +28,8 @@ export class PublicUserControllerService {
   }
 
   /**
+   * Get a user by username
+   * Get a user by username
    * @returns UserDTO OK
    * @throws ApiError
    */
@@ -36,6 +40,22 @@ export class PublicUserControllerService {
       path: {
         username: username,
       },
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Get the authenticated user
+   * Get the authenticated user
+   * @returns UserDTO OK
+   * @throws ApiError
+   */
+  public static getUser1(): CancelablePromise<UserDTO> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/private/user/me',
       errors: {
         500: `Internal Server Error`,
       },

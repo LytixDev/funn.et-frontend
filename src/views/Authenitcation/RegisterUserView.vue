@@ -64,7 +64,7 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { PublicUserControllerService, RegisterDTO } from '@/api';
+import { UserService, RegisterDTO } from '@/api';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO } from '@/api';
@@ -108,7 +108,7 @@ const submit = handleSubmit(async (values) => {
     password: values.password,
   };
 
-  await PublicUserControllerService.createUser({ requestBody: createUserPayload })
+  await UserService.createUser({ requestBody: createUserPayload })
     .then(() => {
       let auth: AuthenticateDTO = { username: values.username, password: values.password };
 
