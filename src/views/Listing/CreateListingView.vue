@@ -10,7 +10,7 @@
         v-model="title"
         :error="errors?.title"
         fieldRequired
-        dataTestId="listing-title" />
+        dataTestid="listing-title" />
       <FormInput
         labelId="listing-brief-description-label"
         :labelText="$t('CreateListingView.briefDescription')"
@@ -18,7 +18,7 @@
         v-model="briefDescription"
         :error="errors?.briefDescription"
         fieldRequired
-        dataTestId="listing-brief-description" />
+        dataTestid="listing-brief-description" />
       <FormInput
         labelId="listing-description-label"
         :labelText="$t('CreateListingView.description')"
@@ -26,7 +26,7 @@
         v-model="description"
         :error="errors?.description"
         fieldRequired
-        dataTestId="listing.description"
+        dataTestid="listing.description"
         :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
       <FormInput
         labelId="listing-price-label"
@@ -36,7 +36,7 @@
         :error="errors?.price"
         :field-type="FormInputTypes.Number"
         fieldRequired
-        dataTestId="listing-price" />
+        dataTestid="listing-price" />
     </fieldset>
 
     <fieldset>
@@ -46,7 +46,7 @@
         fieldId="listing-category"
         v-model="category"
         fieldRequired
-        dataTestId="listing-category"
+        dataTestid="listing-category"
         fieldName="category"
         :fieldOptions="categories" />
     </fieldset>
@@ -59,7 +59,7 @@
         v-model="address"
         :error="errors?.address"
         fieldRequired
-        dataTestId="listing-address" />
+        dataTestid="listing-address" />
       <FormInput
         labelId="listing-city-label"
         :labelText="$t('CreateListingView.city')"
@@ -67,7 +67,7 @@
         v-model="city"
         :error="errors?.city"
         fieldRequired
-        dataTestId="listing-city" />
+        dataTestid="listing-city" />
       <FormInput
         labelId="listing-postcode-label"
         :labelText="$t('CreateListingView.postcode')"
@@ -76,7 +76,7 @@
         :error="errors?.postcode"
         :field-type="FormInputTypes.Number"
         fieldRequired
-        dataTestId="listing-city" />
+        dataTestid="listing-city" />
     </fieldset>
 
     <fieldset>
@@ -86,12 +86,12 @@
         :labelText="$t('CreateListingView.imageDescription')"
         fieldId="listing-image-description"
         v-model="imageDescription"
-        dataTestId="listing-image-description" />
+        dataTestid="listing-image-description" />
 
       <FormButton
         buttonId="create-listing-button"
         :buttonText="$t('CreateListingView.submit')"
-        dataTestId="create-listing-button"
+        dataTestid="create-listing-button"
         @click="submit" />
     </fieldset>
   </form>

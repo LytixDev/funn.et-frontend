@@ -3,7 +3,7 @@
     <label :id="labelId" :for="fieldId">{{ labelText }}</label>
     <div :class="ddlClass">
       <select
-        :data-test-id="dataTestId"
+        :data-testid="dataTestid"
         :id="fieldId"
         :name="fieldName"
         :value="modelValue"
@@ -17,7 +17,7 @@
         <option value="none" v-if="optionNone">{{ $t('Form.DropDownList.none') }}</option>
       </select>
     </div>
-    <div v-if="error" :data-testid="dataTestId + '-error'" id="error">
+    <div v-if="error" :data-testid="dataTestid + '-error'" id="error">
       {{ errorMessage }}
     </div>
   </div>
@@ -79,7 +79,7 @@ export default defineComponent({
       required: false,
       default: false,
     },
-    dataTestId: {
+    dataTestid: {
       type: String,
       required: false,
     },

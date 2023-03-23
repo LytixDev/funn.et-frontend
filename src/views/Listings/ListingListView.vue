@@ -5,7 +5,7 @@
       fieldId="liting-search"
       :labelText="$t('ListingListView.searchLabel') + ': '"
       v-model="searchMessage"
-      data-test-id="search-filter" />
+      data-testid="search-filter" />
     <form-drop-down-list
       labelId="listing-category-label"
       fieldId="listing-category"
@@ -14,7 +14,7 @@
       field-name="category-filter"
       :field-options="categories"
       option-all
-      data-test-id="category-filter" />
+      data-testid="category-filter" />
     <span>
       <!--Two inputs to select price between with form-input -->
       <form-input
@@ -23,14 +23,14 @@
         :labelText="$t('ListingListView.priceMinLabel') + ': '"
         :field-type="FormInputTypes.Number"
         v-model="priceMin"
-        data-test-id="min-price-filter" />
+        data-testid="min-price-filter" />
       <form-input
         labelId="listing-price-max-label"
         fieldId="listing-price-max"
         :labelText="$t('ListingListView.priceMaxLabel') + ': '"
         :field-type="FormInputTypes.Number"
         v-model="priceMax"
-        data-test-id="max-price-filter" />
+        data-testid="max-price-filter" />
     </span>
     <form-drop-down-list
       labelId="listing-sorting-label"
@@ -39,12 +39,12 @@
       v-model="chosenSorting"
       field-name="sorting"
       :field-options="sortingOptions"
-      data-test-id="sorting-drop-down" />
+      data-testid="sorting-drop-down" />
   </div>
   <div class="list-container">
     <div class="listing-grid">
       <div v-for="listing in listings" :key="listing.id" class="listing-div">
-        <listing-card :listingData="listing" data-test-id="listing-card" />
+        <listing-card :listingData="listing" data-testid="listing-card" />
       </div>
     </div>
     <div>

@@ -1,5 +1,5 @@
 <template>
-  <button :class="formButtonClass" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestId">
+  <button :class="formButtonClass" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestid">
     {{ buttonText }}
   </button>
 </template>
@@ -33,7 +33,7 @@ export default defineComponent({
       required: false,
       default: FormButtonClasses.Default,
     },
-    dataTestId: {
+    dataTestid: {
       type: String,
       required: false,
     },

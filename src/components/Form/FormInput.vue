@@ -4,13 +4,13 @@
     <component
       :is="component"
       :placeholder="fieldPlaceholder"
-      :data-testid="dataTestId"
+      :data-testid="dataTestid"
       :id="fieldId"
       :type="fieldType"
       :value="modelValue"
       :required="fieldRequired"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" />
-    <div v-if="error" :data-testid="dataTestId + '-error'" id="error">
+    <div v-if="error" :data-testid="dataTestid + '-error'" id="error">
       {{ error }}
     </div>
   </div>
@@ -58,7 +58,7 @@ export default defineComponent({
       type: String,
       required: false,
     },
-    dataTestId: {
+    dataTestid: {
       type: String,
       required: false,
     },

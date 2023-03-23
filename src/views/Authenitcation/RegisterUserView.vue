@@ -8,7 +8,7 @@
       v-model="username"
       :error="errors?.username"
       fieldRequired
-      dataTestId="username" />
+      dataTestid="username" />
     <FormInput
       labelId="email-label"
       :labelText="$t('UserForm.email')"
@@ -17,7 +17,7 @@
       :error="errors?.email"
       :fieldType="FormInputTypes.Email"
       fieldRequired
-      dataTestId="email" />
+      dataTestid="email" />
     <FormInput
       labelId="first-name-label"
       :labelText="$t('UserForm.firstName')"
@@ -25,7 +25,7 @@
       v-model="firstName"
       :error="errors?.firstName"
       fieldRequired
-      dataTestId="first-name" />
+      dataTestid="first-name" />
     <FormInput
       labelId="last-name-label"
       :labelText="$t('UserForm.lastName')"
@@ -33,7 +33,7 @@
       v-model="lastName"
       :error="errors?.lastName"
       fieldRequired
-      dataTestId="last-name" />
+      dataTestid="last-name" />
     <FormInput
       labelId="password-label"
       :labelText="$t('UserForm.password')"
@@ -42,12 +42,12 @@
       :error="errors?.password"
       :fieldType="FormInputTypes.Password"
       fieldRequired
-      dataTestId="password" />
+      dataTestid="password" />
 
     <FormButton
       buttonId="create-user-button"
       :buttonText="$t('RegisterUserView.submit')"
-      dataTestId="create-user-button"
+      dataTestid="create-user-button"
       @click="submit" />
   </form>
 
@@ -117,7 +117,7 @@ const submit = handleSubmit(async (values) => {
             return;
           }
 
-          userStore.setUserInfo({ token: token, username: values.username });
+          userStore.setUserInfo({ accessToken: token, username: values.username });
           router.push({ name: 'home' });
         })
         .catch((authError) => {
