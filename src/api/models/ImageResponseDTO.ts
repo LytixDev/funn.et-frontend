@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type ImageResponseDTO = {
-  image?: Blob;
-  alt?: string;
+  id: number;
+  url: string;
+  alt: string;
 };
