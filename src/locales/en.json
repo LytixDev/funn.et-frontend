@@ -165,5 +165,15 @@
     "ContextErrorMessage": "Could not find the source of the error",
     "ERR_NETWORK": "Could not connect with the server",
     "MissingTranslation": "Could not find the correct translation: The message was %{message}"
+  },
+  "CreateLocationForm": {
+    "title": "Create a new location",
+    "searchLabel": "Search for an address",
+    "locationsSelectLabel": "Select an address",
+    "submitButton": "Create new location",
+    "numberOfLocationsDisplaying": "Number of addresses shown",
+    "Error": {
+      "AddressRequired": "Location is required"
+    }
   }
 }

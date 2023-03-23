@@ -8,15 +8,18 @@
       v-model="address"
       data-testid="search-input" />
 
-    <form-drop-down-list
-      label-id="locations-label"
-      field-id="locations-select"
-      :label-text="$t('CreateLocationForm.locationsSelectLabel') + ': '"
-      v-model="selectField"
-      :field-options="locationOptions"
-      field-name="locations-select"
-      data-testid="locations-select"
-      :error="errors?.select" />
+      <div>
+        <form-drop-down-list
+        label-id="locations-label"
+        field-id="locations-select"
+        :label-text="$t('CreateLocationForm.locationsSelectLabel') + ': '"
+        v-model="selectField"
+        :field-options="locationOptions"
+        field-name="locations-select"
+        data-testid="locations-select"
+        :error="errors?.select" />
+        <p>{{ $t('CreateLocationForm.numberOfLocationsDisplaying') }}: {{ locationList.length }}</p>
+      </div>
     <form-button
       button-id="submit-button"
       :button-text="$t('CreateLocationForm.submitButton')"

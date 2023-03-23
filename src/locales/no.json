@@ -165,5 +165,15 @@
     "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
     "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren",
     "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
+  },
+  "CreateLocationForm": {
+    "title": "Opprett en ny lokasjon",
+    "searchLabel": "Søk etter en adresse",
+    "locationsSelectLabel": "Velg en adresse fra listen",
+    "submitButton": "Opprett lokasjon",
+    "numberOfLocationsDisplaying": "Antall adresser vist",
+    "Error": {
+      "AddressRequired": "Adresse er obligatorisk"
+    }
   }
 }
