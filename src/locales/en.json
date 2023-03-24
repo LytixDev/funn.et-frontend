@@ -126,5 +126,35 @@
   },
   "ListingDetailView": {
     "loading": "Loading listing details..."
+  },
+  "Exceptions": {
+    "DatabaseException": "There was an error communicating with the database",
+    "NullPointerException": "The request you sent was not valid",
+    "IllegalArgumentException": "Your request was not valid",
+    "IllegalStateException": "There was a conflict with the current state of the server",
+    "AuthenticationException": "You are not logged in",
+    "BadCredentialsException": "The credentials you entered are incorrect",
+    "HttpRequestMethodNotSupportedException": "The requested action is not supported",
+    "HttpMediaTypeNotSupportedException": "The media type you sent is not supported",
+    "HttpMediaTypeNotAcceptableException": "The media type you sent was not acceptable",
+    "MissingPathVariableException": "Some excepted values were not given",
+    "HttpMessageNotReadableException": "Some excepted values were not given",
+    "EmailAlreadyExistsException": "The email is already registered",
+    "UsernameAlreadyExistsException": "The username already exists",
+    "LocationAlreadyExistsException": "The location already exists",
+    "ListingAlreadyExistsException": "The listing already exists",
+    "UserDoesNotExistsException": "The user was not found",
+    "ListingNotFoundException": "The listing was not found",
+    "LocationDoesntExistException": "The location was not found",
+    "PostCodeDoesntExistException": "The post code was not found",
+    "FileNotFoundException": "The requested file was not found",
+    "ObjectNotFoundException": "The requested resource was not found",
+    "Exception": "An unresolveable error occurred with the server",
+    "undifined": "An unresolveable error occurred",
+    "ExceptionOccurred": "An error occurred",
+    "ErrorWithContext": "%{message}",
+    "ContextErrorMessage": "Could not find the source of the error",
+    "ERR_NETWORK": "Could not connect with the server",
+    "MissingTranslation": "Could not find the correct translation: The message was %{message}"
   }
 }

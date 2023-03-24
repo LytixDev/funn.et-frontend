@@ -126,5 +126,35 @@
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ..."
+  },
+  "Exceptions": {
+    "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
+    "NullPointerException": "Din forespørsel var ikke gyldig",
+    "IllegalArgumentException": "Din forespørsel var ikke gyldig",
+    "IllegalStateException": "Det oppsto en konflikt med den nåværende tilstanden av tjeneren",
+    "AuthenticationException": "Du er ikke logget inn",
+    "BadCredentialsException": "Brukernavn eller passord er feil",
+    "HttpRequestMethodNotSupportedException": "Forespørselen du sendte er ikke støttet",
+    "HttpMediaTypeNotSupportedException": "Medietypen du sendte er ikke støttet",
+    "HttpMediaTypeNotAcceptableException": "Medietypen du sendte er ikke akseptabel",
+    "MissingPathVariableException": "Forventede verdier ble ikke gitt",
+    "HttpMessageNotReadableException": "Forventede verdier ble ikke gitt",
+    "EmailAlreadyExistsException": "E-posten er allerede registrert",
+    "UsernameAlreadyExistsException": "Brukernavnet eksisterer allerede",
+    "LocationAlreadyExistsException": "Lokasjonen eksisterer allerede",
+    "ListingAlreadyExistsException": "Annonsen eksisterer allerede",
+    "UserDoesNotExistsException": "Brukeren ble ikke funnet",
+    "ListingNotFoundException": "Annonsen ble ikke funnet",
+    "LocationDoesntExistException": "Lokasjonen ble ikke funnet",
+    "PostCodeDoesntExistException": "Postnummeret ble ikke funnet",
+    "FileNotFoundException": "Den forespurte filen ble ikke funnet",
+    "ObjectNotFoundException": "Den forespurte ressursen ble ikke funnet",
+    "Exception": "Det oppstod et uløselelig problem med tjeneren",
+    "undifined": "Det oppstod et uløselelig problem",
+    "ExceptionOccurred": "Feil oppstod",
+    "ErrorWithContext": "%{message}",
+    "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
+    "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren",
+    "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
   }
 }

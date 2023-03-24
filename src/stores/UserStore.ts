@@ -30,6 +30,8 @@ const cookiesStorage: Storage = {
 
 export type UserStoreInfo = {
   username?: string;
+  firstname?: string;
+  lastname?: string;
   accessToken?: string;
   role?: string;
 };
@@ -37,18 +39,24 @@ export type UserStoreInfo = {
 export const useUserInfoStore = defineStore('UserInfoStore', {
   state: () => ({
     username: '',
+    firstname: '',
+    lastname: '',
     accessToken: '',
     role: '',
   }),
   actions: {
     setUserInfo(userinfo: UserStoreInfo) {
       userinfo.username && (this.$state.username = userinfo.username);
+      userinfo.firstname && (this.$state.firstname = userinfo.firstname);
+      userinfo.lastname && (this.$state.lastname = userinfo.lastname);
       userinfo.accessToken && (this.$state.accessToken = userinfo.accessToken);
       userinfo.accessToken && (OpenAPI.TOKEN = this.$state.accessToken);
       userinfo.role && (this.$state.role = userinfo.role);
     },
     clearUserInfo() {
       this.$state.username = '';
+      this.$state.firstname = '';
+      this.$state.lastname = '';
       this.$state.accessToken = '';
       this.$state.role = '';
       OpenAPI.TOKEN = undefined;
