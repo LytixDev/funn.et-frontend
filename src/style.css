@@ -91,7 +91,7 @@ a {
   font-size: 1em;
 }
 
-.attention:hover,
+button:hover,
 a:hover {
   box-shadow: var(--button-hover-box-shadow);
 }
