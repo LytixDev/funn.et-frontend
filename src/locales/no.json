@@ -65,6 +65,7 @@
     "firstName": "Fornavn",
     "lastName": "Etternavn",
     "password": "Passord",
+    "repeatPassword": "Gjenta passord",
     "Error": {
       "usernameMin": "Brukernavn må være større en 3 karakterer",
       "usernameMax": "Brukernavn kan ikke være større enn 32 karakterer",
@@ -75,7 +76,9 @@
       "lastNameRequired": "Etternavn er obligatorisk",
       "passwordRequired": "Passord er obligatorisk",
       "passwordMin": "Passord må være større enn 8 karakterer",
-      "passwordInvalid": "Passord må inneholde minst en stor bokstav, en liten bokstav og et tall"
+      "passwordInvalid": "Passord må inneholde minst en stor bokstav, en liten bokstav og et tall",
+      "repeatPasswordRequired": "Gjenta passord er obligatorisk",
+      "repeatPasswordNotMatch": "Passordene er ikke like"
     }
   },
   "CreateListingView": {

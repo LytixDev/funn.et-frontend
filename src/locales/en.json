@@ -65,6 +65,7 @@
     "firstName": "First name",
     "lastName": "Last name",
     "password": "Password",
+    "repeatPassword": "Repeat password",
     "Error": {
       "usernameMin": "Username must be larger than 3 characters",
       "usernameMax": "Username can be no larger than 32 characters",
@@ -75,7 +76,9 @@
       "lastNameRequired": "Last name is required",
       "passwordRequired": "Password is required",
       "passwordMin": "Password must be at least 8 characters",
-      "passwordInvalid": "Password must contain at least one number, one upperletter and one lowercase letter"
+      "passwordInvalid": "Password must contain at least one number, one upperletter and one lowercase letter",
+      "repeatPasswordRequired": "Repeat password is required",
+      "repeatPasswordNotMatch": "Passwords do not match"
     }
   },
   "CreateListingView": {
