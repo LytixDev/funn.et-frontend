@@ -4,25 +4,9 @@
 
 export type HitMetadata = {
   /**
-   * Hvilket resultatnummer det første objektet du ser har.
-   */
-  viserFra?: number;
-  /**
-   * Hvilket resultatnummer det siste objektet du ser har.
-   */
-  viserTil?: number;
-  /**
    * Antall treff som søket returnerte.
    */
   totaltAntallTreff?: number;
-  /**
-   * Søkestrengen som ble sendt inn til API-et.
-   */
-  sokeStreng?: string;
-  /**
-   * Antall treff per side.
-   */
-  treffPerSide?: number;
   /**
    * Garanterer at dataene som returneres er ascii-kompatible.
    */
@@ -31,4 +15,20 @@ export type HitMetadata = {
    * Sidenummeret som vises. Første side = 0
    */
   side?: number;
+  /**
+   * Søkestrengen som ble sendt inn til API-et.
+   */
+  sokeStreng?: string;
+  /**
+   * Hvilket resultatnummer det første objektet du ser har.
+   */
+  viserFra?: number;
+  /**
+   * Hvilket resultatnummer det siste objektet du ser har.
+   */
+  viserTil?: number;
+  /**
+   * Antall treff per side.
+   */
+  treffPerSide?: number;
 };
