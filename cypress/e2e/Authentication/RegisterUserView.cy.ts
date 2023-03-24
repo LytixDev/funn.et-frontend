@@ -11,7 +11,7 @@ describe('Test user using the register page', () => {
     const username = 'newRegisteredUser';
     const firstName = 'my name';
     const lastName = 'my last name';
-    const email = `${username}@example.com`
+    const email = `${username}@example.com`;
     const password = 'testPassword123';
     cy.intercept('POST', `${apiUrl}api/v1/public/token`, {
       statusCode: 201,
@@ -22,12 +22,7 @@ describe('Test user using the register page', () => {
     });
     cy.intercept('GET', `${apiUrl}api/v1/private/user/me`, {
       statusCode: 200,
-      body: {username: username,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        roles: ['user']
-      }
+      body: { username: username, firstName: firstName, lastName: lastName, email: email, roles: ['user'] },
     });
 
     cy.get('input[data-testid="username"]', { timeout: 60000 }).should('exist').type(username);
