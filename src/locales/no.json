@@ -64,6 +64,8 @@
     "email": "E-post",
     "firstName": "Fornavn",
     "lastName": "Etternavn",
+    "oldPassword": "Gammelt passord",
+    "newPassword": "Nytt passord",
     "password": "Passord",
     "repeatPassword": "Gjenta passord",
     "Error": {
@@ -124,10 +126,12 @@
     "loading": "Laster bruker detaljer...",
     "edit": "Rediger din bruker",
     "editPassword": "Endre passord",
+    "editPasswordLong": "Endre passord for bruker '%{username}'",
     "username": "Brukernavn",
     "usernameCannotChange": "Du kan ikke endre brukernavnet ditt",
     "submit": "Lagre endringer",
-    "title": "Endre bruker"
+    "title": "Endre bruker",
+    "goBack": "Gå tilbake"
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ..."

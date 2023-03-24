@@ -1,10 +1,11 @@
 <template>
-  <component :is="activePageComponent" :user="user" />
+  <component :is="activePageComponent" v-model:activePage="activePage" :user="user" />
   <div v-if="isMe && activePage === 'UserDetail'">
     <button @click="activePage = 'UserEdit'">{{ $t('UserDetailView.edit') }}</button>
-  </div>
-  <div v-if="isMe && activePage === 'UserDetail'">
     <button @click="activePage = 'UserEditPassword'">{{ $t('UserDetailView.editPassword') }}</button>
+  </div>
+  <div v-else>
+    <button @click="activePage = 'UserDetail'">{{ $t('UserDetailView.goBack') }}</button>
   </div>
 </template>
 
@@ -12,7 +13,7 @@
 import UserDetail from '@/components/User/UserDetail.vue';
 import UserEdit from '@/components/User/UserEdit.vue';
 import UserEditPassword from './UserEditPassword.vue';
-import { computed, ref, Ref } from 'vue';
+import { computed, ref, Ref, watch } from 'vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { useRoute } from 'vue-router';
 import { UserService } from '@/api';
@@ -33,6 +34,11 @@ const components: Record<string, any> = {
 
 const activePageComponent = computed(() => {
   return components[activePage.value];
+});
+
+watch(activePage, async (newVal) => {
+  if (newVal === 'UserDetail')
+    user.value = await UserService.getUser({ username: username });
 });
 
 const isMe: Ref<boolean> = computed(() => {

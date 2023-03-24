@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserDTO } from '@/api/models/UserDTO';
+import { UserDTO, UserPatchDTO, UserService } from '@/api';
 import { PropType, Ref, ref, computed } from 'vue';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString, ref as yupRef } from 'yup';
@@ -52,16 +52,22 @@ import { useI18n } from 'vue-i18n';
 import { FormInputTypes } from '@/enums/FormEnums';
 import { PxWarningBox } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { useUserInfoStore } from '@/stores/UserStore';
 
 addIcons(PxWarningBox);
 const { t } = useI18n();
+const userStore = useUserInfoStore();
 const usernameNote: Ref<boolean> = ref(false);
 const props = defineProps({
   user: {
     type: Object as PropType<UserDTO>,
     required: true,
   },
+  activePage: {
+    type: String
+  },
 });
+const emit = defineEmits(['update:activePage']);
 
 const submitIsDisabled = computed(() => {
   return (
@@ -90,7 +96,16 @@ const submit = handleSubmit(async (values) => {
     email: props.user.email === values.email ? undefined : values.email,
     firstName: props.user.firstName === values.firstName ? undefined : values.firstName,
     lastName: props.user.lastName === values.firstName ? undefined : values.lastName,
-  } as UserDTO;
+  } as UserPatchDTO;
+
+  await UserService.updateUser({ username: props.user.username!, requestBody: payload }).then((user: UserDTO) => {
+    userStore.setUserInfo({
+      firstname: user.firstName,
+      lastname: user.lastName,
+      role: user.role,
+    });
+    emit('update:activePage', 'UserDetail');
+  });
 });
 
 const { value: email } = useField('email') as FieldContext<string>;

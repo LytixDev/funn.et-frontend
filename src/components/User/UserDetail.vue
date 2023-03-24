@@ -18,6 +18,9 @@ const props = defineProps({
     type: Object as PropType<UserDTO>,
     required: true,
   },
+  activePage: {
+    type: String
+  },
 });
 </script>
 

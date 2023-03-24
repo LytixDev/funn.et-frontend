@@ -64,6 +64,8 @@
     "email": "Email",
     "firstName": "First name",
     "lastName": "Last name",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
     "password": "Password",
     "repeatPassword": "Repeat password",
     "Error": {
@@ -124,10 +126,12 @@
     "loading": "Loading user details...",
     "edit": "Edit user",
     "editPassword": "Edit password",
+    "editPasswordLong": "Edit password for user '%{username}'",
     "username": "Username",
     "usernameCannotChange": "Username cannot be changed",
     "submit": "Save changes",
-    "title": "Edit user details"
+    "title": "Edit user details",
+    "goBack": "Go back"
   },
   "ListingDetailView": {
     "loading": "Loading listing details..."
