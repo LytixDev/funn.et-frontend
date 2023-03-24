@@ -134,7 +134,8 @@
     "goBack": "Gå tilbake"
   },
   "ListingDetailView": {
-    "loading": "Laster inn annonse ..."
+    "loading": "Laster inn annonse ...",
+    "favorite": "Lagre som favoritt"
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",

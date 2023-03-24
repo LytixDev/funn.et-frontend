@@ -134,7 +134,8 @@
     "goBack": "Go back"
   },
   "ListingDetailView": {
-    "loading": "Loading listing details..."
+    "loading": "Loading listing details...",
+    "favorite": "Add to favorites"
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",
