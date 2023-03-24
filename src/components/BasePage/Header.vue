@@ -32,6 +32,9 @@ const loggedIn = computed(() => user.isLoggedIn);
 
 <style scoped>
 #navigation-bar {
+  top: 0;
   position: sticky;
+  background-color: aliceblue; /* <3 */
+  z-index: 100;
 }
 </style>
