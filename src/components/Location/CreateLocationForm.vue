@@ -35,7 +35,7 @@ import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
-import { ApiError, LocationControllerService, LocationCreateDTO } from '@/api';
+import { ApiError, LocationControllerService, LocationCreateDTO } from '@/api/backend';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';

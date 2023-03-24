@@ -43,9 +43,9 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { TokenControllerService, AuthenticateDTO, OpenAPI } from '@/api';
+import { TokenControllerService, AuthenticateDTO, OpenAPI } from '@/api/backend';
 import router from '@/router';
-import { UserService } from '@/api';
+import { UserService } from '@/api/backend';
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();

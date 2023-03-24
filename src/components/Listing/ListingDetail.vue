@@ -33,8 +33,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { ref, computed } from 'vue';
-import { ListingControllerService } from '@/api';
-import { ListingDTO } from '@/api';
+import { ListingControllerService } from '@/api/backend';
+import { ListingDTO } from '@/api/backend';
 
 const listing = ref<ListingDTO>();
 const route = useRoute();
