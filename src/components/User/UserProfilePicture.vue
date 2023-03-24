@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { useUserInfoStore } from '@/stores/UserStore';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 const user = useUserInfoStore();
 const {username, firstname, lastname} = user;
