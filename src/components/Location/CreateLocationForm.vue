@@ -27,7 +27,11 @@
       data-testid="submit-button" />
   </form>
   <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
-  <location-map :center="{ lat: mapCenterLat, lon: matCenterLon }" :marker-coords="markerCoords" :zoom="zoom" />
+  <location-map
+    :center="{ lat: mapCenterLat, lon: matCenterLon }"
+    :selected-coords="selectedMarkerCoords"
+    :marker-coords-list="markerCoordsList"
+    :zoom="zoom" />
 </template>
 
 <script setup lang="ts">
@@ -77,7 +81,7 @@ const selectedLocation = computed(() => {
   selectField.value = location.adressetekst?.toString()!!;
   return location;
 });
-const markerCoords = computed(() => {
+const selectedMarkerCoords = computed(() => {
   const lat = selectedLocation.value?.representasjonspunkt?.lat;
   const lon = selectedLocation.value?.representasjonspunkt?.lon;
   if (lat && lon) {
@@ -85,6 +89,21 @@ const markerCoords = computed(() => {
     return { lat, lon };
   }
   return undefined;
+});
+
+const markerCoordsList = computed(() => {
+  return locationList.value
+    .map((location) => {
+      const lat = location.representasjonspunkt?.lat;
+      const lon = location.representasjonspunkt?.lon;
+      if (lat && lon) {
+        return { lat, lon };
+      }
+      return undefined;
+    })
+    .filter(
+      (coords) => coords?.lat !== selectedMarkerCoords.value?.lat && coords?.lon !== selectedMarkerCoords.value?.lon,
+    );
 });
 
 const zoom = ref(2);
