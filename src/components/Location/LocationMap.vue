@@ -1,6 +1,7 @@
 <template>
-  <div style="height: 600px; width: 800px">
+  <div style="height: 600px; width: 800px" class="map-container">
     <l-map
+    id="leaflet-map"
       ref="map"
       :zoom="zoom"
       :center="validMarker ? [markerCoords?.lat, markerCoords?.lon] : [center.lat, center.lon]">
@@ -45,4 +46,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+#leaflet-map {
+  z-index: 0;
+}
+</style>

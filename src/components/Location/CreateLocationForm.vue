@@ -18,7 +18,7 @@
         field-name="locations-select"
         data-testid="locations-select"
         :error-message="!errorMessage ? '' : $t(errorMessage)"
-        :error="!errorMessage" />
+        :error="!!errorMessage" />
       <p>{{ $t('CreateLocationForm.numberOfLocationsDisplaying') }}: {{ locationList.length }}</p>
     </div>
     <form-button
@@ -92,13 +92,18 @@ const zoom = ref(2);
 const createLocation = async () => {
   if (selectedLocation.value === undefined) {
     errorMessage.value = 'CreateLocationForm.Error.AddressRequired';
+    return;
+  }
+  if (Object.values(selectedLocation.value!!).filter((_key, value) => value === undefined).length > 0) {
+    errorMessage.value = 'CreateLocationForm.Error.AddressRequired';
+    return;
   }
   const payload = {
-    address: selectedLocation.value?.adressetekst!!,
-    latitude: selectedLocation.value?.representasjonspunkt?.lat!!,
-    longitude: selectedLocation.value?.representasjonspunkt?.lon!!,
-    postCode: +selectedLocation.value?.postnummer!!,
-    city: selectedLocation.value?.poststed!!,
+    address: selectedLocation.value!!.adressetekst!!,
+    latitude: selectedLocation.value!!.representasjonspunkt?.lat!!,
+    longitude: selectedLocation.value!!.representasjonspunkt?.lon!!,
+    postCode: +selectedLocation.value!!.postnummer!!,
+    city: selectedLocation.value!!.poststed!!,
   };
   LocationControllerService.createLocation({
     requestBody: payload,
