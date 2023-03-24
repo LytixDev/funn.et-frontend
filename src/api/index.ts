@@ -20,6 +20,7 @@ export type { RegisterDTO } from './models/RegisterDTO';
 export type { SearchRequest } from './models/SearchRequest';
 export { SortRequest } from './models/SortRequest';
 export { UserDTO } from './models/UserDTO';
+export type { UserPatchDTO } from './models/UserPatchDTO';
 
 export { ChatControllerService } from './services/ChatControllerService';
 export { ImageControllerService } from './services/ImageControllerService';

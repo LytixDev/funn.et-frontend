@@ -10,7 +10,7 @@ export const routes = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/Listing/ListingListView.vue'),
+        component: () => import('@/views/Listing/ListingFilteredView.vue'),
       },
       {
         path: '/create-listing',

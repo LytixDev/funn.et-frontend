@@ -55,9 +55,6 @@ function hexToRgb(hex: string) {
 
 const bgcolor = ref(stringToColour(username));
 const text_color = ref(chooseBlackOrWhite(hexToRgb(bgcolor.value) as { r: number; g: number; b: number }));
-
-console.log(bgcolor.value);
-console.log(text_color.value);
 </script>
 
 <style scoped>

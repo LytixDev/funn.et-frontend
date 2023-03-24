@@ -3,8 +3,8 @@
 /* eslint-disable */
 
 export type MessageDTO = {
-    id?: number;
-    message: string;
-    username?: string;
-    timestamp?: string;
+  id?: number;
+  message: string;
+  username?: string;
+  timestamp?: string;
 };
