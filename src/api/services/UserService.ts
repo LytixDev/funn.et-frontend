@@ -11,6 +11,24 @@ import { request as __request } from '../core/request';
 
 export class UserService {
   /**
+   * Create a new user
+   * Create a new user
+   * @returns string OK
+   * @throws ApiError
+   */
+  public static createUser({ requestBody }: { requestBody: RegisterDTO }): CancelablePromise<string> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/api/v1/public/user',
+      body: requestBody,
+      mediaType: 'application/json',
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * Update the user with the given username
    * Update the user with the given username
    * @returns UserDTO OK
@@ -50,6 +68,22 @@ export class UserService {
       path: {
         username: username,
       },
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Get the authenticated user
+   * Get the authenticated user
+   * @returns UserDTO OK
+   * @throws ApiError
+   */
+  public static getUser1(): CancelablePromise<UserDTO> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/private/user/me',
       errors: {
         500: `Internal Server Error`,
       },
