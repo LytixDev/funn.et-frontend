@@ -1,16 +1,18 @@
 <template>
-  <div class="listing-card">
-    <div class="listing-image">
-      <img src="@/assets/images/default-placeholder.png" />
-    </div>
+  <router-link :to="{ name: 'listing', params: { id: listingData.id } }">
+    <div class="listing-card">
+      <div class="listing-image">
+        <img src="@/assets/images/default-placeholder.png" />
+      </div>
 
-    <div class="listing-info">
-      <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
-      <h3>{{ listingData.title }}</h3>
-      <h3>{{ listingData.price }} kr</h3>
-      <p>{{ listingData.briefDescription }}</p>
+      <div class="listing-info">
+        <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
+        <h3>{{ listingData.title }}</h3>
+        <h3>{{ listingData.price }} kr</h3>
+        <p>{{ listingData.briefDescription }}</p>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script lang="ts">
