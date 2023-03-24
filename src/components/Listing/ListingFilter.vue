@@ -1,5 +1,4 @@
 <template>
-  <router-link to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
   <div class="listing-filters">
     <form-input
       labelId="listing-search-label"
@@ -42,51 +41,35 @@
       :field-options="sortingOptions"
       data-testid="sorting-drop-down" />
   </div>
-  <div class="list-container">
-    <div class="listing-grid">
-      <div v-for="listing in listings" :key="listing.id" class="listing-div">
-        <listing-card :listingData="listing" data-testid="listing-card" />
-      </div>
-    </div>
-    <div>
-      <span>
-        <button v-if="currentPage > 0" @click="currentPage--" data-testid="prev-page-button">
-          <oh-vue-icon scale="2" name="bi-arrow-left-square-fill" />
-        </button>
-        <button v-if="listings.length === pageSize" @click="currentPage++" data-testid="next-page-button">
-          <oh-vue-icon scale="2" name="bi-arrow-right-square-fill" />
-        </button>
-      </span>
-    </div>
-  </div>
-  <error-box v-model="errorMessage" />
 </template>
 
+<script lang="ts">
+export interface ListingFilterType {
+  searchMessage: string;
+  searchRequests: FilterRequest[];
+  categoryRequest?: FilterRequest;
+  priceRequest?: FilterRequest;
+  sortRequests: SortRequest[];
+}
+</script>
+
 <script setup lang="ts">
-import ListingCard from '@/components/Listing/ListingCard.vue';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import FormInput from '@/components/Form/FormInput.vue';
-import { FilterRequest, ListingControllerService, ListingDTO, SearchRequest, SortRequest } from '@/api';
-import { ref, watch, watchEffect, computed } from 'vue';
+import { FilterRequest, ListingDTO, SortRequest } from '@/api';
+import { ref, computed, watch } from 'vue';
 import { ComputedRef } from '@vue/reactivity';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
-
-import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
 import { DropDownItem } from '@/types/FormTypes';
 import { useI18n } from 'vue-i18n';
 import { FormInputTypes } from '@/enums/FormEnums';
 
-addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
-
-const pageSize = 20;
-
-const errorMessage = ref('');
-const currentPage = ref(0);
-
 const { t } = useI18n();
 
-// Category filter
+defineProps({ modelValue: { type: Object as () => ListingFilterType } });
+
+const emit = defineEmits(['update:modelValue']);
+
+// Category filters
 const categories = computed(() => {
   const listOfCategories = [] as DropDownItem[];
   for (const value in ListingDTO.category) {
@@ -179,62 +162,18 @@ let sortRequests = computed(() => {
   return sortRequests.length > 0 ? sortRequests : undefined;
 });
 
-// Create api request
-let listings = ref([] as ListingDTO[]);
-const getListings = ({ page, size, filterRequests, sortRequests }: SearchRequest) => {
-  return ListingControllerService.getListingsByFilter({
-    requestBody: { page, size, filterRequests, sortRequests },
-  })
-    .then((data) => {
-      listings.value = data;
-    })
-    .catch((error) => {
-      console.log(error);
-      if (error.detail !== undefined) {
-        errorMessage.value = error.detail;
-      } else {
-        errorMessage.value = error;
-      }
-    });
-};
-
-watch([searchMessage], () => {
-  currentPage.value = 0;
-});
-
-watchEffect(() => {
-  let filterRequests = [...searchRequests.map((field) => field.value)];
-  if (categoryRequest.value !== undefined) {
-    filterRequests.push(categoryRequest.value!!);
-  }
-  if (priceRequest.value !== undefined) {
-    filterRequests.push(priceRequest.value!!);
-  }
-  getListings({
-    page: currentPage.value,
-    size: pageSize,
-    filterRequests: filterRequests,
-    sortRequests: sortRequests.value?.map((field) => field) ?? undefined,
+watch([searchMessage, chosenCategory, priceMin, priceMax, chosenSorting], () => {
+  emit('update:modelValue', {
+    searchMessage: searchMessage.value,
+    searchRequests: searchRequests.map((request) => request.value),
+    categoryRequest: categoryRequest.value,
+    priceRequest: priceRequest.value,
+    sortRequests: sortRequests.value,
   });
 });
 </script>
 
 <style scoped>
-.listing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-}
-
-.listing-div {
-  height: 450px;
-  margin-top: 5px;
-  border-radius: 5px;
-}
-
-.list-container {
-  margin: 4rem 1rem;
-}
-
 .listing-filters {
   margin: 2rem;
   display: flex;
