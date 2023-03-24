@@ -44,6 +44,15 @@
         :fieldType="FormInputTypes.Password"
         fieldRequired
         dataTestid="password" />
+      <FormInput
+        labelId="repeat-password-label"
+        :labelText="$t('UserForm.repeatPassword')"
+        fieldId="repeat-password"
+        v-model="repeatPassword"
+        :error="errors?.repeatPassword"
+        :fieldType="FormInputTypes.Password"
+        fieldRequired
+        dataTestid="repeat-password" />
 
       <FormButton
         buttonId="create-user-button"
@@ -65,7 +74,7 @@ import FormButton from '@/components/Form/FormButton.vue';
 import FormInput from '@/components/Form/FormInput.vue';
 import { FormInputTypes } from '@/enums/FormEnums';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import { object as yupObject, string as yupString } from 'yup';
+import { object as yupObject, string as yupString, ref as yupRef } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { UserService, RegisterDTO } from '@/api';
@@ -96,6 +105,9 @@ const schema = computed(() =>
         const hasNumber = /[0-9]/.test(value);
         return hasUpperCase && hasLowerCase && hasNumber;
       }),
+    repeatPassword: yupString()
+      .required(t('UserForm.Error.repeatPasswordRequired'))
+      .oneOf([yupRef('password')], t('UserForm.Error.repeatPasswordNotMatch')),
   }),
 );
 
@@ -148,6 +160,7 @@ const { value: email } = useField('email') as FieldContext<string>;
 const { value: firstName } = useField('firstName') as FieldContext<string>;
 const { value: lastName } = useField('lastName') as FieldContext<string>;
 const { value: password } = useField('password') as FieldContext<string>;
+const { value: repeatPassword } = useField('repeatPassword') as FieldContext<string>;
 </script>
 
 <style scoped>
