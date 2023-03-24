@@ -132,8 +132,8 @@ const createLocation = async () => {
   LocationControllerService.createLocation({
     requestBody: payload,
   })
-    .then(() => {
-      emit('update:modelValue', payload);
+    .then((data) => {
+      emit('update:modelValue', data);
     })
     .catch((error: any) => {
       if (error instanceof AxiosError) {
