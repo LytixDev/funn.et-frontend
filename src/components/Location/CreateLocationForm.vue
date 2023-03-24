@@ -96,17 +96,18 @@ const createLocation = async () => {
   if (selectedLocation.value === undefined) {
     errorMessage.value = 'CreateLocationForm.Error.AddressRequired';
   }
+  const payload = {
+    address: selectedLocation.value?.adressetekst!!,
+    latitude: selectedLocation.value?.representasjonspunkt?.lat!!,
+    longitude: selectedLocation.value?.representasjonspunkt?.lon!!,
+    postCode: +selectedLocation.value?.postnummer!!,
+    city: selectedLocation.value?.poststed!!,
+  };
   LocationControllerService.createLocation({
-    requestBody: {
-      address: selectedLocation.value?.adressetekst!!,
-      latitude: selectedLocation.value?.representasjonspunkt?.lat!!,
-      longitude: selectedLocation.value?.representasjonspunkt?.lon!!,
-      postCode: +selectedLocation.value?.postnummer!!,
-      city: selectedLocation.value?.poststed!!,
-    },
+    requestBody: payload,
   })
     .then(() => {
-      emit('update:modelValue', selectedLocation.value);
+      emit('update:modelValue', payload);
     })
     .catch((error: any) => {
       if (error.status === 401) {
