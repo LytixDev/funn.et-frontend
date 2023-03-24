@@ -1,7 +1,7 @@
 <template>
   <div class="image-uploader">
     <div class="image-upload-area">
-      <input type="file" @change="handleImageChange($event)" />
+      <input type="file" multiple @change="handleImageChange($event)" />
 
       <div v-if="errors.length > 0">
         <div class="file-upload-error" v-for="error in errors">
@@ -10,10 +10,10 @@
       </div>
     </div>
 
-    <div v-if="previewImage && image.isUploaded" class="upload-preview">
-      <img :src="image.url" class="file-image" alt="" />
+    <div v-if="previewImage && images" class="upload-preview">
+      <img v-for="image in images" :src="image.url" class="file-image" alt="" />
     </div>
-    <div v-if="image.isUploaded">
+    <div v-if="images">
       <button @click="resetImage">{{ $t('Form.ImageUpload.clear') }}</button>
     </div>
   </div>
@@ -34,7 +34,7 @@ export type Image = {
 export default defineComponent({
   props: {
     modelValue: {
-      type: Object as () => Image,
+      type: Object as () => Image[],
       required: false,
     },
     maxFileSizeMb: {
@@ -53,14 +53,7 @@ export default defineComponent({
   data() {
     return {
       isLoading: false,
-      image: {
-        name: '',
-        size: 0,
-        type: '',
-        url: '',
-        data: undefined,
-        isUploaded: false,
-      } as Image,
+      images: [] as Image[],
       errors: [] as string[],
     };
   },
@@ -69,21 +62,24 @@ export default defineComponent({
       this.errors = [];
       if (!((e.target as HTMLInputElement).files || (e.target as HTMLInputElement).files!![0])) return;
 
-      const file: File = (e.target as HTMLInputElement).files!![0];
-      const fileSizeMb = file.size / 1024 / 1024;
-      if (fileSizeMb > this.maxFileSizeMb) {
-        this.errors.push(this.$t('Form.ImageUpload.errorTooLarge', { size: this.maxFileSizeMb }));
-        return;
-      }
+      const files: FileList = (e.target as HTMLInputElement).files!!;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileSizeMb = file.size / 1024 / 1024;
+        if (fileSizeMb > this.maxFileSizeMb) {
+          this.errors.push(this.$t('Form.ImageUpload.errorTooLarge', { size: this.maxFileSizeMb }));
+          return;
+        }
 
-      if (this.acceptedFileTypes.indexOf(file.type) === -1) {
-        this.errors.push(this.$t('Form.ImageUpload.errorBadType', { types: this.acceptedFileTypes.join(', ') }));
-        return;
-      }
+        if (this.acceptedFileTypes.indexOf(file.type) === -1) {
+          this.errors.push(this.$t('Form.ImageUpload.errorBadType', { types: this.acceptedFileTypes.join(', ') }));
+          return;
+        }
 
-      let reader = new FileReader();
-      reader.readAsArrayBuffer(file);
-      reader.onload = () => this.handleReaderLoaded(reader, file);
+        let reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = () => this.handleReaderLoaded(reader, file);
+      }
     },
     handleReaderLoaded(reader: FileReader, file: File) {
       const buffer: ArrayBuffer = reader.result!! as ArrayBuffer;
@@ -95,21 +91,14 @@ export default defineComponent({
         data: new Blob([buffer]) as Blob,
         isUploaded: true,
       };
-      this.image = image;
+      this.images.push(image);
       this.emitToParent();
     },
     resetImage() {
-      this.image = {
-        name: '',
-        size: 0,
-        type: '',
-        url: '',
-        data: undefined,
-        isUploaded: false,
-      };
+      this.images = [];
     },
     emitToParent() {
-      this.$emit('update:modelValue', this.image);
+      this.$emit('update:modelValue', this.images);
     },
   },
 });

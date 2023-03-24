@@ -59,7 +59,7 @@
     </fieldset>
 
     <fieldset>
-      <ImageUploader v-model="image" />
+      <ImageUploader v-model="images" />
       <FormInput
         labelId="listing-image-description-label"
         :labelText="$t('CreateListingView.imageDescription')"
@@ -139,10 +139,14 @@ const submit = handleSubmit((values) => {
   const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
 
   const imageResponse = [] as Array<Blob>;
-  imageResponse.push(values.image.data);
+  values.images.forEach((image: any) => {
+    imageResponse.push(new Blob([image.data], { type: image.type }))
+  });
+  console.log(imageResponse);
   const imageAltResponse = [] as Array<string>;
-  if (values.image.alt) imageAltResponse.push(values.image.alt);
-
+  values.images.forEach((image: any) => {
+    imageAltResponse.push(image.alt || undefined);
+  });
   let payload = {
     username: username.value,
     location: values.location.id,
@@ -154,7 +158,7 @@ const submit = handleSubmit((values) => {
     publicationDate: dateStr,
     expirationDate: dateStr,
     images: imageResponse,
-    imageAlts: imageAltResponse.length > 0 ? imageAltResponse : undefined,
+    imageAlts: imageAltResponse,
   } as ListingCreateDTO;
 
   console.log(payload);
@@ -185,7 +189,7 @@ const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
-const { value: image } = useField('image') as FieldContext<ImageUpload>;
+const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>
 
