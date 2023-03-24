@@ -22,21 +22,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-interface Image {
+export type Image = {
   name: string;
   size: number;
   type: string;
   url: string;
   data?: Blob;
   isUploaded: boolean;
-}
+};
 
 export default defineComponent({
   props: {
     modelValue: {
-      type: String,
-      required: true,
-      default: '',
+      type: Object as () => Image,
+      required: false,
     },
     maxFileSizeMb: {
       type: Number,

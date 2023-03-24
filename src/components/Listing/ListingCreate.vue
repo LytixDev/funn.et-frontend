@@ -84,7 +84,7 @@ import { FormInputWrapperClasses } from '@/enums/FormEnums';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import { FormInputTypes } from '@/enums/FormEnums';
-import ImageUploader from '@/components/Form/ImageUploader.vue';
+import ImageUploader, { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -108,14 +108,13 @@ const schema = computed(() =>
       .max(256, t('CreateListingView.Error.titleMax')),
     briefDescription: yupString()
       .required(t('CreateListingView.Error.briefDescriptionRequired'))
-      .min(32, t('CreateListingView.Error.briefDescriptionMin'))
       .max(128, t('CreateListingView.Error.briefDescriptionMax')),
     description: yupString().max(512, t('CreateListingView.Error.descriptionMax')),
     price: yupNumber()
       .required(t('CreateListingView.Error.priceRequired'))
       .min(0, t('CreateListingView.Error.priceMin')),
     category: yupString().default('OTHER'),
-    location: yupString().required(t('CreateListingView.Error.locationRequired')),
+    location: yupObject<LocationResponseDTO>().required(t('CreateListingView.Error.locationRequired')),
   }),
 );
 
@@ -147,9 +146,11 @@ const submit = handleSubmit((values) => {
     price: values.price,
     publicationDate: dateStr,
     expirationDate: dateStr,
-    imageResponse: imageResponse,
-    imageUpload: imageAltResponse.length > 0 ? imageAltResponse : undefined,
+    images: imageResponse,
+    imageAlts: imageAltResponse.length > 0 ? imageAltResponse : undefined,
   } as ListingCreateDTO;
+
+  console.log(payload);
 
   ListingControllerService.createListing({ formData: payload })
     .then((response) => {
@@ -177,7 +178,7 @@ const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
-const { value: image } = useField('image') as FieldContext<object>;
+const { value: image } = useField('image') as FieldContext<ImageUpload>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>
 
