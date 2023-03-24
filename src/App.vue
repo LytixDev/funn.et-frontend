@@ -1,8 +1,6 @@
 <template>
   <error-boundary-catcher>
-    <template #default>
-      <router-view />
-    </template>
+    <router-view />
   </error-boundary-catcher>
 </template>
 

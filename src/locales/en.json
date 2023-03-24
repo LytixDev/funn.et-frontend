@@ -149,6 +149,7 @@
     "ExceptionOccurred": "An error occurred",
     "ErrorWithContext": "%{message}",
     "ContextErrorMessage": "Could not find the source of the error",
-    "ERR_NETWORK": "Could not connect with the server"
+    "ERR_NETWORK": "Could not connect with the server",
+    "MissingTranslation": "Could not find the correct translation: The message was %{message}"
   }
 }

@@ -31,7 +31,6 @@ onErrorCaptured((err, _vm, _info): boolean => {
     }
     errorMessage.value = err.body.detail;
   } else if (err instanceof AxiosError) {
-    console.log('AxiosError: ' + err.code);
     errorMessage.value = err.code!!;
   } else if (err instanceof Error) {
     errorMessage.value = 'ErrorWithContext';

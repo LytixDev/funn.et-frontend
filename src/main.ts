@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import './style.css';
 import router from '@/router';
 import App from '@/App.vue';
-import { createI18n } from 'vue-i18n';
+import { createI18n, I18n } from 'vue-i18n';
 import en from '@/locales/en.json';
 import no from '@/locales/no.json';
 import { createPinia } from 'pinia';
@@ -17,9 +17,10 @@ app.use(pinia);
 
 let localeStore = useLanguageStore();
 type MessageSchema = typeof en;
-export const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
+export const i18n: any = createI18n<[MessageSchema], 'en' | 'no'>({
   locale: localeStore.language,
   allowComposition: true,
+  missing: (locale, key) => i18n.global.t('Exceptions.MissingTranslation', { message: key }),
   // Set locale messages
   messages: {
     en: en,
