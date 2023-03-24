@@ -122,7 +122,12 @@
   },
   "UserDetailView": {
     "loading": "Laster bruker detaljer...",
-    "edit": "Rediger din bruker"
+    "edit": "Rediger din bruker",
+    "editPassword": "Endre passord",
+    "username": "Brukernavn",
+    "usernameCannotChange": "Du kan ikke endre brukernavnet ditt",
+    "submit": "Lagre endringer",
+    "title": "Endre bruker"
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ..."

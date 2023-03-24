@@ -1,5 +1,5 @@
 <template>
-  <button :class="formButtonClass" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestid">
+  <button :class="{ 'formButtonClass': true, 'disabled': disabled }" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestid" :disabled="disabled">
     {{ buttonText }}
   </button>
 </template>
@@ -36,6 +36,11 @@ export default defineComponent({
     dataTestid: {
       type: String,
       required: false,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 });

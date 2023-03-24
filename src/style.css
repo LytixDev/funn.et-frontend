@@ -35,6 +35,10 @@ form {
   color: white;
 }
 
+.disabled {
+  background-color: #ccc;
+}
+
 .form-header {
   color: var(--primary-color);
   margin-bottom: 1.5em;
@@ -87,7 +91,7 @@ a {
   font-size: 1em;
 }
 
-button:hover,
+.attention:hover,
 a:hover {
   box-shadow: var(--button-hover-box-shadow);
 }

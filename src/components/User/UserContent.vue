@@ -1,13 +1,17 @@
 <template>
   <component :is="activePageComponent" :user="user" />
-  <div v-if="isMe && activePage !== 'UserEdit'">
+  <div v-if="isMe && activePage === 'UserDetail'">
     <button @click="activePage = 'UserEdit'">{{ $t('UserDetailView.edit') }}</button>
+  </div>
+  <div v-if="isMe && activePage === 'UserDetail'">
+    <button @click="activePage = 'UserEditPassword'">{{ $t('UserDetailView.editPassword') }}</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import UserDetail from '@/components/User/UserDetail.vue';
 import UserEdit from '@/components/User/UserEdit.vue';
+import UserEditPassword from './UserEditPassword.vue';
 import { computed, ref, Ref } from 'vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { useRoute } from 'vue-router';
@@ -24,6 +28,7 @@ const activePage = ref('UserDetail');
 const components: Record<string, any> = {
   UserDetail,
   UserEdit,
+  UserEditPassword,
 };
 
 const activePageComponent = computed(() => {

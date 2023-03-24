@@ -122,7 +122,12 @@
   },
   "UserDetailView": {
     "loading": "Loading user details...",
-    "edit": "Edit user"
+    "edit": "Edit user",
+    "editPassword": "Edit password",
+    "username": "Username",
+    "usernameCannotChange": "Username cannot be changed",
+    "submit": "Save changes",
+    "title": "Edit user details"
   },
   "ListingDetailView": {
     "loading": "Loading listing details..."
