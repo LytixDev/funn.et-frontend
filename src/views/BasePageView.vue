@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import Footer from '@/components/BasePage/Footer.vue';
 import Header from '@/components/BasePage/Header.vue';
+import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 </script>
 
 <template>
   <Header />
   <div class="app-wrapper">
     <div class="app-content">
-      <router-view />
+      <error-boundary-catcher>
+        <router-view />
+      </error-boundary-catcher>
     </div>
   </div>
   <Footer />
