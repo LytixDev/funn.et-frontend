@@ -4,6 +4,7 @@ export enum FormInputWrapperClasses {
   FormInputCheckBox = 'form_input_checkbox',
   FormInputRadio = 'form_input_radio',
   FormInputDropdown = 'form_input_dropdown',
+  Wider = 'form_input_wider',
 }
 
 export enum FormInputTypes {
@@ -40,4 +41,5 @@ export enum FormDropdownClasses {
 
 export enum FormButtonClasses {
   Default = 'form_button',
+  Wider = 'form_button_wider',
 }

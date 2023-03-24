@@ -2,7 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type AuthenticateDTO = {
+export type MessageDTO = {
+    id?: number;
+    message: string;
     username?: string;
-    password?: string;
+    timestamp?: string;
 };

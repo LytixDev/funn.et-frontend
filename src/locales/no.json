@@ -155,5 +155,23 @@
     "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
     "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren",
     "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
+  },
+  "ChatView": {
+    "loading": "Laster inn chat ...",
+    "title": "Chat med ",
+    "message": "Melding",
+    "submit": "Send",
+    "seconds": "sekunder",
+    "minutes": "minutter",
+    "hours": "timer",
+    "days": "dager",
+    "months": "måneder",
+    "years": "år",
+    "ago": "siden",
+    "Error": {
+      "messageRequired": "Melding er obligatorisk",
+      "messageMax": "Meldingen er for lang",
+      "messageFailed": "Melingen kunne ikke sendes"
+    }
   }
 }

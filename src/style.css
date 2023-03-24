@@ -90,6 +90,7 @@ a {
 button:hover,
 a:hover {
   box-shadow: var(--button-hover-box-shadow);
+  cursor: pointer;
 }
 
 nav ul {
