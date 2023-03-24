@@ -22,6 +22,7 @@ describe('Test user using the register page', () => {
     cy.get('input[data-testid="first-name"]').type('my name');
     cy.get('input[data-testid="last-name"]').type('my last name');
     cy.get('input[data-testid="password"]').type('testPassword123');
+    cy.get('input[data-testid="repeat-password"]').type('testPassword123');
     cy.get('button[data-testid="create-user-button"]').click().wait(1000);
     cy.getCookie('userInfo')
       .should('have.property', 'value')
