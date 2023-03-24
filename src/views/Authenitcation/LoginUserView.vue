@@ -80,7 +80,14 @@ const submit = handleSubmit(async (values) => {
 
     // Fetch user info
     let user = await UserService.getUser1();
-    userStore.setUserInfo({ accessToken: token, username: values.username, role: user.role });
+    userStore.setUserInfo({
+      accessToken: token,
+      firstname: user.firstName,
+      lastname: user.lastName,
+      username: user.username,
+      role: user.role,
+    });
+    
     router.push({ name: 'home' });
   } catch (authError: any) {
     if (authError.detail !== undefined) {

@@ -17,6 +17,9 @@
         <li>
           <locale-selector />
         </li>
+        <li v-if="loggedIn">
+        <UserProfilePicture/>
+        </li>
       </ul>
     </nav>
   </header>
@@ -32,6 +35,8 @@ import { useRouter } from 'vue-router';
 const user = useUserInfoStore();
 const router = useRouter();
 const loggedIn = computed(() => user.isLoggedIn);
+const {username, firstname, lastname} = user;
+
 </script>
 
 <style scoped>
