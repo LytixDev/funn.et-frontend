@@ -26,12 +26,4 @@ export const i18n = createI18n<[MessageSchema], 'en' | 'no'>({
     no: no,
   },
 });
-app.use(i18n);
-
-if (process.env.NODE_ENV === 'test') {
-  router.isReady().then(() => {
-    app.use(router).mount('#app');
-  });
-} else {
-  app.use(router).mount('#app');
-}
+app.use(i18n).use(router).mount('#app');

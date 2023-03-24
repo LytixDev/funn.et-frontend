@@ -3,12 +3,22 @@ import { describe, test, expect, beforeEach } from 'vitest';
 import ListingListView from '@/views/Listing/ListingListView.vue';
 import { i18n } from '@/main';
 
-describe('Testing listing list view', () => {
+import { routes } from '@/router';
+import { createRouter, createWebHistory } from 'vue-router';
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routes,
+});
+
+describe('Testing listing list view', async () => {
+  router.push('/');
+  await router.isReady();
   let wrapper: VueWrapper;
   beforeEach(() => {
     wrapper = mount(ListingListView, {
       global: {
-        plugins: [i18n],
+        plugins: [i18n, router],
       },
     });
   });

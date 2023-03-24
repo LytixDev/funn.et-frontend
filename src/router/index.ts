@@ -1,7 +1,7 @@
 import { useUserInfoStore } from '@/stores/UserStore';
 import { createRouter, createWebHistory } from 'vue-router';
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'base',
@@ -43,12 +43,16 @@ const routes = [
         name: 'listing',
         component: () => import('@/views/Listing/ListingDetailView.vue'),
       },
+      {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: () => import('@/views/NotFoundView.vue'),
+      },
     ],
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'not-found',
-    component: () => import('@/views/NotFoundView.vue'),
+    redirect: { name: 'not-found' },
   },
 ];
 
