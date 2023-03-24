@@ -167,10 +167,10 @@
     "MissingTranslation": "Could not find the correct translation: The message was %{message}"
   },
   "CreateLocationForm": {
-    "title": "Create a new location",
+    "title": "Set a location",
     "searchLabel": "Search for an address",
     "locationsSelectLabel": "Select an address",
-    "submitButton": "Create new location",
+    "submitButton": "Set a location",
     "numberOfLocationsDisplaying": "Number of addresses in selectable list",
     "Error": {
       "AddressRequired": "Location is required"

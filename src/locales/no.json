@@ -167,10 +167,10 @@
     "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
   },
   "CreateLocationForm": {
-    "title": "Opprett en ny lokasjon",
+    "title": "Sett en lokasjon",
     "searchLabel": "Søk etter en adresse",
     "locationsSelectLabel": "Velg en adresse fra listen",
-    "submitButton": "Opprett lokasjon",
+    "submitButton": "Sett lokasjon",
     "numberOfLocationsDisplaying": "Antall valbare adresser",
     "Error": {
       "AddressRequired": "Adresse er obligatorisk"

@@ -17,8 +17,8 @@
         :field-options="locationOptions"
         field-name="locations-select"
         data-testid="locations-select"
-        :error-message="$t(errorMessage)"
-        :error="true" />
+        :error-message="!errorMessage ? '' : $t(errorMessage)"
+        :error="!errorMessage" />
       <p>{{ $t('CreateLocationForm.numberOfLocationsDisplaying') }}: {{ locationList.length }}</p>
     </div>
     <form-button
@@ -26,7 +26,7 @@
       :button-text="$t('CreateLocationForm.submitButton')"
       data-testid="submit-button" />
   </form>
-  <button @click="$emit('update:modelValue', undefined)">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
+  <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
   <location-map :center="{ lat: mapCenterLat, lon: matCenterLon }" :marker-coords="markerCoords" :zoom="zoom" />
 </template>
 
@@ -44,8 +44,8 @@ import { AxiosError } from 'axios';
 
 defineProps({
   modelValue: {
-    type: Object as () => LocationCreateDTO,
-    required: true,
+    type: Object as () => LocationCreateDTO | undefined,
+    required: false,
   },
 });
 
@@ -115,6 +115,11 @@ const createLocation = async () => {
     });
 };
 
+const removeLocation = () => {
+  emit('update:modelValue', undefined);
+  address.value = '';
+};
+
 watchEffect(async () => {
   if (address.value === '') {
     return;
@@ -129,7 +134,7 @@ watchEffect(async () => {
     if (error instanceof ApiError) {
       errorMessage.value = error.body.detail;
     }
-    errorMessage.value = error;
+    Promise.reject(error);
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;
