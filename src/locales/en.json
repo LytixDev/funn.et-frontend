@@ -145,6 +145,10 @@
     "FileNotFoundException": "The requested file was not found",
     "ObjectNotFoundException": "The requested resource was not found",
     "Exception": "An unresolveable error occurred with the server",
-    "undifined": "An unresolveable error occurred"
+    "undifined": "An unresolveable error occurred",
+    "ExceptionOccurred": "An error occurred",
+    "ErrorWithContext": "%{message}",
+    "ContextErrorMessage": "Could not find the source of the error",
+    "ERR_NETWORK": "Could not connect with the server"
   }
 }

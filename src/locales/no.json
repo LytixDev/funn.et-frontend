@@ -145,6 +145,10 @@
     "FileNotFoundException": "Den forespurte filen ble ikke funnet",
     "ObjectNotFoundException": "Den forespurte ressursen ble ikke funnet",
     "Exception": "Det oppstod et uløselelig problem med tjeneren",
-    "undifined": "Det oppstod et uløselelig problem"
+    "undifined": "Det oppstod et uløselelig problem",
+    "ExceptionOccurred": "Feil oppstod",
+    "ErrorWithContext": "%{message}",
+    "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
+    "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren"
   }
 }
