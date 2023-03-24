@@ -44,12 +44,14 @@ import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO, OpenAPI, ApiError } from '@/api';
-import router from '@/router';
+import { useRouter, useRoute } from 'vue-router';
 import { UserService } from '@/api';
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
 let errorBoxMsg = ref<string>('');
+const router = useRouter();
+const route = useRoute();
 
 const schema = computed(() =>
   yupObject({
@@ -88,7 +90,7 @@ const submit = handleSubmit(async (values) => {
       role: user.role,
     });
 
-    router.push({ name: 'home' });
+    router.push(route.query.redirect as string || '/');
   } catch (authError: any) {
     if (authError.detail !== undefined) {
       errorBoxMsg.value = authError.detail;

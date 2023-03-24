@@ -44,6 +44,12 @@ export const routes = [
         component: () => import('@/views/Listing/ListingDetailView.vue'),
       },
       {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('@/views/AdminPageView.vue'),
+        meta: { requiresAuth: true, requiresRole: ['ADMIN'] },
+      },
+      {
         path: '/:pathMatch(.*)*',
         name: 'not-found',
         component: () => import('@/views/NotFoundView.vue'),
@@ -65,12 +71,25 @@ router.beforeEach((to, from, next) => {
   let user = useUserInfoStore();
   const isAuthenticated = user.isLoggedIn;
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresRole: String[] = to.matched.flatMap((record) => record.meta.requiresRole as String[] || []);
 
-  if (requiresAuth && !isAuthenticated) {
-    next('/login');
+  console.log('requiresRole: ', requiresRole);
+  if (requiresAuth) {
+    if (!isAuthenticated) {
+      next({name: "login", query: { redirect: to.fullPath } });
+    } else {
+      if (requiresRole.length === 0) {
+        next();
+      } else if (requiresRole.includes(user.role)) {
+        next();
+      } else {
+        next({name: "home"});
+      }
+    }
   } else {
     next();
   }
-});
+}
+);
 
 export default router;

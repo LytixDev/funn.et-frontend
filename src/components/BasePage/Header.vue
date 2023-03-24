@@ -8,13 +8,16 @@
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
         </li>
+        <li v-if="role==='ADMIN'">
+          <router-link :to="{name: 'admin'}">Manage</router-link>
+        </li>
         <li v-if="!loggedIn">
           <router-link to="/login" class="attention">{{ $t('navigation.login') }}</router-link>
         </li>
         <li v-else>
           <router-link to="/signout" class="attention">{{ $t('navigation.signout') }}</router-link>
         </li>
-        <li>
+        <li>3
           <locale-selector />
         </li>
         <li v-if="loggedIn">
@@ -36,6 +39,8 @@ import UserProfilePicture from '@/components/User/UserProfilePicture.vue';
 const user = useUserInfoStore();
 const router = useRouter();
 const loggedIn = computed(() => user.isLoggedIn);
+const role = computed(() => user.role);
+console.log('role', role.value);
 </script>
 
 <style scoped>
