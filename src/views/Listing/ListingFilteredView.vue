@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ListingControllerService, ListingDTO, SearchRequest } from '@/api';
-import { ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
@@ -31,13 +31,17 @@ import { ListingFilterType } from '@/components/Listing/ListingFilter.vue';
 import { AxiosError } from 'axios';
 import ListingList from '@/components/Listing/ListingList.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
 
 const pageSize = 20;
+const firstPage = 1;
 
 const errorMessage = ref('');
-const currentPage = ref(1);
+const currentPage = ref(firstPage);
 
 const filterData = ref<ListingFilterType>({
   searchMessage: '',
@@ -59,17 +63,18 @@ const getListings = async ({ page, size, filterRequests, sortRequests }: SearchR
     })
     .catch((error) => {
       if (error instanceof AxiosError) {
-        errorMessage.value = error.code!!;
+        errorMessage.value = `Exceptions.${error.code!!}`;
+      } else {
+        Promise.reject(error?.body?.detail);
       }
-      Promise.reject(error.body.detail);
     });
 };
 
 watch(filterData, () => {
-  currentPage.value = 1;
+  currentPage.value = firstPage;
 });
 
-watchEffect(() => {
+watchEffect(async () => {
   let filterRequests = filterData.value.searchRequests;
   if (filterData.value.categoryRequest?.value !== undefined) {
     filterRequests.push(filterData.value.categoryRequest!!);
@@ -77,8 +82,8 @@ watchEffect(() => {
   if (filterData.value.priceRequest?.value !== undefined) {
     filterRequests.push(filterData.value.priceRequest!!);
   }
-  getListings({
-    page: currentPage.value - 1,
+  await getListings({
+    page: currentPage.value - firstPage,
     size: pageSize,
     filterRequests: filterRequests,
     sortRequests: filterData.value.sortRequests,
