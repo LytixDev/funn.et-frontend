@@ -9,6 +9,10 @@ describe('Test user using the register page', () => {
   it('Test user registering saves a token in localstorage', () => {
     const testToken = 'TestTokenFromMockBackend';
     const username = 'newRegisteredUser';
+    const firstName = 'my name';
+    const lastName = 'my last name';
+    const email = `${username}@example.com`
+    const password = 'testPassword123';
     cy.intercept('POST', `${apiUrl}api/v1/public/token`, {
       statusCode: 201,
       body: testToken,
@@ -16,13 +20,22 @@ describe('Test user using the register page', () => {
     cy.intercept('POST', `${apiUrl}api/v1/public/user`, {
       statusCode: 201,
     });
+    cy.intercept('GET', `${apiUrl}api/v1/private/me`, {
+      statusCode: 200,
+      body: {username: username,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        roles: ['user']
+      }
+    });
 
     cy.get('input[data-testid="username"]', { timeout: 60000 }).should('exist').type(username);
-    cy.get('input[data-testid="email"]').type(`${username}@example.com`);
-    cy.get('input[data-testid="first-name"]').type('my name');
-    cy.get('input[data-testid="last-name"]').type('my last name');
-    cy.get('input[data-testid="password"]').type('testPassword123');
-    cy.get('input[data-testid="repeat-password"]').type('testPassword123');
+    cy.get('input[data-testid="email"]').type(email);
+    cy.get('input[data-testid="first-name"]').type(firstName);
+    cy.get('input[data-testid="last-name"]').type(lastName);
+    cy.get('input[data-testid="password"]').type(password);
+    cy.get('input[data-testid="repeat-password"]').type(password);
     cy.get('button[data-testid="create-user-button"]').click().wait(1000);
     cy.getCookie('userInfo')
       .should('have.property', 'value')

@@ -107,7 +107,7 @@ nav ul li {
 nav {
   display: flex;
   justify-content: space-between;
-  margin: 1.5em 2em;
+  margin: 0.5em 2em;
   min-width: var(--content-width);
 }
 
@@ -115,6 +115,7 @@ header {
   border-bottom: var(--primary-color) 2px solid;
   display: flex;
   justify-content: center;
+  background-color: var(--background-color);
 }
 
 nav #funn-logo {
