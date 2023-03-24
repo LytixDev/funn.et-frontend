@@ -172,6 +172,7 @@
     "locationsSelectLabel": "Velg en adresse fra listen",
     "submitButton": "Sett lokasjon",
     "numberOfLocationsDisplaying": "Antall valbare adresser",
+    "removeLocationButton": "Fjern adresse",
     "Error": {
       "AddressRequired": "Adresse er obligatorisk"
     }

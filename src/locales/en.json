@@ -172,6 +172,7 @@
     "locationsSelectLabel": "Select an address",
     "submitButton": "Set a location",
     "numberOfLocationsDisplaying": "Number of addresses in selectable list",
+    "removeLocationButton": "Fjern adresse",
     "Error": {
       "AddressRequired": "Location is required"
     }
