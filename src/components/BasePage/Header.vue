@@ -1,7 +1,9 @@
 <template>
   <header id="navigation-bar">
     <nav>
-      <FunnLogo />
+      <div class="logo-clickable">
+        <FunnLogo @click="router.push({ name: 'home' })" />
+      </div>
       <ul>
         <li>
           <router-link to="/">{{ $t('navigation.home') }}</router-link>
@@ -25,13 +27,19 @@ import LocaleSelector from '@/components/BasePage/LocaleSwitcher.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { computed } from 'vue';
 import FunnLogo from '@/components/BaseComponents/FunnLogo.vue';
+import { useRouter } from 'vue-router';
 
 const user = useUserInfoStore();
+const router = useRouter();
 const loggedIn = computed(() => user.isLoggedIn);
 </script>
 
 <style scoped>
 #navigation-bar {
   position: sticky;
+}
+
+.logo-clickable {
+  cursor: pointer;
 }
 </style>
