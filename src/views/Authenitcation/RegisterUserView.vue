@@ -52,6 +52,10 @@
         dataTestid="create-user-button"
         @click="submit" />
     </form>
+    <div id="login">
+      <span>{{ $t('RegisterUserView.login') }}</span>
+      <router-link to="/login">{{ $t('navigation.login') }}</router-link>
+    </div>
   </div>
   <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
 </template>
@@ -146,4 +150,8 @@ const { value: lastName } = useField('lastName') as FieldContext<string>;
 const { value: password } = useField('password') as FieldContext<string>;
 </script>
 
-<style scoped></style>
+<style scoped>
+#login {
+  margin-top: 1rem;
+}
+</style>

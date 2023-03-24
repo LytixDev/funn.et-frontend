@@ -44,6 +44,7 @@
     "goHome": "Go to the front page"
   },
   "RegisterUserView": {
+    "login": "Do you already have an account?",
     "title": "Register a new user",
     "submit": "Register new user"
   },
