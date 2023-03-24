@@ -25,7 +25,12 @@
       button-id="submit-button"
       :button-text="$t('CreateLocationForm.submitButton')"
       data-testid="submit-button" />
+    <p>
+      <span>{{ $t(`CreateLocationForm.selectedLocation`) }}</span
+      >: {{ modelValue?.address }}
+    </p>
   </form>
+
   <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
   <location-map
     :center="{ lat: mapCenterLat, lon: matCenterLon }"
@@ -39,7 +44,7 @@ import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
-import { ApiError, LocationControllerService, LocationCreateDTO } from '@/api/backend';
+import { ApiError, LocationControllerService, LocationResponseDTO } from '@/api/backend';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
@@ -48,7 +53,7 @@ import { AxiosError } from 'axios';
 
 defineProps({
   modelValue: {
-    type: Object as () => LocationCreateDTO | undefined,
+    type: Object as () => LocationResponseDTO | undefined,
     required: false,
   },
 });

@@ -57,8 +57,6 @@
       </error-boundary-catcher>
     </fieldset>
 
-    <p>Location: {{ location }}</p>
-
     <fieldset>
       <ImageUploader v-model="image" />
       <FormInput
@@ -92,7 +90,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useRouter } from 'vue-router';
-import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationCreateDTO } from '@/api/backend';
+import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationResponseDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
@@ -178,8 +176,8 @@ const { value: briefDescription } = useField('briefDescription') as FieldContext
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
-const { value: location } = useField('location') as FieldContext<LocationCreateDTO>;
-const { value: image } = useField('image') as FieldContext<string>;
+const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
+const { value: image } = useField('image') as FieldContext<object>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>
 

@@ -173,6 +173,7 @@
     "submitButton": "Sett lokasjon",
     "numberOfLocationsDisplaying": "Antall valbare adresser",
     "removeLocationButton": "Fjern adresse",
+    "selectedLocation": "Valgt adresse",
     "Error": {
       "AddressRequired": "Adresse er obligatorisk"
     }
