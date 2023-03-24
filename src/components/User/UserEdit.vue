@@ -1,10 +1,5 @@
 <template>
-  <div v-if="user">
-    <h2>{{ user.username }}</h2>
-    <p>{{ user.role }}</p>
-    <p>{{ user.firstName }} {{ user.lastName }}</p>
-    <p>{{ user.email }}</p>
-  </div>
+  {{ user.username }}
 </template>
 
 <script setup lang="ts">

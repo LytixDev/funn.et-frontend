@@ -121,7 +121,8 @@
     }
   },
   "UserDetailView": {
-    "loading": "Loading user details..."
+    "loading": "Loading user details...",
+    "edit": "Edit user"
   },
   "ListingDetailView": {
     "loading": "Loading listing details..."

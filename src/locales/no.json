@@ -121,7 +121,8 @@
     }
   },
   "UserDetailView": {
-    "loading": "Laster bruker detaljer..."
+    "loading": "Laster bruker detaljer...",
+    "edit": "Rediger din bruker"
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ..."
