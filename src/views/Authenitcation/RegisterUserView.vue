@@ -77,7 +77,7 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString, ref as yupRef } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { UserService, RegisterDTO } from '@/api';
+import { UserService, RegisterDTO, OpenAPI } from '@/api';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO } from '@/api';
@@ -129,13 +129,23 @@ const submit = handleSubmit(async (values) => {
       let auth: AuthenticateDTO = { username: values.username, password: values.password };
 
       TokenControllerService.generateToken({ requestBody: auth })
-        .then((token) => {
+        .then(async (token) => {
           if (token == null || token == undefined) {
             errorBoxMsg.value = 'Internal server error, please try again later.';
             return;
           }
+          OpenAPI.TOKEN = token;
 
-          userStore.setUserInfo({ accessToken: token, username: values.username });
+          // Fetch user info
+          let user = await UserService.getUser1();
+
+          userStore.setUserInfo({
+            accessToken: token,
+            firstname: user.firstName,
+            lastname: user.lastName,
+            username: user.username,
+            role: user.role,
+          });
           router.push({ name: 'home' });
         })
         .catch((authError) => {

@@ -17,6 +17,9 @@
         <li>
           <locale-selector />
         </li>
+        <li v-if="loggedIn">
+          <UserProfilePicture />
+        </li>
       </ul>
     </nav>
   </header>
@@ -28,6 +31,7 @@ import { useUserInfoStore } from '@/stores/UserStore';
 import { computed } from 'vue';
 import FunnLogo from '@/components/BaseComponents/FunnLogo.vue';
 import { useRouter } from 'vue-router';
+import UserProfilePicture from '@/components/User/UserProfilePicture.vue';
 
 const user = useUserInfoStore();
 const router = useRouter();
@@ -38,7 +42,6 @@ const loggedIn = computed(() => user.isLoggedIn);
 #navigation-bar {
   top: 0;
   position: sticky;
-  background-color: aliceblue; /* <3 */
   z-index: 100;
 }
 
