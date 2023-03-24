@@ -13,7 +13,7 @@ describe('Test user using the login page', () => {
     cy.getCookie('userInfo')
       .should('have.property', 'value')
       .then((value) => {
-        expect(value).to.not.include(testToken).and.to.not.include(username);
+        esxpect(value).to.not.include(testToken).and.to.not.include(username);
       });
   });
 
