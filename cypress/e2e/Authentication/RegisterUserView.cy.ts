@@ -20,7 +20,7 @@ describe('Test user using the register page', () => {
     cy.intercept('POST', `${apiUrl}api/v1/public/user`, {
       statusCode: 201,
     });
-    cy.intercept('GET', `${apiUrl}api/v1/private/me`, {
+    cy.intercept('GET', `${apiUrl}api/v1/private/user/me`, {
       statusCode: 200,
       body: {username: username,
         firstName: firstName,
