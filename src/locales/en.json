@@ -105,9 +105,7 @@
       "descriptionMax": "Description can not be larger than 512 characters",
       "priceRequired": "Price is required",
       "priceMin": "Price must be larger than 0",
-      "addressRequired": "Address is required",
-      "cityRequired": "City is required",
-      "postcodeRequired": "Postcode is required"
+      "locationRequired": "Choose a location"
     }
   },
   "Form": {

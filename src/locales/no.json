@@ -107,7 +107,8 @@
       "priceMin": "Pris må være positivt og større enn 0",
       "addressRequired": "Adresse er obligatorisk",
       "cityRequired": "By er obligatorisk",
-      "postcodeRequired": "Postnummer er obligatorisk"
+      "postcodeRequired": "Postnummer er obligatorisk",
+      "locationRequired": "Du må velge en lokasjon"
     }
   },
   "Form": {

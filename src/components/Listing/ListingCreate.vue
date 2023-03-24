@@ -1,7 +1,7 @@
 <template>
   <h2>{{ $t('navigation.createListing') }}</h2>
 
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" enctype="multipart/form-data">
     <fieldset>
       <FormInput
         labelId="listing-title-label"
@@ -53,6 +53,7 @@
 
     <fieldset>
       <error-boundary-catcher>
+        <div>{{ errors?.location }}</div>
         <create-location-form v-model="location" />
       </error-boundary-catcher>
     </fieldset>
@@ -118,12 +119,18 @@ const schema = computed(() =>
   }),
 );
 
+const formData = new FormData();
+
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
 const submit = handleSubmit((values) => {
-  /* This code was written by a soidev. Probably callum. */
+  for (const [key, value] of Object.entries(values)) {
+    formData.append(key, value);
+    console.log(key, value);
+  }
+
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
@@ -138,7 +145,7 @@ const submit = handleSubmit((values) => {
 
   let payload = {
     username: username.value,
-    location: values.location,
+    location: values.location.id,
     title: values.title,
     briefDescription: values.briefDescription,
     fullDescription: values.description,
