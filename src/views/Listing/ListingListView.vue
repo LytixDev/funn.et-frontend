@@ -1,4 +1,5 @@
 <template>
+  <router-link to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
   <div class="listing-filters">
     <form-input
       labelId="listing-search-label"
