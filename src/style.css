@@ -35,6 +35,10 @@ form {
   color: white;
 }
 
+.disabled {
+  background-color: #ccc;
+}
+
 .form-header {
   color: var(--primary-color);
   margin-bottom: 1.5em;
