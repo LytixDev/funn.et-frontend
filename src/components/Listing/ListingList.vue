@@ -1,4 +1,5 @@
 <template>
+  <router-link to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
   <div class="listing-grid">
     <div v-for="listing in listings" :key="listing.id" class="listing-div">
       <listing-card :listingData="listing" data-testid="listing-card" />
@@ -24,5 +25,4 @@ const { listings } = defineProps({ listings: { type: Object as () => ListingDTO[
   margin-top: 5px;
   border-radius: 5px;
 }
-
 </style>
