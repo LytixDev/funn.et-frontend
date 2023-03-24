@@ -26,6 +26,7 @@
       :button-text="$t('CreateLocationForm.submitButton')"
       data-testid="submit-button" />
   </form>
+  <button @click="$emit('update:modelValue', undefined)">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
   <location-map :center="{ lat: mapCenterLat, lon: matCenterLon }" :marker-coords="markerCoords" :zoom="zoom" />
 </template>
 
@@ -39,11 +40,7 @@ import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import LocationMap from '@/components/Location/LocationMap.vue';
-import { useRouter } from 'vue-router';
-import { useUserInfoStore } from '@/stores/UserStore';
-
-const router = useRouter();
-const userStore = useUserInfoStore();
+import { AxiosError } from 'axios';
 
 defineProps({
   modelValue: {
@@ -110,11 +107,11 @@ const createLocation = async () => {
       emit('update:modelValue', payload);
     })
     .catch((error: any) => {
-      if (error.status === 401) {
-        router.push({ name: 'login' });
-        userStore.clearUserInfo();
+      if (error instanceof AxiosError) {
+        errorMessage.value = `Exceptions.${error.code!!}`;
+        return;
       }
-      errorMessage.value = `Exceptions.${error.body.detail}`;
+      Promise.reject(error);
     });
 };
 

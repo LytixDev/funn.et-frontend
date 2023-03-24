@@ -52,7 +52,9 @@
     </fieldset>
 
     <fieldset>
-      <create-location-form v-model="location" />
+      <error-boundary-catcher>
+        <create-location-form v-model="location" />
+      </error-boundary-catcher>
     </fieldset>
 
     <p>Location: {{ location }}</p>
@@ -90,16 +92,10 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useRouter } from 'vue-router';
-import {
-  ListingControllerService,
-  ListingCreateDTO,
-  ListingDTO,
-  LocationCreateDTO,
-  LocationControllerService,
-  LocationResponseDTO,
-} from '@/api';
+import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationCreateDTO } from '@/api';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
+import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 
 const { t } = useI18n();
 const router = useRouter();
