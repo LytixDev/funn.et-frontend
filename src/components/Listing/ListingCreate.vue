@@ -52,24 +52,10 @@
     </fieldset>
 
     <fieldset>
-      <FormDropDownList
-        v-if="locations.length > 0"
-        labelId="listing-locations-label"
-        :labelText="$t('CreateListingView.locations')"
-        fieldId="listing-locations"
-        v-model="location"
-        fieldRequired
-        dataTestId="listing-locations"
-        fieldName="locations"
-        :fieldOptions="locations" />
-
-      <div v-else>
-        <p>{{ $t('CreateListingView.noLocations') }}</p>
-        <RouterLink :to="{ name: 'user', params: { id: username } }">
-          {{ $t('CreateListingView.createLocation') }}
-        </RouterLink>
-      </div>
+      <create-location-form v-model="location" />
     </fieldset>
+
+    <p>Location: {{ location }}</p>
 
     <fieldset>
       <ImageUploader v-model="image" />
@@ -102,11 +88,11 @@ import ImageUploader from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ListingDTO, ListingCreateDTO } from '@/api';
-import { ListingControllerService, LocationControllerService, LocationResponseDTO } from '@/api';
-import { useUserInfoStore } from '@/stores/UserStore';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useRouter } from 'vue-router';
+import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationCreateDTO, LocationControllerService, LocationResponseDTO } from '@/api';
+import { useUserInfoStore } from '@/stores/UserStore';
+import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -131,6 +117,8 @@ const schema = computed(() =>
     location: yupString().required(t('CreateListingView.Error.locationRequired')),
   }),
 );
+
+const location = ref({} as LocationCreateDTO);
 
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,
@@ -201,7 +189,6 @@ const { value: briefDescription } = useField('briefDescription') as FieldContext
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
-const { value: location } = useField('location') as FieldContext<string>;
 const { value: image } = useField('image') as FieldContext<string>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>

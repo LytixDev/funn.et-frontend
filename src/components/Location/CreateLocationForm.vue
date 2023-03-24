@@ -30,11 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect, defineProps, defineEmits } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
-import { ApiError, LocationControllerService } from '@/api';
+import { ApiError, LocationControllerService, LocationCreateDTO } from '@/api';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
@@ -44,6 +44,15 @@ import { useUserInfoStore } from '@/stores/UserStore';
 
 const router = useRouter();
 const userStore = useUserInfoStore();
+
+defineProps({
+  modelValue: {
+    type: Object as () => LocationCreateDTO,
+    required: true,
+  },
+});
+
+const emit = defineEmits(['update:modelValue']);
 
 const address = ref('');
 
@@ -97,7 +106,7 @@ const createLocation = async () => {
     },
   })
     .then(() => {
-      console.log('Location created');
+      emit('update:modelValue', selectedLocation.value);
     })
     .catch((error: any) => {
       if (error.status === 401) {
