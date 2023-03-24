@@ -87,7 +87,7 @@ const submit = handleSubmit(async (values) => {
       username: user.username,
       role: user.role,
     });
-    
+
     router.push({ name: 'home' });
   } catch (authError: any) {
     if (authError.detail !== undefined) {

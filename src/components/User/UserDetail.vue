@@ -1,6 +1,6 @@
 <template>
   <div v-if="user" class="user-profile-page form">
-    <UserProfilePicture class="main-profile-picture"/>
+    <UserProfilePicture class="main-profile-picture" />
     <h2>{{ user.username }}</h2>
     <p>{{ user.role }}</p>
     <p>{{ user.firstName }} {{ user.lastName }}</p>
@@ -34,6 +34,5 @@ console.log(user);
 }
 
 .user-profile-page {
-
 }
 </style>
