@@ -34,18 +34,16 @@ import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
-import { LocationControllerService } from '@/api';
+import { ApiError, LocationControllerService } from '@/api';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
-import { useI18n } from 'vue-i18n';
 import LocationMap from '@/components/Location/LocationMap.vue';
 import { useRouter } from 'vue-router';
-import {useUserInfoStore} from '@/stores/UserStore';
+import { useUserInfoStore } from '@/stores/UserStore';
 
 const router = useRouter();
 const userStore = useUserInfoStore();
-
 
 const address = ref('');
 
@@ -85,11 +83,9 @@ const markerCoords = computed(() => {
 
 const zoom = ref(2);
 
-const { t } = useI18n();
-
 const createLocation = async () => {
   if (selectedLocation.value === undefined) {
-    errorMessage.value = t('CreateLocationForm.Error.AddressRequired');
+    errorMessage.value = 'CreateLocationForm.Error.AddressRequired';
   }
   LocationControllerService.createLocation({
     requestBody: {
@@ -104,7 +100,6 @@ const createLocation = async () => {
       console.log('Location created');
     })
     .catch((error: any) => {
-      // if 403, then user is not logged in and redirect to login page
       if (error.status === 401) {
         router.push({ name: 'login' });
         userStore.clearUserInfo();
@@ -124,7 +119,10 @@ watchEffect(async () => {
       fuzzy: address.value?.length > 12,
     });
   } catch (error: any) {
-    errorMessage.value = error.body.detail;
+    if (error instanceof ApiError) {
+      errorMessage.value = error.body.detail;
+    }
+    errorMessage.value = error;
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;
