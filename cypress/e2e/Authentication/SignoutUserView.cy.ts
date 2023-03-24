@@ -8,12 +8,12 @@ describe('Test user using the login page', () => {
     const username = 'TestUser';
 
     cy.setCookie('userInfo', JSON.stringify({ accessToken: testToken, username: username, role: 'USER' }));
-    cy.visit('/signout').wait(4000);
+    cy.visit('/signout').wait(5000);
 
     cy.getCookie('userInfo')
       .should('have.property', 'value')
       .then((value) => {
-        esxpect(value).to.not.include(testToken).and.to.not.include(username);
+        expect(value).to.not.include(testToken).and.to.not.include(username);
       });
   });
 
