@@ -44,6 +44,7 @@
     "goHome": "Gå til forsiden"
   },
   "RegisterUserView": {
+    "login": "Har du allerede en bruker?",
     "title": "Registrer en ny bruker",
     "submit": "Registrer en ny bruker"
   },
