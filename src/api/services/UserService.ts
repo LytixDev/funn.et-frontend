@@ -10,7 +10,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class UserService {
-
   /**
    * Update the user with the given username
    * Update the user with the given username
@@ -56,5 +55,4 @@ export class UserService {
       },
     });
   }
-
 }
