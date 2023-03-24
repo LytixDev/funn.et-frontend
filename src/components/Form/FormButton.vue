@@ -1,5 +1,11 @@
 <template>
-  <button :class="{ 'formButtonClass': true, 'disabled': disabled }" :id="buttonId" :type="buttonType" _value="buttonValue" :data-testid="dataTestid" :disabled="disabled">
+  <button
+    :class="{ formButtonClass: true, disabled: disabled }"
+    :id="buttonId"
+    :type="buttonType"
+    _value="buttonValue"
+    :data-testid="dataTestid"
+    :disabled="disabled">
     {{ buttonText }}
   </button>
 </template>

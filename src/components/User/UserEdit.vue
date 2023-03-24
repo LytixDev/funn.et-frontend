@@ -33,7 +33,7 @@
       dataTestid="last-name" />
     <FormButton
       buttonId="create-user-button"
-      :class="{'attention': !submitIsDisabled}"
+      :class="{ attention: !submitIsDisabled }"
       :disabled="submitIsDisabled"
       :buttonText="$t('UserDetailView.submit')"
       dataTestid="create-user-button"
@@ -64,8 +64,12 @@ const props = defineProps({
 });
 
 const submitIsDisabled = computed(() => {
-  return Object.values(errors.value).filter((value) => value !== undefined).length > 0
-  || (email.value === props.user.email && firstName.value === props.user.firstName && lastName.value === props.user.lastName);
+  return (
+    Object.values(errors.value).filter((value) => value !== undefined).length > 0 ||
+    (email.value === props.user.email &&
+      firstName.value === props.user.firstName &&
+      lastName.value === props.user.lastName)
+  );
 });
 
 const schema = computed(() =>
