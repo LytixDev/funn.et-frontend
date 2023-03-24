@@ -50,7 +50,7 @@ form {
   align-items: center;
   box-shadow: var(--large-box-shadow);
   width: fit-content;
-  margin: 2em;
+  margin: 2em 0;
   padding: 2em;
   border-radius: 1em;
   width: min(400px, 100%);
