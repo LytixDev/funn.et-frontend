@@ -19,7 +19,7 @@ const props = defineProps({
     required: true,
   },
   activePage: {
-    type: String
+    type: String,
   },
 });
 </script>

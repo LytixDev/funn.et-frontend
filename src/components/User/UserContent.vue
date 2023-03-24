@@ -37,8 +37,7 @@ const activePageComponent = computed(() => {
 });
 
 watch(activePage, async (newVal) => {
-  if (newVal === 'UserDetail')
-    user.value = await UserService.getUser({ username: username });
+  if (newVal === 'UserDetail') user.value = await UserService.getUser({ username: username });
 });
 
 const isMe: Ref<boolean> = computed(() => {

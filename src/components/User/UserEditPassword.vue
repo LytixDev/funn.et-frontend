@@ -1,5 +1,5 @@
 <template>
-  <p>{{ $t('UserDetailView.editPasswordLong', { username: user.username}) }}</p>
+  <p>{{ $t('UserDetailView.editPasswordLong', { username: user.username }) }}</p>
 
   <form @submit.prevent="submit">
     <FormInput
@@ -62,7 +62,7 @@ const props = defineProps({
     required: true,
   },
   activePage: {
-    type: String
+    type: String,
   },
 });
 const emit = defineEmits(['update:activePage']);
@@ -95,8 +95,7 @@ const submit = handleSubmit(async (values) => {
     newPassword: values.password,
   } as UserPatchDTO;
 
-  await UserService.updateUser({ username: props.user.username!, requestBody: payload })
-  .then(() => {
+  await UserService.updateUser({ username: props.user.username!, requestBody: payload }).then(() => {
     emit('update:activePage', 'UserDetail');
   });
 });
@@ -105,14 +104,18 @@ const submit = handleSubmit(async (values) => {
 const { value: oldPassword } = useField('oldPassword') as FieldContext<string>;
 const { value: password } = useField('password') as FieldContext<string>;
 const { value: repeatPassword } = useField('repeatPassword') as FieldContext<string>;
-/* 
+/*
  * sets the password to an empty string.
  * removing this line will somehow break the 'submitIsDisabled' function
  */
 password.value = '';
 
 const submitIsDisabled = computed(() => {
-  return Object.values(errors.value).filter((value) => value !== undefined).length > 0 ||
-  password.value === '' || repeatPassword.value === '' || oldPassword.value === '';
+  return (
+    Object.values(errors.value).filter((value) => value !== undefined).length > 0 ||
+    password.value === '' ||
+    repeatPassword.value === '' ||
+    oldPassword.value === ''
+  );
 });
 </script>
