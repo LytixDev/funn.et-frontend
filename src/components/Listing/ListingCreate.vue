@@ -90,7 +90,14 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useRouter } from 'vue-router';
-import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationCreateDTO, LocationControllerService, LocationResponseDTO } from '@/api';
+import {
+  ListingControllerService,
+  ListingCreateDTO,
+  ListingDTO,
+  LocationCreateDTO,
+  LocationControllerService,
+  LocationResponseDTO,
+} from '@/api';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 
@@ -117,8 +124,6 @@ const schema = computed(() =>
     location: yupString().required(t('CreateListingView.Error.locationRequired')),
   }),
 );
-
-const location = ref({} as LocationCreateDTO);
 
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,
@@ -172,23 +177,12 @@ const categories = computed(() => {
   return listOfCategories;
 });
 
-const locations = await computed(async () => {
-  const locationResponse: Array<LocationResponseDTO> = await LocationControllerService.getAllLocations();
-  const ListOfLocations = [] as DropDownItem[];
-  for (const value of locationResponse) {
-    ListOfLocations.push({
-      value: value.id.toString(),
-      displayedValue: value.address.concat(', ').concat(value.city).concat(', ').concat(value.postCode.toString()),
-    });
-  }
-  return ListOfLocations;
-}).value;
-
 const { value: title } = useField('title') as FieldContext<string>;
 const { value: briefDescription } = useField('briefDescription') as FieldContext<string>;
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
+const { value: location } = useField('location') as FieldContext<LocationCreateDTO>;
 const { value: image } = useField('image') as FieldContext<string>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>

@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect, defineProps, defineEmits } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
