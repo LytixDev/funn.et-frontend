@@ -110,13 +110,9 @@ watchEffect(async () => {
 
 .page-content {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: auto 1fr;
   column-gap: 3rem;
   width: 100%;
-}
-
-.form {
-  box-sizing: border-box;
 }
 
 .buttons {
@@ -124,6 +120,4 @@ watchEffect(async () => {
   flex-direction: column;
   align-items: center;
 }
-
-
 </style>
