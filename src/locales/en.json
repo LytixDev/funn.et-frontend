@@ -133,7 +133,7 @@
   },
   "ListingDetailView": {
     "loading": "Loading listing details...",
-    "sendMessage": "Send message"
+    "sendMessage": "Send message",
     "favorite": "Add as favorite",
     "sold": "Mark listing as sold",
     "archive": "Archive listing",

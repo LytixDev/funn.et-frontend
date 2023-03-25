@@ -136,7 +136,7 @@
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ...",
-    "sendMessage": "Send melding"
+    "sendMessage": "Send melding",
     "favorite": "Legg til som favoritt",
     "sold": "Marker annonsen som solgt",
     "archive": "Arkiver annonse",
