@@ -3,7 +3,8 @@
 /* eslint-disable */
 
 export type ImageResponseDTO = {
-  id: number;
-  url: string;
-  alt: string;
+    id: number;
+    url: string;
+    alt: string;
 };
+

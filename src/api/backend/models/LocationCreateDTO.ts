@@ -3,9 +3,10 @@
 /* eslint-disable */
 
 export type LocationCreateDTO = {
-  address: string;
-  latitude: number;
-  longitude: number;
-  postCode: number;
-  city: string;
+    address: string;
+    latitude: number;
+    longitude: number;
+    postCode: number;
+    city: string;
 };
+
