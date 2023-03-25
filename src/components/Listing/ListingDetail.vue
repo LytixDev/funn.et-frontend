@@ -79,7 +79,7 @@ const images = computed(() => {
 });
 
 const favorite = async () => {
-  const data = await ListingControllerService.favoriteListing({ id: id });
+  const data = await ListingControllerService.favoriteOrUnfavoriteListing({ id: id });
   /* can not directly set as data.isFavorite may be undefined */
   if (data.isFavorite === true) isFavorite.value = true;
   else if (data.isFavorite === false) isFavorite.value = false;
