@@ -44,6 +44,11 @@ export const routes = [
         component: () => import('@/views/Listing/ListingDetailView.vue'),
       },
       {
+        path: '/listing/:id/edit',
+        name: 'listing',
+        component: () => import('@/views/Listing/ListingEditView.vue'),
+      },
+      {
         path: '/listing/:id/chat/:username',
         name: 'chat',
         component: () => import('@/views/Chat/ChatView.vue'),

@@ -67,12 +67,12 @@
         v-model="imageDescription"
         dataTestId="listing-image-description" />
 
+      </fieldset>
       <FormButton
         buttonId="create-listing-button"
         :buttonText="$t('CreateListingView.submit')"
         dataTestId="create-listing-button"
         @click="submit" />
-    </fieldset>
   </form>
   <error-box v-model="errorMessage" />
 </template>
@@ -90,11 +90,20 @@ import { object as yupObject, string as yupString, number as yupNumber } from 'y
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { useRouter } from 'vue-router';
-import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationResponseDTO } from '@/api/backend';
+import { useRouter, useRoute } from 'vue-router';
+import {
+  ApiError,
+  ListingControllerService,
+  ListingCreateDTO,
+  ListingDTO,
+  LocationControllerService,
+  LocationResponseDTO,
+} from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
+
+const route = useRoute();
 
 const { t } = useI18n();
 const router = useRouter();
@@ -102,35 +111,50 @@ const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
 const errorMessage = ref('');
 
+const listing = ref(undefined as ListingDTO | undefined);
+const listingId = +route.params.id;
+
+const foundLocation = ref(undefined as LocationResponseDTO | undefined);
+
+try {
+  listing.value = await ListingControllerService.getListing({ id: listingId });
+  foundLocation.value = await LocationControllerService.getLocationById({ id: listing.value.location!! });
+} catch (error) {
+  if (error instanceof ApiError) {
+    errorMessage.value = error.body.detail;
+  }
+  throw error;
+}
+
 const schema = computed(() =>
   yupObject({
     title: yupString()
       .required(t('CreateListingView.Error.titleRequired'))
-      .max(256, t('CreateListingView.Error.titleMax')),
+      .max(256, t('CreateListingView.Error.titleMax'))
+      .default(listing.value?.title),
     briefDescription: yupString()
       .required(t('CreateListingView.Error.briefDescriptionRequired'))
-      .max(128, t('CreateListingView.Error.briefDescriptionMax')),
-    description: yupString().max(512, t('CreateListingView.Error.descriptionMax')),
+      .max(128, t('CreateListingView.Error.briefDescriptionMax'))
+      .default(listing.value?.briefDescription),
+    description: yupString()
+      .max(512, t('CreateListingView.Error.descriptionMax'))
+      .default(listing.value?.fullDescription),
     price: yupNumber()
       .required(t('CreateListingView.Error.priceRequired'))
-      .min(0, t('CreateListingView.Error.priceMin')),
-    category: yupString().default('OTHER'),
-    location: yupObject<LocationResponseDTO>().required(t('CreateListingView.Error.locationRequired')),
+      .min(0, t('CreateListingView.Error.priceMin'))
+      .default(listing.value?.price),
+    category: yupString().default('OTHER').default(listing.value?.category),
+    location: yupObject<LocationResponseDTO>()
+      .required(t('CreateListingView.Error.locationRequired'))
+      .default(foundLocation.value),
   }),
 );
-
-const formData = new FormData();
 
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
 const submit = handleSubmit((values) => {
-  for (const [key, value] of Object.entries(values)) {
-    formData.append(key, value);
-    console.log(key, value);
-  }
-
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
@@ -138,14 +162,13 @@ const submit = handleSubmit((values) => {
   if (month.length == 1) month = '0'.concat(month);
   const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
 
-  const imageResponse = [] as Array<Blob>;
+  const images = [] as Array<Blob>;
   values.images.forEach((image: any) => {
-    imageResponse.push(new Blob([image.data], { type: image.type }));
+    images.push(new Blob([image.data], { type: image.type }));
   });
-  console.log(imageResponse);
-  const imageAltResponse = [] as Array<string>;
+  const imageAlts = [] as Array<string>;
   values.images.forEach((image: any) => {
-    imageAltResponse.push(image.alt || undefined);
+    imageAlts.push(image.alt || undefined);
   });
   let payload = {
     username: username.value,
@@ -157,13 +180,13 @@ const submit = handleSubmit((values) => {
     price: values.price,
     publicationDate: dateStr,
     expirationDate: dateStr,
-    images: imageResponse,
-    imageAlts: imageAltResponse,
+    images: images,
+    imageAlts: imageAlts,
   } as ListingCreateDTO;
 
   console.log(payload);
 
-  ListingControllerService.createListing({ formData: payload })
+  ListingControllerService.updateListing({ id: listingId, requestBody: payload })
     .then((response) => {
       router.push({ name: 'listing', params: { id: response.id } });
     })
@@ -191,6 +214,12 @@ const { value: category } = useField('category') as FieldContext<string>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
+title.value = listing.value?.title;
+briefDescription.value = listing.value?.briefDescription;
+description.value = listing.value?.fullDescription!!;
+price.value = listing.value?.price!!.toString();
+category.value = listing.value?.category;
+location.value = foundLocation.value;
 </script>
 
 <style scoped></style>
