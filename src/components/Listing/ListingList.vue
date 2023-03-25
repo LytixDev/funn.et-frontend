@@ -9,7 +9,8 @@
 
 <script setup lang="ts">
 import { ListingDTO } from '@/api/backend';
-import ListingCard from './ListingCard.vue';1
+import ListingCard from './ListingCard.vue';
+1;
 
 const { listings } = defineProps({ listings: { type: Object as () => ListingDTO[] } });
 </script>

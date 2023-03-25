@@ -57,7 +57,7 @@ const images = computed(() => {
 });
 
 const favorite = async () => {
-  //await ListingControllerService.favoriteListing({ id: id });
+  await ListingControllerService.favoriteListing({ id: id });
 };
 
 const updateStatus = async (status: ListingDTO.status) => {
