@@ -1,32 +1,46 @@
 <template>
-  <div v-if="listing">
-    <!--
-    Unsure how the image will be passed from the backend.
-
-    <div v-if="image">
-      <img :src="image" :alt="imageAlt" />
-    </div>
-    -->
-    <div>
-      <img
-        src="https://media.licdn.com/dms/image/D4D03AQEhvgiUUe1tgA/profile-displayphoto-shrink_800_800/0/1672178488156?e=1684972800&v=beta&t=e77ig5S5qj52ubkpGN7NvlYz-pN1YLFhvdhI4MwjMYY"
-        alt="placeholder" />
+  <div class="listing-detail-view" v-if="listing">
+    <div class="carousel">
+      <ImageCarousel :images="images" />
     </div>
 
-    <h2>{{ listing.title }}</h2>
-    <p>{{ listing.username }}</p>
-    <p>{{ listing.price }}</p>
+    <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
+      {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
+    </h2>
 
-    <div v-if="listing.expirationDate">
-      <p>{{ listing.expirationDate }}</p>
+    <div class="listing-details">
+      <div class="listing-head">
+        <h1 class="listing-title">{{ listing.title }}</h1>
+        <div v-if="user.isLoggedIn && !isOwner && listing.status === ListingDTO.status.ACTIVE" class="listing-actions">
+          <OhVueIcon @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
+        </div>
+      </div>
+      <div>
+        <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
+        <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
+        <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category }}</p>
+      </div>
+      <hr />
+
+      <div class="listing-description">
+        <h2>{{ $t('ListingDetailView.description') }}</h2>
+        <p>{{ listing.briefDescription }}</p>
+        <div v-if="listing.fullDescription">
+          <p>{{ listing.fullDescription }}</p>
+        </div>
+      </div>
+      <hr />
     </div>
+  </div>
 
-    <p>{{ listing.briefDescription }}</p>
-    <div v-if="listing.fullDescription">
-      <p>{{ listing.fullDescription }}</p>
-    </div>
-
-    <p>{{ listing.category }}</p>
+  <div class="owner-actions" v-if="isOwner">
+    <button v-if="listing?.status != ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
+      {{ $t('ListingDetailView.sold') }}
+    </button>
+    <button v-if="listing?.status != ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+      {{ $t('ListingDetailView.archive') }}
+    </button>
+    <button>{{ $t('ListingDetailView.edit') }}</button>
   </div>
   <router-link
     v-if="username !== listing?.username && username !== ''"
@@ -37,35 +51,105 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { ref, computed } from 'vue';
+import { Ref, ref, computed } from 'vue';
 import { ListingControllerService } from '@/api/backend';
-import { ListingDTO } from '@/api/backend';
+import { ListingDTO, ListingCreateDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
+import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
+import { BiHeartFill, BiHeart } from 'oh-vue-icons/icons';
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
 
+addIcons(BiHeart, BiHeartFill);
 const listing = ref<ListingDTO>();
+const isFavorite = ref<boolean>(false);
 const route = useRoute();
 const id: number = +(route.params.id as string);
 
-const userStore = useUserInfoStore();
-const username = computed(() => userStore.username) || '';
+const user = useUserInfoStore();
+const username = computed(() => user.username) || '';
 
 listing.value = await ListingControllerService.getListing({ id: id });
+if (listing.value.isFavorite) isFavorite.value = listing.value.isFavorite;
 
-//Unsure how the image will be passed from the backend.
-//
-//const image = computed(() => {
-//  if (listing.value?.imageResponse) {
-//    return listing.value.imageResponse[0].image?.toString();
-//  }
-//  return '';
-//});
-//
-//const imageAlt = computed(() => {
-//  if (listing.value?.imageResponse) {
-//    return listing.value.imageResponse[0].alt;
-//  }
-//  return '';
-//});
+const isOwner: Ref<boolean> = computed(() => listing.value?.username === user.username);
+
+const images = computed(() => {
+  if (listing.value?.imageResponse) return listing.value.imageResponse.map((image) => image.url?.toString());
+  return [];
+});
+
+const favorite = async () => {
+  const data = await ListingControllerService.favoriteOrUnfavoriteListing({ id: id });
+  /* can not directly set as data.isFavorite may be undefined */
+  if (data.isFavorite === true) isFavorite.value = true;
+  else if (data.isFavorite === false) isFavorite.value = false;
+};
+
+const updateStatus = async (status: ListingDTO.status) => {
+  if (status === listing.value?.status) return;
+  let listingCpy = { ...listing.value } as ListingCreateDTO;
+  listingCpy.status = status;
+  const response: ListingDTO = await ListingControllerService.updateListing({ id: id, formData: listingCpy });
+  if (response) listing.value = response;
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.listing-head {
+  display: flex;
+  align-items: center;
+}
+
+.favourite {
+  margin-left: 15px;
+  scale: 2;
+  cursor: pointer;
+}
+
+.listing-detail-view {
+  min-width: 100vh;
+}
+
+.carousel {
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+h2 {
+  text-decoration: none;
+}
+.listing-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.listing-description {
+  margin-bottom: 1rem;
+}
+
+.listing-username {
+  margin-bottom: 0.5rem;
+}
+
+.listing-actions {
+  margin-top: 1rem;
+}
+
+.listing-username {
+  margin-right: 10px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+</style>

@@ -133,7 +133,24 @@
   },
   "ListingDetailView": {
     "loading": "Loading listing details...",
-    "sendMessage": "Send message"
+    "sendMessage": "Send message",
+    "favorite": "Add as favorite",
+    "sold": "Mark listing as sold",
+    "archive": "Archive listing",
+    "edit": "Edit listing",
+    "description": "Description",
+    "price": "Price",
+    "category": "Category",
+    "publishedBy": "Published by",
+    "note": "NOTE: This listing is ",
+    "ARCHIVED": "archived",
+    "SOLD": "sold",
+    "DRAFT": "draft"
+  },
+  "ImageCarousel": {
+    "loading": "Loading images...",
+    "previous": "Previous image",
+    "next": "Next image"
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",

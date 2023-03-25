@@ -136,7 +136,24 @@
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ...",
-    "sendMessage": "Send melding"
+    "sendMessage": "Send melding",
+    "favorite": "Legg til som favoritt",
+    "sold": "Marker annonsen som solgt",
+    "archive": "Arkiver annonse",
+    "edit": "Endre annonse",
+    "description": "Beskrivelse",
+    "price": "Pris",
+    "category": "Kategori",
+    "publishedBy": "Lagt ut av",
+    "note": "OBS: Denne annonsen er ",
+    "ARCHIVED": "arkivert",
+    "SOLD": "solgt",
+    "DRAFT": "påbegynt"
+  },
+  "ImageCarousel": {
+    "loading": "Laster inn bilde ...",
+    "previous": "Forrige bilde",
+    "next": "Neste bilde"
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
