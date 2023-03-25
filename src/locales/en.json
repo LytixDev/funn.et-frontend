@@ -134,7 +134,8 @@
     "goBack": "Go back"
   },
   "ListingDetailView": {
-    "loading": "Loading listing details..."
+    "loading": "Loading listing details...",
+    "sendMessage": "Send message"
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",
@@ -181,7 +182,8 @@
     "Error": {
       "messageRequired": "Message is required",
       "messageMax": "Message is too long",
-      "messageFailed": "Message could not be sent"
+      "messageFailed": "Message could not be sent",
+      "chatNotFound": "Chat was not found"
     }
   }
 }

@@ -134,7 +134,8 @@
     "goBack": "Gå tilbake"
   },
   "ListingDetailView": {
-    "loading": "Laster inn annonse ..."
+    "loading": "Laster inn annonse ...",
+    "sendMessage": "Send melding"
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
@@ -181,7 +182,8 @@
     "Error": {
       "messageRequired": "Melding er obligatorisk",
       "messageMax": "Meldingen er for lang",
-      "messageFailed": "Melingen kunne ikke sendes"
+      "messageFailed": "Melingen kunne ikke sendes",
+      "chatNotFound": "Kunne ikke finne samtalen"
     }
   }
 }

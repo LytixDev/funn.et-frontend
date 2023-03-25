@@ -1,4 +1,5 @@
 <template>
+  <SideBar :username="username" :chatDTOs="chatDTOs" />
   <div data-testid="chat" class="chat">
     <h2 class="chat__header">{{ $t('ChatView.title') }} {{ userToDisplay(chatData.messager.username) }}</h2>
     <div data-testid="messages" id="messages" class="chat__messages">
@@ -32,13 +33,14 @@
 
 <script lang="ts" setup>
 import { FieldContext, useField, useForm } from 'vee-validate';
+import SideBar from '@/components/Chat/SideBar.vue';
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import Message from '@/components/Chat/Message.vue';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ChatDTO, MessageDTO } from '@/api';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
 import { ChatControllerService } from '@/api';
@@ -49,12 +51,33 @@ const { t } = useI18n();
 
 const route = useRoute();
 
-let chatData: ChatDTO = await ChatControllerService.getChatByListingAndUser({
-  id: route.params.id as unknown as number,
-  username: route.params.username as string,
-});
-
 let errorBoxMsg = ref<string>('');
+
+let chatData: ChatDTO;
+let chatDTOs: ChatDTO[];
+
+// watchEffect(async () => {
+try {
+  chatData = await ChatControllerService.getChatByListingAndUser({
+    id: route.params.id as unknown as number,
+    username: route.params.username as string,
+  });
+} catch (error) {
+  try {
+    chatData = await ChatControllerService.createChat({
+      id: route.params.id as unknown as number,
+    });
+  } catch (error) {
+    errorBoxMsg.value = t('ChatView.Error.chatFailed');
+  }
+}
+
+try {
+  chatDTOs = await ChatControllerService.getChats();
+} catch (error) {
+  errorBoxMsg.value = t('ChatView.Error.chatFailed');
+}
+// });
 
 const schema = computed(() =>
   yupObject({
@@ -66,7 +89,7 @@ const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
-var messageDiv: HTMLElement;
+let messageDiv: HTMLElement;
 
 onMounted(() => {
   messageDiv = document.getElementById('messages') as HTMLElement;
@@ -82,7 +105,7 @@ const submit = handleSubmit(async (values) => {
     message: values.sendMessage,
   };
 
-  var received: MessageDTO;
+  let received: MessageDTO;
   try {
     received = await ChatControllerService.sendMessage({
       id: chatData.id,
@@ -145,7 +168,8 @@ const { value: sendMessage } = useField('sendMessage') as FieldContext<string>;
   flex: 1;
   overflow-y: auto;
   padding: 1rem;
-  /* Style a overflow */
+  border: 2px solid var(--primary-color);
+  border-radius: 0.5rem;
 }
 
 .chat__input {
