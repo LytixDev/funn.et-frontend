@@ -13,8 +13,8 @@ cache:
 install:
   stage: install
   script:
-    - npm cache clear
-    - npm install
+    - npm cache verify
+    - npm install --cache /tmp/empty-cache
     - npm run build
   artifacts:
     paths:
