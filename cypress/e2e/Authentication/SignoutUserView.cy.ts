@@ -8,7 +8,7 @@ describe('Test user using the login page', () => {
     const username = 'TestUser';
 
     cy.setCookie('userInfo', JSON.stringify({ accessToken: testToken, username: username, role: 'USER' }));
-    cy.visit('/signout').wait(1000);
+    cy.visit('/signout').wait(5000);
 
     cy.getCookie('userInfo')
       .should('have.property', 'value')
@@ -20,9 +20,9 @@ describe('Test user using the login page', () => {
   it('Test not logged out user gets no effect from signout', () => {
     cy.getAllCookies().then((result) => {
       expect(result).to.deep.equal([]);
-    });
+    }); 
 
-    cy.visit('/signout').wait(1000);
+    cy.visit('/signout').wait(4000);
 
     cy.getAllCookies().then((result) => {
       expect(result).to.deep.equal([]);

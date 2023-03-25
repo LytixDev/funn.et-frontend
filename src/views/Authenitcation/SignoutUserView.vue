@@ -10,14 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 
 const userStore = useUserInfoStore();
-
-onMounted(() => {
-  userStore.clearUserInfo();
-});
+userStore.clearUserInfo();
 </script>
 
 <style scoped></style>

@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'listing', params: { id: listingData.id } }">
     <div class="listing-card">
       <div class="listing-image">
-        <img src="@/assets/images/default-placeholder.png" />
+        <img :src="imageLocation" />
       </div>
 
       <div class="listing-info">
@@ -15,23 +15,27 @@
   </router-link>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import { ListingDTO } from '@/api/models/ListingDTO';
+import { computed } from '@vue/reactivity';
 
-export default defineComponent({
-  name: 'ListingCard',
-  props: {
-    listingData: {
-      type: Object as () => ListingDTO,
-      required: true,
-    },
-    testDataId: {
-      type: String,
-      required: false,
-    },
+const props = defineProps({
+  listingData: {
+    type: Object as () => ListingDTO,
+    required: true,
+  },
+  testDataId: {
+    type: String,
+    required: false,
   },
 });
+
+const imageLocation = computed(() => {
+  if (props.listingData.imageResponse?.length !== 0)
+    return props.listingData.imageResponse![0].url;
+  return '/src/assets/images/default-placeholder.png';
+});
+
 </script>
 
 <style scoped>
