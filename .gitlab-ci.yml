@@ -13,7 +13,7 @@ cache:
 install:
   stage: install
   script:
-    - npm cache clear --force
+    - npm cache clear
     - npm install
     - npm run build
   artifacts:
