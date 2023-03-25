@@ -138,7 +138,11 @@
     "favorite": "Legg til som favoritt",
     "sold": "Marker annonsen som solgt",
     "archive": "Arkiver annonse",
-    "edit": "Endre annonse"
+    "edit": "Endre annonse",
+    "description": "Beskrivelse",
+    "price": "Pris",
+    "category": "Kategori",
+    "publishedBy": "Lagt ut av"
   },
   "ImageCarousel": {
     "loading": "Laster inn bilde ...",
