@@ -31,11 +31,9 @@ const props = defineProps({
 });
 
 const imageLocation = computed(() => {
-  if (props.listingData.imageResponse?.length !== 0)
-    return props.listingData.imageResponse![0].url;
+  if (props.listingData.imageResponse?.length !== 0) return props.listingData.imageResponse![0].url;
   return '/src/assets/images/default-placeholder.png';
 });
-
 </script>
 
 <style scoped>
