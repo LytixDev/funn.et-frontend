@@ -56,7 +56,7 @@ export class ListingControllerService {
    * @returns ListingDTO OK
    * @throws ApiError
    */
-  public static favoriteListing({ id }: { id: number }): CancelablePromise<ListingDTO> {
+  public static favoriteOrUnfavoriteListing({ id }: { id: number }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'PUT',
       url: '/api/v1/private/listings/{id}/favorite',
