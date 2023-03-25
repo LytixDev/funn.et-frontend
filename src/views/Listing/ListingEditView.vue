@@ -3,10 +3,10 @@
     <template #fallback>
       <h2>{{ $t('ListingDetailView.loading') }}</h2>
     </template>
-    <listing-update />
+    <listing-edit />
   </Suspense>
 </template>
 
 <script setup lang="ts">
-import ListingUpdate from '@/components/Listing/ListingEdit.vue';
+import listingEdit from '@/components/Listing/ListingEdit.vue';
 </script>
