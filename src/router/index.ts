@@ -47,6 +47,7 @@ export const routes = [
         path: '/listing/:id/edit',
         name: 'listing-edit',
         component: () => import('@/views/Listing/ListingEditView.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: '/listing/:id/chat/:username',
