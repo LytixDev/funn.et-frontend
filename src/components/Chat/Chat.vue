@@ -1,8 +1,8 @@
 <template>
-  <SideBar :username="username" :chatDTOs="chatDTOs" />
+  <SideBar :username="username" :key="updateRefSideBar" :chatDTOs="chatDTOs" />
   <div data-testid="chat" class="chat">
-    <h2 class="chat__header">{{ $t('ChatView.title') }} {{ userToDisplay(chatData.messager.username) }}</h2>
-    <div data-testid="messages" id="messages" class="chat__messages">
+    <ChatHeader :username="username" :key="updateRefHeader" :chatData="chatData" />
+    <div data-testid="messages" id="messages" class="chat__messages" :key="updateRefMessages">
       <div v-for="message in chatData.messages" :key="message.id">
         <Message :messageData="message" :messageClass="messageClass(message.username)" :key="message.id" />
       </div>
@@ -37,10 +37,11 @@ import SideBar from '@/components/Chat/SideBar.vue';
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import Message from '@/components/Chat/Message.vue';
+import ChatHeader from '@/components/Chat/ChatHeader.vue';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ChatDTO, MessageDTO } from '@/api';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { computed, onMounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
 import { ChatControllerService } from '@/api';
@@ -51,21 +52,44 @@ const { t } = useI18n();
 
 const route = useRoute();
 
-let errorBoxMsg = ref<string>('');
+const errorBoxMsg = ref('');
+
+const updateRefSideBar = ref(0);
+const updateRefHeader = ref(0);
+const updateRefMessages = ref(0);
+
+const chatIdParam = computed(() => route.params.id);
+
+const usernameParam = computed(() => route.params.username);
 
 let chatData: ChatDTO;
 let chatDTOs: ChatDTO[];
 
-// watchEffect(async () => {
+watch(
+  () => route.params,
+  async () => {
+    try {
+      chatData = await ChatControllerService.getChatByListingAndUser({
+        id: chatIdParam.value as unknown as number,
+        username: usernameParam.value as string,
+      });
+      updateRefMessages.value++;
+      updateRefHeader.value++;
+    } catch (error) {
+      errorBoxMsg.value = t('ChatView.Error.chatFailed');
+    }
+  },
+);
+
 try {
   chatData = await ChatControllerService.getChatByListingAndUser({
-    id: route.params.id as unknown as number,
-    username: route.params.username as string,
+    id: chatIdParam.value as unknown as number,
+    username: usernameParam.value as string,
   });
 } catch (error) {
   try {
     chatData = await ChatControllerService.createChat({
-      id: route.params.id as unknown as number,
+      id: chatIdParam.value as unknown as number,
     });
   } catch (error) {
     errorBoxMsg.value = t('ChatView.Error.chatFailed');
@@ -77,7 +101,6 @@ try {
 } catch (error) {
   errorBoxMsg.value = t('ChatView.Error.chatFailed');
 }
-// });
 
 const schema = computed(() =>
   yupObject({
@@ -100,7 +123,6 @@ const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
 
 const submit = handleSubmit(async (values) => {
-  console.log('Submitting message');
   const messagePayload: MessageDTO = {
     message: values.sendMessage,
   };
@@ -116,14 +138,13 @@ const submit = handleSubmit(async (values) => {
     errorBoxMsg.value = t('ChatView.Error.messageFailed');
   }
   sendMessage.value = '';
+  chatDTOs = chatDTOs.filter((chatDTO: ChatDTO) => chatDTO.id !== chatData.id);
+  chatDTOs.unshift(chatData);
+  updateRefMessages.value++;
 });
 
 const messageClass = (messager: string | undefined): string => {
   return messager === username.value ? 'message__self' : 'message__other';
-};
-
-const userToDisplay = (messager: string | undefined): string | undefined => {
-  return messager === username.value ? chatData.listingUser.username : chatData.messager.username;
 };
 
 const { value: sendMessage } = useField('sendMessage') as FieldContext<string>;
@@ -192,7 +213,8 @@ const { value: sendMessage } = useField('sendMessage') as FieldContext<string>;
 
 @media only screen and (max-width: 600px) {
   .chat {
-    width: 100%;
+    margin-left: auto;
+    width: 90%;
   }
 }
 </style>

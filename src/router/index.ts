@@ -47,6 +47,7 @@ export const routes = [
         path: '/listing/:id/chat/:username',
         name: 'chat',
         component: () => import('@/views/Chat/ChatView.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: '/:pathMatch(.*)*',
