@@ -91,18 +91,4 @@ export class ChatControllerService {
       },
     });
   }
-
-  /**
-   * @returns ChatDTO OK
-   * @throws ApiError
-   */
-  public static getChats(): CancelablePromise<Array<ChatDTO>> {
-    return __request(OpenAPI, {
-      method: 'GET',
-      url: '/api/v1/private/chat',
-      errors: {
-        500: `Internal Server Error`,
-      },
-    });
-  }
 }

@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { ListingDTO } from '@/api/models/ListingDTO';
 import { computed } from '@vue/reactivity';
+import { ListingDTO } from '@/api/backend/models/ListingDTO';
 
 const props = defineProps({
   listingData: {

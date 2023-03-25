@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserDTO, UserPatchDTO, UserService } from '@/api';
+import { UserDTO, UserPatchDTO, UserService } from '@/api/backend';
 import { PropType, Ref, ref, computed } from 'vue';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString, ref as yupRef } from 'yup';

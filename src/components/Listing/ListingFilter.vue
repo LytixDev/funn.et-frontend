@@ -55,8 +55,8 @@ export interface ListingFilterType {
 
 <script setup lang="ts">
 import FormInput from '@/components/Form/FormInput.vue';
-import { FilterRequest, ListingDTO, SortRequest } from '@/api';
-import { ref, computed, watch } from 'vue';
+import { FilterRequest, ListingControllerService, ListingDTO, SearchRequest, SortRequest } from '@/api/backend';
+import { ref, watch, watchEffect, computed } from 'vue';
 import { ComputedRef } from '@vue/reactivity';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';

@@ -21,8 +21,8 @@
 
 <script setup lang="ts">
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { ListingControllerService, ListingDTO, SearchRequest } from '@/api';
-import { computed, ref, watch, watchEffect } from 'vue';
+import { ListingControllerService, ListingDTO, SearchRequest } from '@/api/backend';
+import { ref, watch, watchEffect } from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
