@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { MessageDTO } from '@/api/models/MessageDTO';
+import { MessageDTO } from '@/api/backend/models/MessageDTO';
 
 export default defineComponent({
   name: 'Message',
