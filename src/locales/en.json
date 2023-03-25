@@ -132,7 +132,8 @@
     "goBack": "Go back"
   },
   "ListingDetailView": {
-    "loading": "Loading listing details..."
+    "loading": "Loading listing details...",
+    "sendMessage": "Send message"
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",
@@ -163,6 +164,25 @@
     "ContextErrorMessage": "Could not find the source of the error",
     "ERR_NETWORK": "Could not connect with the server",
     "MissingTranslation": "Could not find the correct translation: The message was %{message}"
+  },
+  "ChatView": {
+    "loading": "Loading chat...",
+    "title": "Chat with",
+    "message": "Message",
+    "submit": "Send",
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "months": "months",
+    "years": "years",
+    "ago": "ago",
+    "Error": {
+      "messageRequired": "Message is required",
+      "messageMax": "Message is too long",
+      "messageFailed": "Message could not be sent",
+      "chatNotFound": "Chat was not found"
+    }
   },
   "CreateLocationForm": {
     "title": "Set a location",

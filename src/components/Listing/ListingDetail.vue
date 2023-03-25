@@ -28,6 +28,11 @@
 
     <p>{{ listing.category }}</p>
   </div>
+  <router-link
+    v-if="username !== listing?.username && username !== ''"
+    :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
+    >$t('ListingDetailView.sendMessage')</router-link
+  >
 </template>
 
 <script setup lang="ts">
@@ -35,10 +40,14 @@ import { useRoute } from 'vue-router';
 import { ref, computed } from 'vue';
 import { ListingControllerService } from '@/api/backend';
 import { ListingDTO } from '@/api/backend';
+import { useUserInfoStore } from '@/stores/UserStore';
 
 const listing = ref<ListingDTO>();
 const route = useRoute();
 const id: number = +(route.params.id as string);
+
+const userStore = useUserInfoStore();
+const username = computed(() => userStore.username) || '';
 
 listing.value = await ListingControllerService.getListing({ id: id });
 
