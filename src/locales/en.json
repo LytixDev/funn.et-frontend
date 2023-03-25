@@ -135,7 +135,15 @@
   },
   "ListingDetailView": {
     "loading": "Loading listing details...",
-    "favorite": "Add to favorites"
+    "favorite": "Add as favorite",
+    "sold": "Mark listing as sold",
+    "archive": "Archive listing",
+    "edit": "Edit listing"
+  },
+  "ImageCarousel": {
+    "loading": "Loading images...",
+    "previous": "Previous image",
+    "next": "Next image"
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",

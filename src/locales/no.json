@@ -135,7 +135,15 @@
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ...",
-    "favorite": "Lagre som favoritt"
+    "favorite": "Legg til som favoritt",
+    "sold": "Marker annonsen som solgt",
+    "archive": "Arkiver annonse",
+    "edit": "Endre annonse"
+  },
+  "ImageCarousel": {
+    "loading": "Laster inn bilde ...",
+    "previous": "Forrige bilde",
+    "next": "Neste bilde"
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
