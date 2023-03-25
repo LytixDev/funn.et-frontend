@@ -25,7 +25,6 @@
         fieldId="listing-description"
         v-model="description"
         :error="errors?.description"
-        fieldRequired
         dataTestId="listing.description"
         :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
       <FormInput
@@ -66,13 +65,12 @@
         fieldId="listing-image-description"
         v-model="imageDescription"
         dataTestId="listing-image-description" />
-
-      </fieldset>
-      <FormButton
-        buttonId="create-listing-button"
-        :buttonText="$t('CreateListingView.submit')"
-        dataTestId="create-listing-button"
-        @click="submit" />
+    </fieldset>
+    <FormButton
+      buttonId="update-listing-button"
+      :buttonText="$t('CreateListingView.submitUpdate')"
+      dataTestId="update-listing-button"
+      @click="submit" />
   </form>
   <error-box v-model="errorMessage" />
 </template>
@@ -130,23 +128,16 @@ const schema = computed(() =>
   yupObject({
     title: yupString()
       .required(t('CreateListingView.Error.titleRequired'))
-      .max(256, t('CreateListingView.Error.titleMax'))
-      .default(listing.value?.title),
+      .max(256, t('CreateListingView.Error.titleMax')),
     briefDescription: yupString()
       .required(t('CreateListingView.Error.briefDescriptionRequired'))
-      .max(128, t('CreateListingView.Error.briefDescriptionMax'))
-      .default(listing.value?.briefDescription),
-    description: yupString()
-      .max(512, t('CreateListingView.Error.descriptionMax'))
-      .default(listing.value?.fullDescription),
+      .max(128, t('CreateListingView.Error.briefDescriptionMax')),
+    description: yupString().max(512, t('CreateListingView.Error.descriptionMax')),
     price: yupNumber()
       .required(t('CreateListingView.Error.priceRequired'))
-      .min(0, t('CreateListingView.Error.priceMin'))
-      .default(listing.value?.price),
+      .min(0, t('CreateListingView.Error.priceMin')),
     category: yupString().default('OTHER').default(listing.value?.category),
-    location: yupObject<LocationResponseDTO>()
-      .required(t('CreateListingView.Error.locationRequired'))
-      .default(foundLocation.value),
+    location: yupObject<LocationResponseDTO>().required(t('CreateListingView.Error.locationRequired')),
   }),
 );
 
@@ -186,7 +177,7 @@ const submit = handleSubmit((values) => {
 
   console.log(payload);
 
-  ListingControllerService.updateListing({ id: listingId, requestBody: payload })
+  ListingControllerService.updateListing({ id: listingId, formData: payload })
     .then((response) => {
       router.push({ name: 'listing', params: { id: response.id } });
     })
@@ -216,10 +207,12 @@ const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 title.value = listing.value?.title;
 briefDescription.value = listing.value?.briefDescription;
-description.value = listing.value?.fullDescription!!;
-price.value = listing.value?.price!!.toString();
+description.value = listing.value?.fullDescription ?? '';
+price.value = listing.value?.price?.toString() ?? '';
 category.value = listing.value?.category;
 location.value = foundLocation.value;
+images.value = [];
+imageDescription.value = listing.value.imageResponse?.at(0)?.alt ?? '';
 </script>
 
 <style scoped></style>

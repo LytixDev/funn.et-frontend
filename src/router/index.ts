@@ -45,7 +45,7 @@ export const routes = [
       },
       {
         path: '/listing/:id/edit',
-        name: 'listing',
+        name: 'listing-edit',
         component: () => import('@/views/Listing/ListingEditView.vue'),
       },
       {

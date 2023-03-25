@@ -98,6 +98,7 @@
     "imageDescription": "Bildebeskrivelse",
     "submit": "Legg ut annonse",
     "removeImage": "Fjern bilde",
+    "submitUpdate": "Oppdater annonse",
     "Error": {
       "titleRequired": "Tittel er obligatorisk",
       "titleMax": "Tittelen er for stor",
