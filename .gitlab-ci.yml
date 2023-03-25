@@ -13,9 +13,8 @@ cache:
 install:
   stage: install
   script:
-    - npm cache verify
-    - npm install --cache /tmp/empty-cache
-    - npm run build
+    - yarn
+    - yarn build
   artifacts:
     paths:
       - node_modules/
