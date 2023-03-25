@@ -85,7 +85,7 @@ export default defineComponent({
       required: false,
     },
     error: {
-      type: String,
+      type: Boolean,
       required: false,
     },
     errorMessage: {

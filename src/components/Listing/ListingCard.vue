@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { ListingDTO } from '@/api/models/ListingDTO';
 import { computed } from '@vue/reactivity';
+import { ListingDTO } from '@/api/backend/models/ListingDTO';
 
 const props = defineProps({
   listingData: {
@@ -31,11 +31,9 @@ const props = defineProps({
 });
 
 const imageLocation = computed(() => {
-  if (props.listingData.imageResponse?.length !== 0)
-    return props.listingData.imageResponse![0].url;
+  if (props.listingData.imageResponse?.length !== 0) return props.listingData.imageResponse![0].url;
   return '/src/assets/images/default-placeholder.png';
 });
-
 </script>
 
 <style scoped>

@@ -16,8 +16,8 @@ import UserEditPassword from './UserEditPassword.vue';
 import { computed, ref, Ref, watch } from 'vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { useRoute } from 'vue-router';
-import { UserService } from '@/api';
-import { UserDTO } from '@/api/models/UserDTO';
+import { UserService } from '@/api/backend';
+import { UserDTO } from '@/api/backend/models/UserDTO';
 
 const userStore = useUserInfoStore();
 const route = useRoute();
