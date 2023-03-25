@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { ChatDTO } from '@/api';
+import { ChatDTO } from '@/api/backend';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

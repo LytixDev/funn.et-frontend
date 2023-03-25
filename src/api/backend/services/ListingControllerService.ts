@@ -53,23 +53,6 @@ export class ListingControllerService {
   }
 
   /**
-   * @returns any OK
-   * @throws ApiError
-   */
-  public static favoriteListing({ id }: { id: number }): CancelablePromise<any> {
-    return __request(OpenAPI, {
-      method: 'PUT',
-      url: '/api/v1/private/listings/{id}/favorite',
-      path: {
-        id: id,
-      },
-      errors: {
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
    * Get listings by search and filter
    * Returns all listings in the database. Possible to search for keywords in listing
    * @returns ListingDTO OK
@@ -120,20 +103,6 @@ export class ListingControllerService {
       path: {
         id: id,
       },
-      errors: {
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * @returns ListingDTO OK
-   * @throws ApiError
-   */
-  public static getFavoriteListings(): CancelablePromise<Array<ListingDTO>> {
-    return __request(OpenAPI, {
-      method: 'GET',
-      url: '/api/v1/private/listings/favorites',
       errors: {
         500: `Internal Server Error`,
       },

@@ -9,7 +9,6 @@ export type ListingCreateDTO = {
   briefDescription: string;
   fullDescription?: string;
   category: ListingCreateDTO.category;
-  status?: ListingCreateDTO.status;
   price?: number;
   publicationDate?: string;
   expirationDate?: string;
@@ -25,12 +24,5 @@ export namespace ListingCreateDTO {
     SPORTS = 'SPORTS',
     FURNITURE = 'FURNITURE',
     OTHER = 'OTHER',
-  }
-
-  export enum status {
-    SOLD = 'SOLD',
-    ARCHIVED = 'ARCHIVED',
-    DRAFT = 'DRAFT',
-    ACTIVE = 'ACTIVE',
   }
 }

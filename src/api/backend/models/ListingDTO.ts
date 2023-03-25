@@ -12,12 +12,10 @@ export type ListingDTO = {
   briefDescription: string;
   fullDescription?: string;
   category: ListingDTO.category;
-  status: ListingDTO.status;
   price?: number;
   publicationDate?: string;
   expirationDate?: string;
   imageResponse?: Array<ImageResponseDTO>;
-  isFavourite?: boolean;
 };
 
 export namespace ListingDTO {
@@ -28,12 +26,5 @@ export namespace ListingDTO {
     SPORTS = 'SPORTS',
     FURNITURE = 'FURNITURE',
     OTHER = 'OTHER',
-  }
-
-  export enum status {
-    SOLD = 'SOLD',
-    ARCHIVED = 'ARCHIVED',
-    DRAFT = 'DRAFT',
-    ACTIVE = 'ACTIVE',
   }
 }

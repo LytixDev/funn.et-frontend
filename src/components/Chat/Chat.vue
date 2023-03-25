@@ -39,12 +39,12 @@ import FormButton from '@/components/Form/FormButton.vue';
 import Message from '@/components/Chat/Message.vue';
 import ChatHeader from '@/components/Chat/ChatHeader.vue';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { ChatDTO, MessageDTO } from '@/api';
+import { ChatDTO, MessageDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
-import { ChatControllerService } from '@/api';
+import { ChatControllerService } from '@/api/backend';
 import { useRoute } from 'vue-router';
 import { FormButtonClasses, FormButtonTypes, FormInputWrapperClasses } from '@/enums/FormEnums';
 
