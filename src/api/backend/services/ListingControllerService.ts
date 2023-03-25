@@ -125,18 +125,4 @@ export class ListingControllerService {
       },
     });
   }
-
-  /**
-   * @returns ListingDTO OK
-   * @throws ApiError
-   */
-  public static getFavoriteListings(): CancelablePromise<Array<ListingDTO>> {
-    return __request(OpenAPI, {
-      method: 'GET',
-      url: '/api/v1/private/listings/favorites',
-      errors: {
-        500: `Internal Server Error`,
-      },
-    });
-  }
 }

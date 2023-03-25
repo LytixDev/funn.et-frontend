@@ -42,6 +42,11 @@
     </button>
     <button>{{ $t('ListingDetailView.edit') }}</button>
   </div>
+  <router-link
+    v-if="username !== listing?.username && username !== ''"
+    :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
+    >$t('ListingDetailView.sendMessage')</router-link
+  >
 </template>
 
 <script setup lang="ts">
@@ -59,7 +64,9 @@ const listing = ref<ListingDTO>();
 const isFavorite = ref<boolean>(false);
 const route = useRoute();
 const id: number = +(route.params.id as string);
+
 const user = useUserInfoStore();
+const username = computed(() => user.username) || '';
 
 listing.value = await ListingControllerService.getListing({ id: id });
 if (listing.value.isFavorite) isFavorite.value = listing.value.isFavorite;
