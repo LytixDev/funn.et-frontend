@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserDTO } from '@/api/models/UserDTO';
+import { UserDTO } from '@/api/backend/models/UserDTO';
 import UserProfilePicture from './UserProfilePicture.vue';
 import { PropType } from 'vue';
 

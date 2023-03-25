@@ -38,8 +38,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { Ref, ref, computed } from 'vue';
-import { ListingControllerService } from '@/api';
-import { ListingDTO } from '@/api';
+import { ListingControllerService } from '@/api/backend';
+import { ListingDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
 
@@ -57,7 +57,7 @@ const images = computed(() => {
 });
 
 const favorite = async () => {
-  await ListingControllerService.favoriteListing({ id: id });
+  //await ListingControllerService.favoriteListing({ id: id });
 };
 
 const updateStatus = async (status: ListingDTO.status) => {

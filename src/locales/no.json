@@ -107,7 +107,8 @@
       "priceMin": "Pris må være positivt og større enn 0",
       "addressRequired": "Adresse er obligatorisk",
       "cityRequired": "By er obligatorisk",
-      "postcodeRequired": "Postnummer er obligatorisk"
+      "postcodeRequired": "Postnummer er obligatorisk",
+      "locationRequired": "Du må velge en lokasjon"
     }
   },
   "Form": {
@@ -178,5 +179,17 @@
     "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
     "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren",
     "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
+  },
+  "CreateLocationForm": {
+    "title": "Sett en lokasjon",
+    "searchLabel": "Søk etter en adresse",
+    "locationsSelectLabel": "Velg en adresse fra listen",
+    "submitButton": "Sett lokasjon",
+    "numberOfLocationsDisplaying": "Antall valbare adresser",
+    "removeLocationButton": "Fjern adresse",
+    "selectedLocation": "Valgt adresse",
+    "Error": {
+      "AddressRequired": "Adresse er obligatorisk"
+    }
   }
 }

@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { ListingControllerService, ListingDTO, SearchRequest } from '@/api';
+import { ListingControllerService, ListingDTO, SearchRequest } from '@/api/backend';
 import { computed, ref, watch, watchEffect } from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';

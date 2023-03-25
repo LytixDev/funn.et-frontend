@@ -1,4 +1,4 @@
-import { OpenAPI } from '@/api';
+import { OpenAPI } from '@/api/backend';
 import Cookies from 'js-cookie';
 import { defineStore } from 'pinia';
 

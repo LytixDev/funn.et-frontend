@@ -105,9 +105,7 @@
       "descriptionMax": "Description can not be larger than 512 characters",
       "priceRequired": "Price is required",
       "priceMin": "Price must be larger than 0",
-      "addressRequired": "Address is required",
-      "cityRequired": "City is required",
-      "postcodeRequired": "Postcode is required"
+      "locationRequired": "Choose a location"
     }
   },
   "Form": {
@@ -178,5 +176,17 @@
     "ContextErrorMessage": "Could not find the source of the error",
     "ERR_NETWORK": "Could not connect with the server",
     "MissingTranslation": "Could not find the correct translation: The message was %{message}"
+  },
+  "CreateLocationForm": {
+    "title": "Set a location",
+    "searchLabel": "Search for an address",
+    "locationsSelectLabel": "Select an address",
+    "submitButton": "Set a location",
+    "numberOfLocationsDisplaying": "Number of addresses in selectable list",
+    "removeLocationButton": "Fjern adresse",
+    "selectedLocation": "Selected address",
+    "Error": {
+      "AddressRequired": "Location is required"
+    }
   }
 }

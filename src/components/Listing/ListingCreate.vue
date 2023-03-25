@@ -1,7 +1,7 @@
 <template>
   <h2>{{ $t('navigation.createListing') }}</h2>
 
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" enctype="multipart/form-data">
     <fieldset>
       <FormInput
         labelId="listing-title-label"
@@ -52,27 +52,14 @@
     </fieldset>
 
     <fieldset>
-      <FormDropDownList
-        v-if="locations.length > 0"
-        labelId="listing-locations-label"
-        :labelText="$t('CreateListingView.locations')"
-        fieldId="listing-locations"
-        v-model="location"
-        fieldRequired
-        dataTestId="listing-locations"
-        fieldName="locations"
-        :fieldOptions="locations" />
-
-      <div v-else>
-        <p>{{ $t('CreateListingView.noLocations') }}</p>
-        <RouterLink :to="{ name: 'user', params: { id: username } }">
-          {{ $t('CreateListingView.createLocation') }}
-        </RouterLink>
-      </div>
+      <error-boundary-catcher>
+        <div>{{ errors?.location }}</div>
+        <create-location-form v-model="location" />
+      </error-boundary-catcher>
     </fieldset>
 
     <fieldset>
-      <ImageUploader v-model="image" />
+      <ImageUploader v-model="images" />
       <FormInput
         labelId="listing-image-description-label"
         :labelText="$t('CreateListingView.imageDescription')"
@@ -98,15 +85,16 @@ import { FormInputWrapperClasses } from '@/enums/FormEnums';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import { FormInputTypes } from '@/enums/FormEnums';
-import ImageUploader from '@/components/Form/ImageUploader.vue';
+import ImageUploader, { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ListingDTO, ListingCreateDTO } from '@/api';
-import { ListingControllerService, LocationControllerService, LocationResponseDTO } from '@/api';
-import { useUserInfoStore } from '@/stores/UserStore';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useRouter } from 'vue-router';
+import { ListingControllerService, ListingCreateDTO, ListingDTO, LocationResponseDTO } from '@/api/backend';
+import { useUserInfoStore } from '@/stores/UserStore';
+import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
+import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -121,23 +109,28 @@ const schema = computed(() =>
       .max(256, t('CreateListingView.Error.titleMax')),
     briefDescription: yupString()
       .required(t('CreateListingView.Error.briefDescriptionRequired'))
-      .min(32, t('CreateListingView.Error.briefDescriptionMin'))
       .max(128, t('CreateListingView.Error.briefDescriptionMax')),
     description: yupString().max(512, t('CreateListingView.Error.descriptionMax')),
     price: yupNumber()
       .required(t('CreateListingView.Error.priceRequired'))
       .min(0, t('CreateListingView.Error.priceMin')),
     category: yupString().default('OTHER'),
-    location: yupString().required(t('CreateListingView.Error.locationRequired')),
+    location: yupObject<LocationResponseDTO>().required(t('CreateListingView.Error.locationRequired')),
   }),
 );
+
+const formData = new FormData();
 
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
 const submit = handleSubmit((values) => {
-  /* This code was written by a soidev. Probably callum. */
+  for (const [key, value] of Object.entries(values)) {
+    formData.append(key, value);
+    console.log(key, value);
+  }
+
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
@@ -146,13 +139,17 @@ const submit = handleSubmit((values) => {
   const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
 
   const imageResponse = [] as Array<Blob>;
-  imageResponse.push(values.image.data);
+  values.images.forEach((image: any) => {
+    imageResponse.push(new Blob([image.data], { type: image.type }));
+  });
+  console.log(imageResponse);
   const imageAltResponse = [] as Array<string>;
-  if (values.image.alt) imageAltResponse.push(values.image.alt);
-
+  values.images.forEach((image: any) => {
+    imageAltResponse.push(image.alt || undefined);
+  });
   let payload = {
     username: username.value,
-    location: values.location,
+    location: values.location.id,
     title: values.title,
     briefDescription: values.briefDescription,
     fullDescription: values.description,
@@ -160,9 +157,11 @@ const submit = handleSubmit((values) => {
     price: values.price,
     publicationDate: dateStr,
     expirationDate: dateStr,
-    imageResponse: imageResponse,
-    imageUpload: imageAltResponse.length > 0 ? imageAltResponse : undefined,
+    images: imageResponse,
+    imageAlts: imageAltResponse,
   } as ListingCreateDTO;
+
+  console.log(payload);
 
   ListingControllerService.createListing({ formData: payload })
     .then((response) => {
@@ -184,25 +183,13 @@ const categories = computed(() => {
   return listOfCategories;
 });
 
-const locations = await computed(async () => {
-  const locationResponse: Array<LocationResponseDTO> = await LocationControllerService.getAllLocations();
-  const ListOfLocations = [] as DropDownItem[];
-  for (const value of locationResponse) {
-    ListOfLocations.push({
-      value: value.id.toString(),
-      displayedValue: value.address.concat(', ').concat(value.city).concat(', ').concat(value.postCode.toString()),
-    });
-  }
-  return ListOfLocations;
-}).value;
-
 const { value: title } = useField('title') as FieldContext<string>;
 const { value: briefDescription } = useField('briefDescription') as FieldContext<string>;
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
-const { value: location } = useField('location') as FieldContext<string>;
-const { value: image } = useField('image') as FieldContext<string>;
+const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
+const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>
 
