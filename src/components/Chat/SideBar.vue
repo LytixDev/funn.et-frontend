@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { ChatDTO } from '@/api';
+import { ChatDTO } from '@/api/backend';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { OiSidebarCollapse, OiSidebarExpand } from 'oh-vue-icons/icons';
 
