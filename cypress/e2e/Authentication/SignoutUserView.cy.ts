@@ -20,7 +20,7 @@ describe('Test user using the login page', () => {
   it('Test not logged out user gets no effect from signout', () => {
     cy.getAllCookies().then((result) => {
       expect(result).to.deep.equal([]);
-    }); 
+    });
 
     cy.visit('/signout').wait(4000);
 

@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 export type RegisterDTO = {
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
 };

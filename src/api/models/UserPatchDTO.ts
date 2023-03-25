@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 export type UserPatchDTO = {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    oldPassword?: string;
-    newPassword?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  oldPassword?: string;
+  newPassword?: string;
 };

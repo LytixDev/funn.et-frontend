@@ -3,6 +3,6 @@
 /* eslint-disable */
 
 export type AuthenticateDTO = {
-    username?: string;
-    password?: string;
+  username?: string;
+  password?: string;
 };

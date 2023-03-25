@@ -3,19 +3,16 @@
 /* eslint-disable */
 
 export type UserDTO = {
-    username?: string;
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    role?: UserDTO.role;
+  username?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  role?: UserDTO.role;
 };
 
 export namespace UserDTO {
-
-    export enum role {
-        USER = 'USER',
-        ADMIN = 'ADMIN',
-    }
-
-
+  export enum role {
+    USER = 'USER',
+    ADMIN = 'ADMIN',
+  }
 }
