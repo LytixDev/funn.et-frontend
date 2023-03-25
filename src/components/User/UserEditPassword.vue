@@ -50,7 +50,7 @@ import { object as yupObject, string as yupString, ref as yupRef } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { UserDTO, UserPatchDTO, UserService } from '@/api';
+import { UserDTO, UserPatchDTO, UserService } from '@/api/backend';
 import { PropType } from 'vue';
 
 const userStore = useUserInfoStore();
