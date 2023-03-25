@@ -75,8 +75,8 @@ export default {
       if (sidebar !== null) {
         if (this.showMobileMenu) {
           sidebar.style.width = '100%';
-        } else {
-          sidebar.style.width = '40px';
+        } else if (!this.showMobileMenu && window.innerWidth < 768) {
+          sidebar.style.width = '0px';
         }
       }
     },

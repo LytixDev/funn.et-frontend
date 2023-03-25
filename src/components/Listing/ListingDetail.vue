@@ -45,7 +45,7 @@
   <router-link
     v-if="username !== listing?.username && username !== ''"
     :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
-    >$t('ListingDetailView.sendMessage')</router-link
+    >{{ $t('ListingDetailView.sendMessage') }}</router-link
   >
 </template>
 
