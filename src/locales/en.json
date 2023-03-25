@@ -35,7 +35,8 @@
     "categoryLabel": "Category",
     "priceMinLabel": "Min price",
     "priceMaxLabel": "Max price",
-    "sortingLabel": "Sort by"
+    "sortingLabel": "Sort by",
+    "filterButton": "Filter"
   },
   "NotFoundView": {
     "title": "Page not found",

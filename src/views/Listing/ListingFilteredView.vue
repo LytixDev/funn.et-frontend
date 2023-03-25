@@ -1,9 +1,13 @@
 <template>
   <div class="list-container">
     <div class="page-content">
-      <div class="buttons">
-        <listing-filter v-model="filterData" />
+      <div class="mobile-buttons">
         <router-link class="attention" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
+        <button @click="() => showFilter = !showFilter">{{ $t('ListingListView.filterButton') }}</button>
+      </div>
+      <div class="buttons" :class="showFilter ? 'show' : ''" >
+        <listing-filter v-model="filterData" />
+        <router-link class="attention desktop" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
       </div>
 
       <error-boundary-catcher>
@@ -49,6 +53,7 @@ const firstPage = 1;
 
 const errorMessage = ref('');
 const currentPage = ref(firstPage);
+const showFilter = ref(false);
 
 const filterData = ref<ListingFilterType>({
   searchMessage: '',
@@ -101,6 +106,11 @@ watchEffect(async () => {
 <style scoped>
 .list-container {
   margin: 4rem 0rem;
+  width: 100%;
+}
+
+.mobile-buttons {
+  display: none;
 }
 
 .pagination-number {
@@ -119,5 +129,43 @@ watchEffect(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .page-content {
+    display: block;
+  }
+
+  .form {
+    margin-top: 0;
+    margin-bottom: 0;
+    border-bottom: var(--secondary-color) 2px solid ;
+
+    box-shadow: none;
+  }
+
+  .list-container {
+    margin: 0;
+  }
+
+  .buttons {
+    display: none;
+  }
+
+  .mobile-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.5em;
+  }
+
+  .show {
+    display: flex;
+  }
+
+  .desktop {
+    display: none;
+  }
 }
 </style>
