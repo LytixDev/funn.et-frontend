@@ -140,7 +140,7 @@ const submit = handleSubmit((values) => {
 
   const imageResponse = [] as Array<Blob>;
   values.images.forEach((image: any) => {
-    imageResponse.push(new Blob([image.data], { type: image.type }))
+    imageResponse.push(new Blob([image.data], { type: image.type }));
   });
   console.log(imageResponse);
   const imageAltResponse = [] as Array<string>;

@@ -3,11 +3,10 @@
 /* eslint-disable */
 
 export type LocationResponseDTO = {
-    id: number;
-    address: string;
-    latitude: number;
-    longitude: number;
-    postCode: number;
-    city: string;
+  id: number;
+  address: string;
+  latitude: number;
+  longitude: number;
+  postCode: number;
+  city: string;
 };
-

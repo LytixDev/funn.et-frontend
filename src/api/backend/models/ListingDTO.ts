@@ -36,4 +36,3 @@ export namespace ListingDTO {
     ACTIVE = 'ACTIVE',
   }
 }
-
