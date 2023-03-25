@@ -4,8 +4,17 @@
       <ImageCarousel :images="images" />
     </div>
 
+    <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
+      {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
+    </h2>
+
     <div class="listing-details">
-      <h1 class="listing-title">{{ listing.title }}</h1>
+      <div class="listing-head">
+        <h1 class="listing-title">{{ listing.title }}</h1>
+        <div v-if="user.isLoggedIn && !isOwner && listing.status === ListingDTO.status.ACTIVE" class="listing-actions">
+          <OhVueIcon @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
+        </div>
+      </div>
       <div>
         <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
         <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
@@ -21,16 +30,16 @@
         </div>
       </div>
       <hr />
-
-      <div v-if="user.isLoggedIn && !isOwner" class="listing-actions">
-        <button @click="favorite">{{ $t('ListingDetailView.favorite') }}</button>
-      </div>
     </div>
   </div>
 
   <div class="owner-actions" v-if="isOwner">
-    <button @click="updateStatus(ListingDTO.status.SOLD)">{{ $t('ListingDetailView.sold') }}</button>
-    <button @click="updateStatus(ListingDTO.status.ARCHIVED)">{{ $t('ListingDetailView.archive') }}</button>
+    <button v-if="listing?.status != ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
+      {{ $t('ListingDetailView.sold') }}
+    </button>
+    <button v-if="listing?.status != ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+      {{ $t('ListingDetailView.archive') }}
+    </button>
     <button>{{ $t('ListingDetailView.edit') }}</button>
   </div>
 </template>
@@ -39,16 +48,22 @@
 import { useRoute } from 'vue-router';
 import { Ref, ref, computed } from 'vue';
 import { ListingControllerService } from '@/api/backend';
-import { ListingDTO } from '@/api/backend';
+import { ListingDTO, ListingCreateDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
+import { BiHeartFill, BiHeart } from 'oh-vue-icons/icons';
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
 
+addIcons(BiHeart, BiHeartFill);
 const listing = ref<ListingDTO>();
+const isFavorite = ref<boolean>(false);
 const route = useRoute();
 const id: number = +(route.params.id as string);
 const user = useUserInfoStore();
 
 listing.value = await ListingControllerService.getListing({ id: id });
+if (listing.value.isFavorite) isFavorite.value = listing.value.isFavorite;
+
 const isOwner: Ref<boolean> = computed(() => listing.value?.username === user.username);
 
 const images = computed(() => {
@@ -57,17 +72,33 @@ const images = computed(() => {
 });
 
 const favorite = async () => {
-  await ListingControllerService.favoriteListing({ id: id });
+  const data = await ListingControllerService.favoriteListing({ id: id });
+  /* can not directly set as data.isFavorite may be undefined */
+  if (data.isFavorite === true) isFavorite.value = true;
+  else if (data.isFavorite === false) isFavorite.value = false;
 };
 
 const updateStatus = async (status: ListingDTO.status) => {
-  //let listingCpy: ListingDTO = { ...listing.value };
-  console.log(listing.value);
-  //await ListingControllerService.updateListing({ id: id, requestBody: listingCpy });
+  if (status === listing.value?.status) return;
+  let listingCpy = { ...listing.value } as ListingCreateDTO;
+  listingCpy.status = status;
+  const response: ListingDTO = await ListingControllerService.updateListing({ id: id, formData: listingCpy });
+  if (response) listing.value = response;
 };
 </script>
 
 <style scoped>
+.listing-head {
+  display: flex;
+  align-items: center;
+}
+
+.favourite {
+  margin-left: 15px;
+  scale: 2;
+  cursor: pointer;
+}
+
 .listing-detail-view {
   min-width: 100vh;
 }

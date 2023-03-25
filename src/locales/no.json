@@ -143,7 +143,11 @@
     "description": "Beskrivelse",
     "price": "Pris",
     "category": "Kategori",
-    "publishedBy": "Lagt ut av"
+    "publishedBy": "Lagt ut av",
+    "note": "OBS: Denne annonsen er ",
+    "ARCHIVED": "arkivert",
+    "SOLD": "solgt",
+    "DRAFT": "påbegynt"
   },
   "ImageCarousel": {
     "loading": "Laster inn bilde ...",

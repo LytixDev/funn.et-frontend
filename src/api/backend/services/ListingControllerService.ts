@@ -16,10 +16,10 @@ export class ListingControllerService {
    */
   public static updateListing({
     id,
-    requestBody,
+    formData,
   }: {
     id: number;
-    requestBody?: ListingCreateDTO;
+    formData?: ListingCreateDTO;
   }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'PUT',
@@ -27,8 +27,8 @@ export class ListingControllerService {
       path: {
         id: id,
       },
-      body: requestBody,
-      mediaType: 'application/json',
+      formData: formData,
+      mediaType: 'multipart/form-data',
       errors: {
         500: `Internal Server Error`,
       },
@@ -53,10 +53,10 @@ export class ListingControllerService {
   }
 
   /**
-   * @returns any OK
+   * @returns ListingDTO OK
    * @throws ApiError
    */
-  public static favoriteListing({ id }: { id: number }): CancelablePromise<any> {
+  public static favoriteListing({ id }: { id: number }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'PUT',
       url: '/api/v1/private/listings/{id}/favorite',

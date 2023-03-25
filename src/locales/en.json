@@ -140,7 +140,11 @@
     "description": "Description",
     "price": "Price",
     "category": "Category",
-    "publishedBy": "Published by"
+    "publishedBy": "Published by",
+    "note": "NOTE: This listing is ",
+    "ARCHIVED": "archived",
+    "SOLD": "sold",
+    "DRAFT": "draft"
   },
   "ImageCarousel": {
     "loading": "Loading images...",
