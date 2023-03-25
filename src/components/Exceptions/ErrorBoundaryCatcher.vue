@@ -39,3 +39,9 @@ onErrorCaptured((err, _vm, _info): boolean => {
   return false;
 });
 </script>
+
+<style scoped>
+.error-boundary {
+  width: inherit;
+}
+</style>

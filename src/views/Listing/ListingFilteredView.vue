@@ -1,9 +1,16 @@
 <template>
-  <listing-filter v-model="filterData" />
-  <error-boundary-catcher>
-    <listing-list :listings="listings" />
-  </error-boundary-catcher>
   <div class="list-container">
+    <div class="page-content">
+      <div class="buttons">
+        <listing-filter v-model="filterData" />
+        <router-link class="attention" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
+      </div>
+
+      <error-boundary-catcher>
+        <listing-list :listings="listings" />
+      </error-boundary-catcher>
+    </div>
+
     <span v-if="listings.length > 0 && listings.length === pageSize">
       <button v-if="currentPage > 1" @click="currentPage--" data-testid="prev-page-button">
         <oh-vue-icon scale="2" name="bi-arrow-left-square-fill" />
@@ -22,7 +29,7 @@
 <script setup lang="ts">
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ListingControllerService, ListingDTO, SearchRequest } from '@/api/backend';
-import { computed, ref, watch, watchEffect } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
@@ -93,11 +100,30 @@ watchEffect(async () => {
 
 <style scoped>
 .list-container {
-  margin: 4rem 1rem;
+  margin: 4rem 0rem;
 }
 
 .pagination-number {
   margin: 0 1rem;
   font-size: x-large;
 }
+
+.page-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  column-gap: 3rem;
+  width: 100%;
+}
+
+.form {
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 </style>

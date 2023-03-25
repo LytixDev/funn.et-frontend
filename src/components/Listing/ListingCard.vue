@@ -37,7 +37,15 @@ const imageLocation = computed(() => {
 </script>
 
 <style scoped>
-.listing-card:hover {
+
+a {
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--large-box-shadow);
+  margin: 0.5em;
+}
+
+a:hover {
   transform: scale(1.02);
   transition: all 0.1s ease-in;
   cursor: pointer;

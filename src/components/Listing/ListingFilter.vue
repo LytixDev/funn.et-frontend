@@ -1,5 +1,5 @@
 <template>
-  <div class="listing-filters">
+  <div class="listing-filters form">
     <form-input
       labelId="listing-search-label"
       fieldId="liting-search"
