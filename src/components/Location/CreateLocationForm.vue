@@ -178,4 +178,7 @@ watchEffect(async () => {
 });
 </script>
 
-<style scoped></style>
+<style>
+
+
+</style>
