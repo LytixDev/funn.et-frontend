@@ -10,7 +10,8 @@
     "login": "Logg inn",
     "signout": "Logg ut",
     "createListing": "Ny annonse",
-    "editListing": "Rediger annonse"
+    "editListing": "Rediger annonse",
+    "manage": "Administrer"
   },
   "ListingCard": {
     "published": "Lagt ut av"
@@ -224,6 +225,16 @@
     "selectedLocation": "Valgt adresse",
     "Error": {
       "AddressRequired": "Adresse er obligatorisk"
+    }
+  },
+  "Admin": {
+    "categories": "Kategorier",
+    "name": "Kategori navn",
+    "add": "Legg til ny kategori",
+    "confirm": "Er du sikker på at du vil slette denne kategorien?",
+    "confirmSave": "Er du sikker på at du vil lagre endringene?",
+    "Error": {
+      "nameRequired": "Kategori navn er obligatorisk"
     }
   }
 }

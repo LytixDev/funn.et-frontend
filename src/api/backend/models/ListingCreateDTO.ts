@@ -5,7 +5,6 @@
 import type { Category } from './Category';
 
 export type ListingCreateDTO = {
-  username: string;
   location?: number;
   title: string;
   briefDescription: string;

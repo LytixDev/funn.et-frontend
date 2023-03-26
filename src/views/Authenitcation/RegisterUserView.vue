@@ -150,12 +150,10 @@ const submit = handleSubmit(async (values) => {
         })
         .catch((authError) => {
           errorBoxMsg.value = authError.body;
-          console.log(authError.body);
         });
     })
     .catch((error) => {
       errorBoxMsg.value = error.body;
-      console.log(error.body, error);
       //TODO: handle error
       //switch (
       //  error.body as string

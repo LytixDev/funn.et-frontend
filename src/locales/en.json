@@ -10,7 +10,8 @@
     "login": "Login",
     "signout": "Sign out",
     "createListing": "Create new listing",
-    "editListing": "Edit listing"
+    "editListing": "Edit listing",
+    "manage": "Manage"
   },
   "ListingCard": {
     "published": "Published by"
@@ -221,6 +222,16 @@
     "selectedLocation": "Selected address",
     "Error": {
       "AddressRequired": "Location is required"
+    }
+  },
+  "Admin": {
+    "categories": "Categories",
+    "name": "Category name",
+    "add": "Add new category",
+    "confirm": "Are you sure you want to delete this category?",
+    "confirmSave": "Are you sure you want to edit this category?",
+    "Error": {
+      "nameRequired": "Category name is required"
     }
   }
 }
