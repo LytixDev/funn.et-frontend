@@ -9,13 +9,23 @@
         <template #header>
           <h2>Active chats</h2>
         </template>
-        <chat-messages-for-user />
+        <Suspense>
+          <chat-messages-for-user />
+          <template #fallback>
+            <h4>Loading cats...</h4>
+          </template>
+        </Suspense>
       </accordion-item>
       <accordion-item :expanded="expandedFavorites" @click="clickOnAccordion('favorites')">
         <template #header>
           <h2>Favorite listings</h2>
         </template>
-        <favorite-listing-by-user />
+        <Suspense>
+          <favorite-listing-by-user />
+          <template #fallback>
+            <h4>Loading favorites...</h4>
+          </template>
+        </Suspense>
       </accordion-item>
     </div>
   </Suspense>
