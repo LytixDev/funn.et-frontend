@@ -1,3 +1,5 @@
+apiUrl = Cypress.env('apiUrl');
+
 describe('Test user using the login page', () => {
   beforeEach(() => {
     cy.intercept('GET', `${apiUrl}api/v1/public/categories`, {
