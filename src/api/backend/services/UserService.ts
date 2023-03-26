@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { RegisterDTO } from '../models/RegisterDTO';
 import type { UserDTO } from '../models/UserDTO';
+import type { UserPatchDTO } from '../models/UserPatchDTO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -19,6 +20,33 @@ export class UserService {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/api/v1/public/user',
+      body: requestBody,
+      mediaType: 'application/json',
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Update the user with the given username
+   * Update the user with the given username
+   * @returns UserDTO OK
+   * @throws ApiError
+   */
+  public static updateUser({
+    username,
+    requestBody,
+  }: {
+    username: string;
+    requestBody: UserPatchDTO;
+  }): CancelablePromise<UserDTO> {
+    return __request(OpenAPI, {
+      method: 'PATCH',
+      url: '/api/v1/private/user/{username}',
+      path: {
+        username: username,
+      },
       body: requestBody,
       mediaType: 'application/json',
       errors: {

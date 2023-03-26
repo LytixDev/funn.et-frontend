@@ -1,22 +1,14 @@
 <template>
-  <router-link to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
-  <div class="listing-filters">
+  <div class="listing-filters form">
     <form-input
       labelId="listing-search-label"
       fieldId="liting-search"
       :labelText="$t('ListingListView.searchLabel') + ': '"
       v-model="searchMessage"
       data-testid="search-filter" />
-    <form-drop-down-list
-      labelId="listing-category-label"
-      fieldId="listing-category"
-      :labelText="$t('ListingListView.categoryLabel') + ': '"
-      v-model="chosenCategory"
-      field-name="category-filter"
-      :field-options="categories"
-      option-all
-      data-testid="category-filter" />
-    <span>
+    <category-drop-down-list v-model:category="chosenCategory" :add-all-option="true" />
+
+    <div class="price-range">
       <!--Two inputs to select price between with form-input -->
       <form-input
         labelId="listing-price-min-label"
@@ -32,7 +24,7 @@
         :field-type="FormInputTypes.Number"
         v-model="priceMax"
         data-testid="max-price-filter" />
-    </span>
+    </div>
     <form-drop-down-list
       labelId="listing-sorting-label"
       fieldId="listing-sorting"
@@ -42,69 +34,42 @@
       :field-options="sortingOptions"
       data-testid="sorting-drop-down" />
   </div>
-  <div class="list-container">
-    <div class="listing-grid">
-      <div v-for="listing in listings" :key="listing.id" class="listing-div">
-        <listing-card :listingData="listing" data-testid="listing-card" />
-      </div>
-    </div>
-    <div>
-      <span>
-        <button v-if="currentPage > 0" @click="currentPage--" data-testid="prev-page-button">
-          <oh-vue-icon scale="2" name="bi-arrow-left-square-fill" />
-        </button>
-        <button v-if="listings.length === pageSize" @click="currentPage++" data-testid="next-page-button">
-          <oh-vue-icon scale="2" name="bi-arrow-right-square-fill" />
-        </button>
-      </span>
-    </div>
-  </div>
-  <error-box v-model="errorMessage" />
 </template>
 
+<script lang="ts">
+export interface ListingFilterType {
+  searchMessage: string;
+  searchRequests: FilterRequest[];
+  categoryRequest?: FilterRequest;
+  priceRequest?: FilterRequest;
+  sortRequests: SortRequest[];
+}
+</script>
+
 <script setup lang="ts">
-import ListingCard from '@/components/Listing/ListingCard.vue';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import FormInput from '@/components/Form/FormInput.vue';
-import { FilterRequest, ListingControllerService, ListingDTO, SearchRequest, SortRequest } from '@/api';
+import { FilterRequest, ListingControllerService, ListingDTO, SearchRequest, SortRequest } from '@/api/backend';
 import { ref, watch, watchEffect, computed } from 'vue';
 import { ComputedRef } from '@vue/reactivity';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
-
-import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
 import { DropDownItem } from '@/types/FormTypes';
 import { useI18n } from 'vue-i18n';
 import { FormInputTypes } from '@/enums/FormEnums';
-
-addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
-
-const pageSize = 20;
-
-const errorMessage = ref('');
-const currentPage = ref(0);
+import CategoryDropDownList from '../Form/CategoryDropDownList.vue';
 
 const { t } = useI18n();
 
-// Category filter
-const categories = computed(() => {
-  const listOfCategories = [] as DropDownItem[];
-  for (const value in ListingDTO.category) {
-    listOfCategories.push({
-      value: value,
-      displayedValue: t('ListingListView.Categories.' + value),
-    });
-  }
-  return listOfCategories;
-});
+defineProps({ modelValue: { type: Object as () => ListingFilterType } });
 
-const chosenCategory = ref('');
+const emit = defineEmits(['update:modelValue']);
+
+const chosenCategory = ref(0);
 let categoryRequest = computed(() =>
-  chosenCategory.value == '' || chosenCategory.value == 'all'
+  chosenCategory.value == 0
     ? undefined
     : ({
         keyWord: 'category',
-        value: chosenCategory.value,
+        value: chosenCategory.value.toString(),
         operator: FilterRequest.operator.EQUAL,
         fieldType: FilterRequest.fieldType.STRING,
       } as FilterRequest),
@@ -179,65 +144,31 @@ let sortRequests = computed(() => {
   return sortRequests.length > 0 ? sortRequests : undefined;
 });
 
-// Create api request
-let listings = ref([] as ListingDTO[]);
-const getListings = ({ page, size, filterRequests, sortRequests }: SearchRequest) => {
-  return ListingControllerService.getListingsByFilter({
-    requestBody: { page, size, filterRequests, sortRequests },
-  })
-    .then((data) => {
-      listings.value = data;
-    })
-    .catch((error) => {
-      console.log(error);
-      if (error.detail !== undefined) {
-        errorMessage.value = error.detail;
-      } else {
-        errorMessage.value = error;
-      }
-    });
-};
-
-watch([searchMessage], () => {
-  currentPage.value = 0;
-});
-
-watchEffect(() => {
-  let filterRequests = [...searchRequests.map((field) => field.value)];
-  if (categoryRequest.value !== undefined) {
-    filterRequests.push(categoryRequest.value!!);
-  }
-  if (priceRequest.value !== undefined) {
-    filterRequests.push(priceRequest.value!!);
-  }
-  getListings({
-    page: currentPage.value,
-    size: pageSize,
-    filterRequests: filterRequests,
-    sortRequests: sortRequests.value?.map((field) => field) ?? undefined,
+watch([searchMessage, chosenCategory, priceMin, priceMax, chosenSorting], () => {
+  emit('update:modelValue', {
+    searchMessage: searchMessage.value,
+    searchRequests: searchRequests.map((request) => request.value),
+    categoryRequest: categoryRequest.value,
+    priceRequest: priceRequest.value,
+    sortRequests: sortRequests.value,
   });
 });
 </script>
 
 <style scoped>
-.listing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-}
-
-.listing-div {
-  height: 450px;
-  margin-top: 5px;
-  border-radius: 5px;
-}
-
-.list-container {
-  margin: 4rem 1rem;
-}
-
 .listing-filters {
-  margin: 2rem;
   display: flex;
   justify-content: space-between;
+  padding: 2em;
+}
+
+.price-range {
+  width: 90%;
+  margin-bottom: 1em;
+}
+
+.price-range > * {
+  width: 80%;
+  margin: 0;
 }
 </style>

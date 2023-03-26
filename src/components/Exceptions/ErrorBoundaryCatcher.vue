@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ApiError } from '@/api';
+import { ApiError } from '@/api/backend';
 import { AxiosError } from 'axios';
 import { onErrorCaptured, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -39,3 +39,5 @@ onErrorCaptured((err, _vm, _info): boolean => {
   return false;
 });
 </script>
+
+<style scoped></style>

@@ -9,7 +9,8 @@
     "register": "Registrer ny bruker",
     "login": "Logg inn",
     "signout": "Logg ut",
-    "createListing": "Ny annonse"
+    "createListing": "Ny annonse",
+    "editListing": "Rediger annonse"
   },
   "ListingCard": {
     "published": "Lagt ut av"
@@ -35,7 +36,8 @@
     "categoryLabel": "Kategori",
     "priceMinLabel": "Min pris",
     "priceMaxLabel": "Max pris",
-    "sortingLabel": "Sortering"
+    "sortingLabel": "Sortering",
+    "filterButton": "Filter"
   },
   "NotFoundView": {
     "title": "Fant ikke siden",
@@ -64,6 +66,8 @@
     "email": "E-post",
     "firstName": "Fornavn",
     "lastName": "Etternavn",
+    "oldPassword": "Gammelt passord",
+    "newPassword": "Nytt passord",
     "password": "Passord",
     "repeatPassword": "Gjenta passord",
     "Error": {
@@ -81,7 +85,7 @@
       "repeatPasswordNotMatch": "Passordene er ikke like"
     }
   },
-  "CreateListingView": {
+  "ListingForm": {
     "loading": "Laster inn ...",
     "title": "Tittel",
     "briefDescription": "Kort beskrivelse",
@@ -94,6 +98,12 @@
     "image": "Bilde",
     "imageDescription": "Bildebeskrivelse",
     "submit": "Legg ut annonse",
+    "removeImage": "Fjern bilde",
+    "submitUpdate": "Oppdater annonse",
+    "submitcreate": "Legg ut annonse",
+    "submitupdate": "Oppdater annonse",
+    "uploadImage": "Last opp",
+    "all": "Alle",
     "Error": {
       "titleRequired": "Tittel er obligatorisk",
       "titleMax": "Tittelen er for stor",
@@ -105,7 +115,8 @@
       "priceMin": "Pris må være positivt og større enn 0",
       "addressRequired": "Adresse er obligatorisk",
       "cityRequired": "By er obligatorisk",
-      "postcodeRequired": "Postnummer er obligatorisk"
+      "postcodeRequired": "Postnummer er obligatorisk",
+      "locationRequired": "Du må velge en lokasjon"
     }
   },
   "Form": {
@@ -121,10 +132,38 @@
     }
   },
   "UserDetailView": {
-    "loading": "Laster bruker detaljer..."
+    "loading": "Laster bruker detaljer...",
+    "edit": "Rediger din bruker",
+    "editPassword": "Endre passord",
+    "editPasswordLong": "Endre passord for bruker '%{username}'",
+    "username": "Brukernavn",
+    "usernameCannotChange": "Du kan ikke endre brukernavnet ditt",
+    "submit": "Lagre endringer",
+    "title": "Endre bruker",
+    "goBack": "Gå tilbake"
   },
   "ListingDetailView": {
-    "loading": "Laster inn annonse ..."
+    "loading": "Laster inn annonse ...",
+    "sendMessage": "Send melding",
+    "favorite": "Legg til som favoritt",
+    "sold": "Marker annonsen som solgt",
+    "archive": "Arkiver",
+    "edit": "Endre",
+    "description": "Beskrivelse",
+    "price": "Pris",
+    "category": "Kategori",
+    "publishedBy": "Lagt ut av",
+    "note": "OBS: Denne annonsen er ",
+    "delete": "Slett",
+    "confirmDelete": "Er du sikker på at du vil slette denne annonsen?",
+    "ARCHIVED": "arkivert",
+    "SOLD": "solgt",
+    "DRAFT": "påbegynt"
+  },
+  "ImageCarousel": {
+    "loading": "Laster inn bilde ...",
+    "previous": "Forrige bilde",
+    "next": "Neste bilde"
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
@@ -155,5 +194,36 @@
     "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
     "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren",
     "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
+  },
+  "ChatView": {
+    "loading": "Laster inn chat ...",
+    "title": "Chat med ",
+    "message": "Melding",
+    "submit": "Send",
+    "seconds": "sekunder",
+    "minutes": "minutter",
+    "hours": "timer",
+    "days": "dager",
+    "months": "måneder",
+    "years": "år",
+    "ago": "siden",
+    "Error": {
+      "messageRequired": "Melding er obligatorisk",
+      "messageMax": "Meldingen er for lang",
+      "messageFailed": "Melingen kunne ikke sendes",
+      "chatNotFound": "Kunne ikke finne samtalen"
+    }
+  },
+  "CreateLocationForm": {
+    "title": "Sett en lokasjon",
+    "searchLabel": "Søk etter en adresse",
+    "locationsSelectLabel": "Velg en adresse fra listen",
+    "submitButton": "Sett lokasjon",
+    "numberOfLocationsDisplaying": "Antall valbare adresser",
+    "removeLocationButton": "Fjern adresse",
+    "selectedLocation": "Valgt adresse",
+    "Error": {
+      "AddressRequired": "Adresse er obligatorisk"
+    }
   }
 }

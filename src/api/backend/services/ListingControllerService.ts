@@ -16,10 +16,10 @@ export class ListingControllerService {
    */
   public static updateListing({
     id,
-    requestBody,
+    formData,
   }: {
     id: number;
-    requestBody?: ListingCreateDTO;
+    formData?: ListingCreateDTO;
   }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'PUT',
@@ -27,8 +27,8 @@ export class ListingControllerService {
       path: {
         id: id,
       },
-      body: requestBody,
-      mediaType: 'application/json',
+      formData: formData,
+      mediaType: 'multipart/form-data',
       errors: {
         500: `Internal Server Error`,
       },
@@ -43,6 +43,23 @@ export class ListingControllerService {
     return __request(OpenAPI, {
       method: 'DELETE',
       url: '/api/v1/private/listings/{id}',
+      path: {
+        id: id,
+      },
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * @returns ListingDTO OK
+   * @throws ApiError
+   */
+  public static favoriteOrUnfavoriteListing({ id }: { id: number }): CancelablePromise<ListingDTO> {
+    return __request(OpenAPI, {
+      method: 'PUT',
+      url: '/api/v1/private/listings/{id}/favorite',
       path: {
         id: id,
       },
@@ -103,6 +120,20 @@ export class ListingControllerService {
       path: {
         id: id,
       },
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * @returns ListingDTO OK
+   * @throws ApiError
+   */
+  public static getFavoriteListings(): CancelablePromise<Array<ListingDTO>> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/private/listings/favorites',
       errors: {
         500: `Internal Server Error`,
       },

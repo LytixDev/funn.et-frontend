@@ -3,10 +3,10 @@
     <template #fallback>
       <h2>{{ $t('UserDetailView.loading') }}</h2>
     </template>
-    <UserDetail />
+    <UserContent />
   </Suspense>
 </template>
 
 <script setup lang="ts">
-import UserDetail from '@/components/User/UserDetail.vue';
+import UserContent from '@/components/User/UserContent.vue';
 </script>

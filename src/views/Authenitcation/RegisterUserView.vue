@@ -77,10 +77,10 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString, ref as yupRef } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { UserService, RegisterDTO, OpenAPI } from '@/api';
+import { UserService, RegisterDTO, OpenAPI } from '@/api/backend';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { TokenControllerService, AuthenticateDTO } from '@/api';
+import { TokenControllerService, AuthenticateDTO } from '@/api/backend';
 import router from '@/router';
 
 const userStore = useUserInfoStore();

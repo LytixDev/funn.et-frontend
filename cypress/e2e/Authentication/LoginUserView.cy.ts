@@ -2,6 +2,10 @@ let apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the login page', () => {
   beforeEach(() => {
+    cy.intercept('GET', `${apiUrl}api/v1/public/categories`, {
+      statusCode: 200,
+      body: [{ id: 0, name: 'All' }],
+    });
     cy.clearAllCookies();
     cy.visit('/login');
   });
@@ -27,7 +31,7 @@ describe('Test user using the login page', () => {
 
     cy.get('input[data-testid="username"]', { timeout: 60000 }).should('exist').type(username);
     cy.get('input[data-testid="password"]').type('testPassword123');
-    cy.get('button[data-testid="login-user-button"]').click().wait(1000);
+    cy.get('button[data-testid="login-user-button"]').click().wait(4000);
     cy.getCookie('userInfo')
       .should('have.property', 'value')
       .then((value) => {

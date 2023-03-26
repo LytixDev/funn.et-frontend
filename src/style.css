@@ -1,22 +1,30 @@
 :root {
   --content-width: min(100vw, 1300px);
-  --primary-color: #09ca4b;
+  --primary-color: #09c84c;
   --secondary-color: #25d49f;
   --background-color: #f9f9f9;
+  --red-color: #f50a0a;
   --primary-text-color: white;
   --button-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   --button-hover-box-shadow: 0px 6px 7px rgba(0, 0, 0, 0.25);
   --large-box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+  --spacing-2: 0.5rem;
+  overflow-x: hidden;
 }
 
-.form_input {
+.form_input,
+.form_input_dropdown,
+.form_input_textarea {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   width: 90%;
 }
 
-.form_input input {
+.form_input input,
+.form_input_textarea textarea,
+.form_input_dropdown select,
+input[type='file'] {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -35,9 +43,22 @@ form {
   color: white;
 }
 
+.red-attention {
+  background-color: var(--red-color);
+  color: white;
+}
+
+.disabled {
+  background-color: #ccc;
+}
+
 .form-header {
   color: var(--primary-color);
   margin-bottom: 1.5em;
+}
+
+.error-boundary {
+  width: 100%;
 }
 
 .form {
@@ -46,11 +67,19 @@ form {
   align-items: center;
   box-shadow: var(--large-box-shadow);
   width: fit-content;
-  margin: 2em;
+  margin: 2em 0;
   padding: 2em;
   border-radius: 1em;
   width: min(400px, 100%);
   height: fit-content;
+}
+
+.leaflet-control a {
+  box-shadow: none;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  border: none;
 }
 
 h2 {
@@ -64,12 +93,21 @@ h2 {
   box-sizing: border-box;
 }
 
+#error {
+  color: var(--red-color);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
 body,
 html {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
   background-color: var(--background-color);
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -90,6 +128,7 @@ a {
 button:hover,
 a:hover {
   box-shadow: var(--button-hover-box-shadow);
+  cursor: pointer;
 }
 
 nav ul {
@@ -123,6 +162,8 @@ nav #funn-logo {
 }
 
 footer {
+  z-index: 500;
+  position: relative;
   background-color: var(--primary-color);
   width: 100%;
   color: white;

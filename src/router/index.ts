@@ -10,7 +10,7 @@ export const routes = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/Listing/ListingListView.vue'),
+        component: () => import('@/views/Listing/ListingFilteredView.vue'),
       },
       {
         path: '/create-listing',
@@ -42,6 +42,18 @@ export const routes = [
         path: '/listing/:id',
         name: 'listing',
         component: () => import('@/views/Listing/ListingDetailView.vue'),
+      },
+      {
+        path: '/listing/:id/edit',
+        name: 'listing-edit',
+        component: () => import('@/views/Listing/ListingEditView.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/listing/:id/chat/:username',
+        name: 'chat',
+        component: () => import('@/views/Chat/ChatView.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: '/admin',

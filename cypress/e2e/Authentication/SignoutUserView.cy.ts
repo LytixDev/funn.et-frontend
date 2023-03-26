@@ -1,5 +1,11 @@
+apiUrl = Cypress.env('apiUrl');
+
 describe('Test user using the login page', () => {
   beforeEach(() => {
+    cy.intercept('GET', `${apiUrl}api/v1/public/categories`, {
+      statusCode: 200,
+      body: [{ id: 0, name: 'All' }],
+    });
     cy.wait(1000);
   });
 
@@ -8,7 +14,7 @@ describe('Test user using the login page', () => {
     const username = 'TestUser';
 
     cy.setCookie('userInfo', JSON.stringify({ accessToken: testToken, username: username, role: 'USER' }));
-    cy.visit('/signout').wait(1000);
+    cy.visit('/signout').wait(5000);
 
     cy.getCookie('userInfo')
       .should('have.property', 'value')
@@ -22,7 +28,7 @@ describe('Test user using the login page', () => {
       expect(result).to.deep.equal([]);
     });
 
-    cy.visit('/signout').wait(1000);
+    cy.visit('/signout').wait(4000);
 
     cy.getAllCookies().then((result) => {
       expect(result).to.deep.equal([]);

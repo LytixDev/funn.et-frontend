@@ -1,39 +1,54 @@
 <template>
-  <div class="listing-card">
-    <div class="listing-image">
-      <img src="@/assets/images/default-placeholder.png" />
-    </div>
+  <router-link :to="{ name: 'listing', params: { id: listingData.id } }">
+    <div class="listing-card">
+      <div class="listing-image">
+        <img :src="image.imageLocation" :alt="image.imageAlt === 'undefined' ? 'listing image' : image.imageAlt" />
+      </div>
 
-    <div class="listing-info">
-      <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
-      <h3>{{ listingData.title }}</h3>
-      <h3>{{ listingData.price }} kr</h3>
-      <p>{{ listingData.briefDescription }}</p>
+      <div class="listing-info">
+        <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
+        <h3>{{ listingData.title }}</h3>
+        <h3 class="attention-text">{{ listingData.price }} kr</h3>
+        <p>{{ listingData.briefDescription }}</p>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { ListingDTO } from '@/api/models/ListingDTO';
+<script setup lang="ts">
+import { computed } from '@vue/reactivity';
+import { ListingDTO } from '@/api/backend/models/ListingDTO';
 
-export default defineComponent({
-  name: 'ListingCard',
-  props: {
-    listingData: {
-      type: Object as () => ListingDTO,
-      required: true,
-    },
-    testDataId: {
-      type: String,
-      required: false,
-    },
+const props = defineProps({
+  listingData: {
+    type: Object as () => ListingDTO,
+    required: true,
   },
+  testDataId: {
+    type: String,
+    required: false,
+  },
+});
+
+const image = computed(() => {
+  if (props.listingData.imageResponse?.length !== 0)
+    return {
+      imageLocation: props.listingData.imageResponse![0].url,
+      imageAlt: props.listingData.imageResponse![0].alt,
+    };
+  return { imageLocation: '/src/assets/images/default-placeholder.png', imageAlt: 'placeholder image' };
 });
 </script>
 
 <style scoped>
-.listing-card:hover {
+a {
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--large-box-shadow);
+  margin: 0.5em;
+}
+
+a:hover {
   transform: scale(1.02);
   transition: all 0.1s ease-in;
   cursor: pointer;
@@ -41,9 +56,10 @@ export default defineComponent({
 }
 
 .listing-card {
+  display: grid;
+  grid-template-rows: 3fr 1fr;
   min-width: 180px;
   max-width: 480px;
-  min-height: 240px;
   margin: auto;
   padding: 10px;
   box-sizing: border-box;

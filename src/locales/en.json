@@ -9,7 +9,8 @@
     "register": "Register user",
     "login": "Login",
     "signout": "Sign out",
-    "createListing": "Create new listing"
+    "createListing": "Create new listing",
+    "editListing": "Edit listing"
   },
   "ListingCard": {
     "published": "Published by"
@@ -35,7 +36,8 @@
     "categoryLabel": "Category",
     "priceMinLabel": "Min price",
     "priceMaxLabel": "Max price",
-    "sortingLabel": "Sort by"
+    "sortingLabel": "Sort by",
+    "filterButton": "Filter"
   },
   "NotFoundView": {
     "title": "Page not found",
@@ -64,6 +66,8 @@
     "email": "Email",
     "firstName": "First name",
     "lastName": "Last name",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
     "password": "Password",
     "repeatPassword": "Repeat password",
     "Error": {
@@ -81,7 +85,7 @@
       "repeatPasswordNotMatch": "Passwords do not match"
     }
   },
-  "CreateListingView": {
+  "ListingForm": {
     "loading": "Loading ...",
     "title": "Title",
     "briefDescription": "Brief description",
@@ -94,6 +98,12 @@
     "image": "Image",
     "imageDescription": "Image description",
     "submit": "Publish listing",
+    "removeImage": "Remove image",
+    "submitUpdate": "Update listing",
+    "submitcreate": "Publish listing",
+    "submitupdate": "Update listing",
+    "uploadImage": "Upload image",
+    "all": "All",
     "Error": {
       "titleRequired": "Title is required",
       "titleMax": "Title is too large",
@@ -103,9 +113,7 @@
       "descriptionMax": "Description can not be larger than 512 characters",
       "priceRequired": "Price is required",
       "priceMin": "Price must be larger than 0",
-      "addressRequired": "Address is required",
-      "cityRequired": "City is required",
-      "postcodeRequired": "Postcode is required"
+      "locationRequired": "Choose a location"
     }
   },
   "Form": {
@@ -121,10 +129,38 @@
     }
   },
   "UserDetailView": {
-    "loading": "Loading user details..."
+    "loading": "Loading user details...",
+    "edit": "Edit user",
+    "editPassword": "Edit password",
+    "editPasswordLong": "Edit password for user '%{username}'",
+    "username": "Username",
+    "usernameCannotChange": "Username cannot be changed",
+    "submit": "Save changes",
+    "title": "Edit user details",
+    "goBack": "Go back"
   },
   "ListingDetailView": {
-    "loading": "Loading listing details..."
+    "loading": "Loading listing details...",
+    "sendMessage": "Send message",
+    "favorite": "Add as favorite",
+    "sold": "Mark listing as sold",
+    "archive": "Archive",
+    "edit": "Edit",
+    "description": "Description",
+    "price": "Price",
+    "category": "Category",
+    "publishedBy": "Published by",
+    "note": "NOTE: This listing is ",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this listing?",
+    "ARCHIVED": "archived",
+    "SOLD": "sold",
+    "DRAFT": "draft"
+  },
+  "ImageCarousel": {
+    "loading": "Loading images...",
+    "previous": "Previous image",
+    "next": "Next image"
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",
@@ -155,5 +191,36 @@
     "ContextErrorMessage": "Could not find the source of the error",
     "ERR_NETWORK": "Could not connect with the server",
     "MissingTranslation": "Could not find the correct translation: The message was %{message}"
+  },
+  "ChatView": {
+    "loading": "Loading chat...",
+    "title": "Chat with",
+    "message": "Message",
+    "submit": "Send",
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "months": "months",
+    "years": "years",
+    "ago": "ago",
+    "Error": {
+      "messageRequired": "Message is required",
+      "messageMax": "Message is too long",
+      "messageFailed": "Message could not be sent",
+      "chatNotFound": "Chat was not found"
+    }
+  },
+  "CreateLocationForm": {
+    "title": "Set a location",
+    "searchLabel": "Search for an address",
+    "locationsSelectLabel": "Select an address",
+    "submitButton": "Set a location",
+    "numberOfLocationsDisplaying": "Number of addresses in selectable list",
+    "removeLocationButton": "Fjern adresse",
+    "selectedLocation": "Selected address",
+    "Error": {
+      "AddressRequired": "Location is required"
+    }
   }
 }
