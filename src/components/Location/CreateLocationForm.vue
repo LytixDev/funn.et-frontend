@@ -29,11 +29,13 @@
       <span>{{ $t(`CreateLocationForm.selectedLocation`) }}</span
       >: {{ modelValue?.address }}
     </p>
-  </form>
 
-  <div v-if="!!modelValue">
+  <div v-if="!!modelValue" style="margin-bottom: 2em">
     <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
   </div>
+
+  </form>
+
   <location-map
     :center="{ lat: mapCenterLat, lon: matCenterLon }"
     :selected-coords="selectedMarkerCoords"

@@ -15,14 +15,15 @@
           <OhVueIcon @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
         </div>
       </div>
-      <div>
-        <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
-        <LocationMap class="location-map" v-if="coords !== null" :center="coords" :selectedCoords="coords" :zoom="10" />
-        <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
-        <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
-      </div>
-      <hr />
+      <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
+      <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
+        {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
+      </h2>
+      <ImageCarousel class="carousel" :images="images" :alts="alts" :displayAlt="true" />
 
+      <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
+      <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
+      <hr>
       <div class="listing-description">
         <h2>{{ $t('ListingDetailView.description') }}</h2>
         <p>{{ listing.briefDescription }}</p>
