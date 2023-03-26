@@ -31,7 +31,9 @@
     </p>
   </form>
 
-  <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
+  <div v-if="!!modelValue">
+    <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
+  </div>
   <location-map
     :center="{ lat: mapCenterLat, lon: matCenterLon }"
     :selected-coords="selectedMarkerCoords"
@@ -51,7 +53,7 @@ import { DropDownItem } from '@/types/FormTypes';
 import LocationMap from '@/components/Location/LocationMap.vue';
 import { AxiosError } from 'axios';
 
-defineProps({
+const { modelValue } = defineProps({
   modelValue: {
     type: Object as () => LocationResponseDTO | undefined,
     required: false,
@@ -67,8 +69,9 @@ const errorMessage = ref('');
 const locationOptions = ref([] as DropDownItem[]);
 const locationList = ref([] as OutputAdresse[]);
 
-const mapCenterLat = ref(0);
-const matCenterLon = ref(0);
+const mapCenterLat = ref(64);
+const matCenterLon = ref(10);
+const zoom = ref(5);
 
 const selectField = ref('');
 
@@ -80,15 +83,15 @@ const selectedLocation = computed(() => {
     selectField.value = locationList.value.at(0)?.adressetekst?.toString()!!;
     return locationList.value[0];
   }
-  const location = locationList.value.at(
-    locationList.value.map((location) => location.adressetekst?.toString()).indexOf(selectField.value),
-  )!!;
+  let index = locationList.value.map((location) => location.adressetekst?.toString()).indexOf(selectField.value);
+  index = index === -1 ? 0 : index;
+  const location = locationList.value.at(index)!!;
   selectField.value = location.adressetekst?.toString()!!;
   return location;
 });
 const selectedMarkerCoords = computed(() => {
-  const lat = selectedLocation.value?.representasjonspunkt?.lat;
-  const lon = selectedLocation.value?.representasjonspunkt?.lon;
+  const lat = selectedLocation.value?.representasjonspunkt?.lat ?? modelValue?.latitude;
+  const lon = selectedLocation.value?.representasjonspunkt?.lon ?? modelValue?.longitude;
   if (lat && lon) {
     zoom.value = 16;
     return { lat, lon };
@@ -110,8 +113,6 @@ const markerCoordsList = computed(() => {
       (coords) => coords?.lat !== selectedMarkerCoords.value?.lat && coords?.lon !== selectedMarkerCoords.value?.lon,
     );
 });
-
-const zoom = ref(2);
 
 const createLocation = async () => {
   if (selectedLocation.value === undefined) {
@@ -170,7 +171,7 @@ watchEffect(async () => {
   }
   locationList.value = locations.adresser!!;
   locationOptions.value = locationList.value.map((location: OutputAdresse) => ({
-    value: location.adressetekst!!.toString(),
+    value: location.adressetekst!!,
     displayedValue: `${location.adressetekst} ${location.postnummer} ${location.poststed}`,
   }))!!;
   return;

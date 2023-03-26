@@ -9,7 +9,8 @@
     "register": "Register user",
     "login": "Login",
     "signout": "Sign out",
-    "createListing": "Create new listing"
+    "createListing": "Create new listing",
+    "editListing": "Edit listing"
   },
   "ListingCard": {
     "published": "Published by"
@@ -84,7 +85,7 @@
       "repeatPasswordNotMatch": "Passwords do not match"
     }
   },
-  "CreateListingView": {
+  "ListingForm": {
     "loading": "Loading ...",
     "title": "Title",
     "briefDescription": "Brief description",
@@ -98,6 +99,9 @@
     "imageDescription": "Image description",
     "submit": "Publish listing",
     "removeImage": "Remove image",
+    "submitUpdate": "Update listing",
+    "submitcreate": "Publish listing",
+    "submitupdate": "Update listing",
     "Error": {
       "titleRequired": "Title is required",
       "titleMax": "Title is too large",

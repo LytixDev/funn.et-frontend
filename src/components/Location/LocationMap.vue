@@ -50,13 +50,11 @@ export default defineComponent({
   props: {
     center: {
       type: Object as () => { lat: number; lon: number },
-      required: false,
-      default: () => ({ lat: 47.41322, lon: -1.219482 }),
+      required: true,
     },
     zoom: {
       type: Number,
-      required: false,
-      default: 3,
+      required: true,
     },
     markerCoordsList: {
       type: Array<Coords | undefined>,
