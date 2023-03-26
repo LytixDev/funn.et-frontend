@@ -1,9 +1,5 @@
 <template>
   <div class="listing-detail-view" v-if="listing">
-    <div class="carousel">
-      <ImageCarousel :images="images" :alts="alts" :displayAlt="true" />
-    </div>
-
     <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
       {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
     </h2>
@@ -20,10 +16,11 @@
         {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
       </h2>
       <ImageCarousel class="carousel" :images="images" :alts="alts" :displayAlt="true" />
+      <LocationMap v-if="coords" :center="coords" :selectedCoords="coords" :zoom="10" />
 
       <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
       <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
-      <hr>
+      <hr />
       <div class="listing-description">
         <h2>{{ $t('ListingDetailView.description') }}</h2>
         <p>{{ listing.briefDescription }}</p>
