@@ -51,6 +51,7 @@
       <create-location-form v-model="location" />
     </error-boundary-catcher>
 
+<<<<<<< HEAD
     <ImageUploader v-model="images" />
     <FormInput
       labelId="listing-image-description-label"
@@ -58,6 +59,20 @@
       fieldId="listing-image-description"
       v-model="imageDescription"
       dataTestId="listing-image-description" />
+=======
+      <ImageUploader v-model="images" />
+      <div v-for="(image, key) in images">
+        <img :src="image.url" />
+        <button type="button" @click="images.splice(key, 1)">{{ $t('CreateListingView.removeImage') }}</button>
+        <FormInput
+          :key="key"
+          :labelId="'listing-image-description-label-'.concat(key.toString())"
+          :labelText="$t('CreateListingView.imageDescription').concat(' for ').concat(image.name)"
+          :fieldId="'listing-image-description-'.concat(key.toString())"
+          v-model="images[key].alt"
+          :dataTestId="'listing-image-description-'.concat(key.toString())" />
+      </div>
+>>>>>>> 1426fbcb53df6bf47ee75dbae093d49b497f9674
 
     <FormButton
       buttonId="create-listing-button"
@@ -119,7 +134,6 @@ const { handleSubmit, errors } = useForm({
 const submit = handleSubmit((values) => {
   for (const [key, value] of Object.entries(values)) {
     formData.append(key, value);
-    console.log(key, value);
   }
 
   const date: Date = new Date();
@@ -133,7 +147,6 @@ const submit = handleSubmit((values) => {
   values.images.forEach((image: any) => {
     imageResponse.push(new Blob([image.data], { type: image.type }));
   });
-  console.log(imageResponse);
   const imageAltResponse = [] as Array<string>;
   values.images.forEach((image: any) => {
     imageAltResponse.push(image.alt || undefined);
@@ -151,8 +164,6 @@ const submit = handleSubmit((values) => {
     images: imageResponse,
     imageAlts: imageAltResponse,
   } as ListingCreateDTO;
-
-  console.log(payload);
 
   ListingControllerService.createListing({ formData: payload })
     .then((response) => {
@@ -181,11 +192,14 @@ const { value: price } = useField('price') as FieldContext<string>;
 const { value: category } = useField('category') as FieldContext<string>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
-const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>
 
 <style scoped>
 .form {
   width: 100%;
+}
+
+img {
+  width: 500px;
 }
 </style>

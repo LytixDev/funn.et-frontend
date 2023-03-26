@@ -7,6 +7,8 @@
   --button-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   --button-hover-box-shadow: 0px 6px 7px rgba(0, 0, 0, 0.25);
   --large-box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+  --spacing-2: 0.5rem;
+  overflow-x: hidden;
 }
 
 .form_input,
@@ -102,6 +104,7 @@ a {
 button:hover,
 a:hover {
   box-shadow: var(--button-hover-box-shadow);
+  cursor: pointer;
 }
 
 nav ul {
@@ -135,6 +138,8 @@ nav #funn-logo {
 }
 
 footer {
+  z-index: 500;
+  position: relative;
   background-color: var(--primary-color);
   width: 100%;
   color: white;

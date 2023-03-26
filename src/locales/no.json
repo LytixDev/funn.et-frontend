@@ -97,6 +97,7 @@
     "image": "Bilde",
     "imageDescription": "Bildebeskrivelse",
     "submit": "Legg ut annonse",
+    "removeImage": "Fjern bilde",
     "Error": {
       "titleRequired": "Tittel er obligatorisk",
       "titleMax": "Tittelen er for stor",
@@ -136,7 +137,25 @@
     "goBack": "Gå tilbake"
   },
   "ListingDetailView": {
-    "loading": "Laster inn annonse ..."
+    "loading": "Laster inn annonse ...",
+    "sendMessage": "Send melding",
+    "favorite": "Legg til som favoritt",
+    "sold": "Marker annonsen som solgt",
+    "archive": "Arkiver annonse",
+    "edit": "Endre annonse",
+    "description": "Beskrivelse",
+    "price": "Pris",
+    "category": "Kategori",
+    "publishedBy": "Lagt ut av",
+    "note": "OBS: Denne annonsen er ",
+    "ARCHIVED": "arkivert",
+    "SOLD": "solgt",
+    "DRAFT": "påbegynt"
+  },
+  "ImageCarousel": {
+    "loading": "Laster inn bilde ...",
+    "previous": "Forrige bilde",
+    "next": "Neste bilde"
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
@@ -167,6 +186,25 @@
     "ContextErrorMessage": "Klarte ikke å finne kilden til feilen",
     "ERR_NETWORK": "Klarte ikke å koble seg til tjeneren",
     "MissingTranslation": "Fant ikke riktig oversettelse: Meldingen var %{message}"
+  },
+  "ChatView": {
+    "loading": "Laster inn chat ...",
+    "title": "Chat med ",
+    "message": "Melding",
+    "submit": "Send",
+    "seconds": "sekunder",
+    "minutes": "minutter",
+    "hours": "timer",
+    "days": "dager",
+    "months": "måneder",
+    "years": "år",
+    "ago": "siden",
+    "Error": {
+      "messageRequired": "Melding er obligatorisk",
+      "messageMax": "Meldingen er for lang",
+      "messageFailed": "Melingen kunne ikke sendes",
+      "chatNotFound": "Kunne ikke finne samtalen"
+    }
   },
   "CreateLocationForm": {
     "title": "Sett en lokasjon",

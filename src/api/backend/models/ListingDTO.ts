@@ -17,6 +17,7 @@ export type ListingDTO = {
   publicationDate?: string;
   expirationDate?: string;
   imageResponse?: Array<ImageResponseDTO>;
+  isFavorite?: boolean;
 };
 
 export namespace ListingDTO {
