@@ -43,7 +43,7 @@
     <button>{{ $t('ListingDetailView.edit') }}</button>
   </div>
   <router-link
-    v-else-if="listing?.status === ListingDTO.status.ACTIVE"
+    v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
     :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
     >{{ $t('ListingDetailView.sendMessage') }}</router-link
   >
@@ -71,7 +71,7 @@ const username = computed(() => user.username) || '';
 listing.value = await ListingControllerService.getListing({ id: id });
 if (listing.value.isFavorite) isFavorite.value = listing.value.isFavorite;
 
-const isOwner: Ref<boolean> = computed(() => listing.value?.username === user.username);
+const isOwner: Ref<boolean> = computed(() => listing.value?.username === username.value);
 
 const images = computed(() => {
   if (listing.value?.imageResponse) return listing.value.imageResponse.map((image) => image.url?.toString());
