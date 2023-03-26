@@ -52,8 +52,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { Ref, ref, computed } from 'vue';
-import { ListingControllerService } from '@/api/backend';
-import { ListingDTO, ListingCreateDTO } from '@/api/backend';
+import { ListingControllerService, LocationResponseDTO, ListingDTO, ListingCreateDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
 import { BiHeartFill, BiHeart } from 'oh-vue-icons/icons';
@@ -61,6 +60,7 @@ import { OhVueIcon, addIcons } from 'oh-vue-icons';
 
 addIcons(BiHeart, BiHeartFill);
 const listing = ref<ListingDTO>();
+const location = ref<LocationResponseDTO>();
 const isFavorite = ref<boolean>(false);
 const route = useRoute();
 const id: number = +(route.params.id as string);
