@@ -136,7 +136,17 @@
     "usernameCannotChange": "Username cannot be changed",
     "submit": "Save changes",
     "title": "Edit user details",
-    "goBack": "Go back"
+    "goBack": "Go back",
+    "favorites": {
+      "title": "Favorites",
+      "empty": "You have no favorites",
+      "findListings": "Find listings and favorite them"
+    },
+    "chats": {
+      "title": "Chats",
+      "empty": "You have no messages",
+      "findListings": "Find listings and start chatting"
+    }
   },
   "ListingDetailView": {
     "loading": "Loading listing details...",

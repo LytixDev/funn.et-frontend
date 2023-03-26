@@ -15,8 +15,10 @@ import { ApiError } from '@/api/backend';
 import { AxiosError } from 'axios';
 import { onErrorCaptured, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
 
 const router = useRouter();
+const userStore = useUserInfoStore();
 
 const errorMessage = ref('');
 const errorContext = ref({} as { [key: string]: string });
@@ -26,7 +28,8 @@ onErrorCaptured((err, _vm, _info): boolean => {
   if (err instanceof ApiError) {
     if (err.status == 401) {
       errorMessage.value = err.body.detail;
-      router.push({ name: 'Login' });
+      userStore.clearUserInfo();
+      router.push({ name: 'login' });
       return false;
     }
     errorMessage.value = err.body.detail;
