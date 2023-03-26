@@ -89,7 +89,7 @@ const submit = handleSubmit(async (values) => {
       role: user.role,
     });
 
-    router.push(route.query.redirect as string || '/');
+    router.push((route.query.redirect as string) || '/');
   } catch (authError: any) {
     if (authError.detail !== undefined) {
       errorBoxMsg.value = authError.detail;

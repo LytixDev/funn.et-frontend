@@ -16,9 +16,6 @@ import FormDropDownList from './FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import { ref } from 'vue';
 import { CategoryControllerService } from '@/api/backend';
-import { useI18n } from 'vue-i18n';
-
-const t = useI18n().t;
 
 const props = defineProps({
   category: {

@@ -222,5 +222,14 @@
     "Error": {
       "AddressRequired": "Location is required"
     }
+  },
+  "Admin": {
+    "categories": "Categories",
+    "name": "Category name",
+    "add": "Add new category",
+    "confirm": "Are you sure you want to delete this category?",
+    "Error": {
+      "nameRequired": "Category name is required"
+    }
   }
 }

@@ -127,6 +127,25 @@ export class ListingControllerService {
   }
 
   /**
+   * Get listings by user
+   * Returns all listings in the database. Possible to search for keywords in listing
+   * @returns ListingDTO OK
+   * @throws ApiError
+   */
+  public static getListingsByUser({ username }: { username: string }): CancelablePromise<Array<ListingDTO>> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/api/v1/public/listings/user/{username}',
+      path: {
+        username: username,
+      },
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * @returns ListingDTO OK
    * @throws ApiError
    */

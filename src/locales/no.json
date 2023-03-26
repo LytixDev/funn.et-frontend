@@ -225,5 +225,14 @@
     "Error": {
       "AddressRequired": "Adresse er obligatorisk"
     }
+  },
+  "Admin": {
+    "categories": "Kategorier",
+    "name": "Kategori navn",
+    "add": "Legg til ny kategori",
+    "confirm": "Er du sikker på at du vil slette denne kategorien?",
+    "Error": {
+      "nameRequired": "Kategori navn er obligatorisk"
+    }
   }
 }

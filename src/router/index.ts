@@ -83,25 +83,23 @@ router.beforeEach((to, from, next) => {
   let user = useUserInfoStore();
   const isAuthenticated = user.isLoggedIn;
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  const requiresRole: String[] = to.matched.flatMap((record) => record.meta.requiresRole as String[] || []);
+  const requiresRole: String[] = to.matched.flatMap((record) => (record.meta.requiresRole as String[]) || []);
 
-  console.log('requiresRole: ', requiresRole);
   if (requiresAuth) {
     if (!isAuthenticated) {
-      next({name: "login", query: { redirect: to.fullPath } });
+      next({ name: 'login', query: { redirect: to.fullPath } });
     } else {
       if (requiresRole.length === 0) {
         next();
       } else if (requiresRole.includes(user.role)) {
         next();
       } else {
-        next({name: "home"});
+        next({ name: 'home' });
       }
     }
   } else {
     next();
   }
-}
-);
+});
 
 export default router;

@@ -23,7 +23,7 @@
 
       <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
       <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
-      <hr>
+      <hr />
       <div class="listing-description">
         <h2>{{ $t('ListingDetailView.description') }}</h2>
         <p>{{ listing.briefDescription }}</p>
