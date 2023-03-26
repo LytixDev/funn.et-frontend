@@ -11,7 +11,7 @@
             <router-link to="/">{{ $t('navigation.home') }}</router-link>
           </li>
           <li v-if="role === 'ADMIN'">
-            <router-link :to="{ name: 'admin' }">Manage</router-link>
+            <router-link :to="{ name: 'admin' }">{{ $t('navigation.manage') }}</router-link>
           </li>
           <li v-if="!loggedIn">
             <router-link to="/login" class="attention">{{ $t('navigation.login') }}</router-link>

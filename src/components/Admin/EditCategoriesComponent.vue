@@ -9,7 +9,6 @@
             :labelText="$t('Admin.name')"
             fieldId="name-label"
             v-model="name"
-            :error="errors?.name"
             fieldRequired
             dataTestid="name" />
 
@@ -28,10 +27,18 @@
       <div class="category-list-item" v-for="category in categories" :key="category.id">
         <div class="category-list-item-content">
           <div class="category-list-item-name">
-            {{ category.name }}
+            <input
+              @keyup.enter="editCategory(category)"
+              @input="category.name = ($event.target as HTMLInputElement).value"
+              labelId="lol"
+              fieldId="lol"
+              :value="category.name" />
           </div>
-          <div class="category-list-item-remove" @click="deleteCategory(category)">
-            <OhVueIcon name="md-delete-round" />
+          <div class="category-list-item-save">
+            <OhVueIcon name="fa-save" @click="editCategory(category)" />
+          </div>
+          <div class="category-list-item-remove">
+            <OhVueIcon name="md-delete-round" @click="deleteCategory(category)" />
           </div>
         </div>
       </div>
@@ -47,10 +54,10 @@ import FormInput from '@/components/Form/FormInput.vue';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
-import { MdDeleteRound } from 'oh-vue-icons/icons';
+import { MdDeleteRound, FaSave } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 
-addIcons(MdDeleteRound);
+addIcons(MdDeleteRound, FaSave);
 const { t } = useI18n();
 const categories = ref<CategoryDTO[]>([]);
 
@@ -63,6 +70,11 @@ const deleteCategory = (category: CategoryDTO) => {
   CategoryControllerService.deleteCategory({ id: category.id }).then(() => {
     categories.value = categories.value.filter((c) => c.id !== category.id);
   });
+};
+
+const editCategory = (category: CategoryDTO) => {
+  if (!confirm(t('Admin.confirmSave'))) return;
+  CategoryControllerService.updateCategory({ id: category.id, requestBody: category });
 };
 
 /* form */
@@ -93,6 +105,7 @@ const submitIsDisabled = computed(() => {
   return name.value.length < 1 || name.value in categories.value.map((c) => c.name);
 });
 </script>
+
 <style scoped>
 .category-list-item {
   margin-bottom: 1rem;
@@ -113,6 +126,13 @@ const submitIsDisabled = computed(() => {
 }
 
 .category-list-item-remove {
+  margin-left: 0.8rem;
+  cursor: pointer;
+  scale: 2;
+}
+
+.category-list-item-save {
+  margin-left: 0.5rem;
   cursor: pointer;
   scale: 2;
 }

@@ -33,7 +33,6 @@ export default defineComponent({
     },
     labelText: {
       type: String,
-      required: true,
     },
     fieldId: {
       type: String,
