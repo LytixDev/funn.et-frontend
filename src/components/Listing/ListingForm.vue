@@ -58,9 +58,9 @@
       v-model="imageDescription"
       dataTestId="listing-image-description" />
     <FormButton
-      buttonId="update-listing-button"
-      :buttonText="$t('CreateListingView.submitUpdate')"
-      dataTestId="update-listing-button"
+      :buttonId="`${formType}-listing-button`"
+      :buttonText="$t(`ListingForm.submit${formType}`)"
+      :dataTestId="`${formType}-listing-button`"
       @click="submit" />
   </form>
   <error-box v-model="errorMessage" />
@@ -104,22 +104,23 @@ const { listingPayload, onSubmit, foundLocation } = defineProps({
     type: Object as () => LocationResponseDTO,
     required: false,
   },
+  formType: {
+    type: String as PropType<'create' | 'update'>,
+    required: false,
+    default: 'create',
+  },
 });
 
 const schema = computed(() =>
   yupObject({
-    title: yupString()
-      .required(t('CreateListingView.Error.titleRequired'))
-      .max(256, t('CreateListingView.Error.titleMax')),
+    title: yupString().required(t('ListingForm.Error.titleRequired')).max(256, t('ListingForm.Error.titleMax')),
     briefDescription: yupString()
-      .required(t('CreateListingView.Error.briefDescriptionRequired'))
-      .max(128, t('CreateListingView.Error.briefDescriptionMax')),
-    description: yupString().max(512, t('CreateListingView.Error.descriptionMax')),
-    price: yupNumber()
-      .required(t('CreateListingView.Error.priceRequired'))
-      .min(0, t('CreateListingView.Error.priceMin')),
+      .required(t('ListingForm.Error.briefDescriptionRequired'))
+      .max(128, t('ListingForm.Error.briefDescriptionMax')),
+    description: yupString().max(512, t('ListingForm.Error.descriptionMax')),
+    price: yupNumber().required(t('ListingForm.Error.priceRequired')).min(0, t('ListingForm.Error.priceMin')),
     category: yupString().default('OTHER'),
-    location: yupObject<LocationResponseDTO>().required(t('CreateListingView.Error.locationRequired')),
+    location: yupObject<LocationResponseDTO>().required(t('ListingForm.Error.locationRequired')),
   }),
 );
 
@@ -179,6 +180,7 @@ const { value: category } = useField('category') as FieldContext<string>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
+images.value = [];
 if (foundLocation) {
   location.value = foundLocation!!;
 }

@@ -9,7 +9,8 @@
     "register": "Registrer ny bruker",
     "login": "Logg inn",
     "signout": "Logg ut",
-    "createListing": "Ny annonse"
+    "createListing": "Ny annonse",
+    "editListing": "Rediger annonse"
   },
   "ListingCard": {
     "published": "Lagt ut av"
@@ -84,7 +85,7 @@
       "repeatPasswordNotMatch": "Passordene er ikke like"
     }
   },
-  "CreateListingView": {
+  "ListingForm": {
     "loading": "Laster inn ...",
     "title": "Tittel",
     "briefDescription": "Kort beskrivelse",
@@ -99,6 +100,8 @@
     "submit": "Legg ut annonse",
     "removeImage": "Fjern bilde",
     "submitUpdate": "Oppdater annonse",
+    "submitcreate": "Legg ut annonse",
+    "submitupdate": "Oppdater annonse",
     "Error": {
       "titleRequired": "Tittel er obligatorisk",
       "titleMax": "Tittelen er for stor",

@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ $t('navigation.createListing') }}</h2>
+  <h2>{{ $t('navigation.editListing') }}</h2>
 
   <listing-form :listing-payload="payload" :found-location="foundLocation" :on-submit="updateListing" />
 </template>
