@@ -71,6 +71,7 @@
     "newPassword": "Nytt passord",
     "password": "Passord",
     "repeatPassword": "Gjenta passord",
+    "updatePassword": "Oppdater passord",
     "Error": {
       "usernameMin": "Brukernavn må være større en 3 karakterer",
       "usernameMax": "Brukernavn kan ikke være større enn 32 karakterer",
