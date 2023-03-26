@@ -1,7 +1,7 @@
 <template>
   <div class="listing-detail-view" v-if="listing">
     <div class="carousel">
-      <ImageCarousel :images="images" />
+      <ImageCarousel :images="images" :alts="alts" :displayAlt="true" />
     </div>
 
     <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
@@ -34,16 +34,16 @@
   </div>
 
   <div class="owner-actions" v-if="isOwner">
-    <button v-if="listing?.status != ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
+    <button v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
       {{ $t('ListingDetailView.sold') }}
     </button>
-    <button v-if="listing?.status != ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+    <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
       {{ $t('ListingDetailView.archive') }}
     </button>
     <button>{{ $t('ListingDetailView.edit') }}</button>
   </div>
   <router-link
-    v-if="username !== listing?.username && username !== ''"
+    v-else-if="listing?.status === ListingDTO.status.ACTIVE"
     :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
     >{{ $t('ListingDetailView.sendMessage') }}</router-link
   >
@@ -75,6 +75,11 @@ const isOwner: Ref<boolean> = computed(() => listing.value?.username === user.us
 
 const images = computed(() => {
   if (listing.value?.imageResponse) return listing.value.imageResponse.map((image) => image.url?.toString());
+  return [];
+});
+
+const alts = computed(() => {
+  if (listing.value?.imageResponse) return listing.value.imageResponse.map((image) => image.alt?.toString());
   return [];
 });
 

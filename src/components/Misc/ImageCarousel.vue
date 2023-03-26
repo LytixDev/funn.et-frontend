@@ -1,22 +1,34 @@
 <template>
   <div class="carousel">
     <div class="carousel-inner">
-      <img :src="images[currentIndex]" alt="carousel image" />
+      <img :src="images[currentIndex]" :alt="alts![currentIndex] ? alts![currentIndex] : 'carousel image'" />
+      <div v-if="images.length > 1">
+        <OhVueIcon name="bi-arrow-left-circle" class="prev-button" @click="prevSlide" />
+        <OhVueIcon name="bi-arrow-right-circle" class="next-button" @click="nextSlide" />
+      </div>
     </div>
-    <div v-if="images.length > 1">
-      <button @click="prevSlide">{{ $t('ImageCarousel.previous') }}</button>
-      <button @click="nextSlide">{{ $t('ImageCarousel.next') }}</button>
-    </div>
+    <p v-if="displayAlt && alts![currentIndex] !== 'undefined'">{{ alts![currentIndex] }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { BiArrowLeftCircle, BiArrowRightCircle } from 'oh-vue-icons/icons';
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
+
+addIcons(BiArrowLeftCircle, BiArrowRightCircle);
 
 const props = defineProps({
   images: {
     type: Array<string>,
     required: true,
+  },
+  alts: {
+    type: Array<string>,
+  },
+  displayAlt: {
+    type: Boolean,
+    default: false,
   },
 });
 const currentIndex = ref(0);
@@ -39,16 +51,46 @@ function prevSlide() {
 }
 
 .carousel-inner {
-  position: relative;
   height: 100%;
+  text-align: center;
+  position: relative;
+}
+
+p {
+  margin: 1rem;
+  text-align: center;
+  color: gray;
 }
 
 .carousel-inner img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: scale-down;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 80%;
+  max-height: 100%;
+}
+
+.prev-button {
+  position: absolute;
+  left: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.next-button {
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev-button,
+.next-button {
+  cursor: pointer;
+  scale: 2;
+  color: gray;
 }
 </style>
