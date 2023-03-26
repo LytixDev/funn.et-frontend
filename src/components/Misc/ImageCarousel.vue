@@ -53,6 +53,7 @@ function prevSlide() {
 .carousel {
   position: relative;
   height: 300px;
+  border: 1px solid #ccc;
 }
 
 .carousel-inner {
