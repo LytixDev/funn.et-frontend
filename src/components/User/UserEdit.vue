@@ -5,7 +5,7 @@
   <OhVueIcon @click="usernameNote = !usernameNote" name="px-warning-box" class="username-note" />
   <p v-if="usernameNote">{{ $t('UserDetailView.usernameCannotChange') }}</p>
 
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form">
     <FormInput
       labelId="email-label"
       :labelText="$t('UserForm.email')"
