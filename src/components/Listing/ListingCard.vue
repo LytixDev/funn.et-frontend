@@ -8,7 +8,7 @@
       <div class="listing-info">
         <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
         <h3>{{ listingData.title }}</h3>
-        <h3>{{ listingData.price }} kr</h3>
+        <h3 class="attention-text">{{ listingData.price }} kr</h3>
         <p>{{ listingData.briefDescription }}</p>
       </div>
     </div>
@@ -53,9 +53,10 @@ a:hover {
 }
 
 .listing-card {
+  display: grid;
+  grid-template-rows: 3fr 1fr;
   min-width: 180px;
   max-width: 480px;
-  min-height: 240px;
   margin: auto;
   padding: 10px;
   box-sizing: border-box;

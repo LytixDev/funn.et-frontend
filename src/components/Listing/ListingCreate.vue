@@ -1,8 +1,7 @@
 <template>
-  <h2>{{ $t('navigation.createListing') }}</h2>
 
-  <form @submit.prevent="submit" enctype="multipart/form-data">
-    <fieldset>
+  <form @submit.prevent="submit" enctype="multipart/form-data" class="form">
+      <h2>{{ $t('navigation.createListing') }}</h2>
       <FormInput
         labelId="listing-title-label"
         :labelText="$t('CreateListingView.title')"
@@ -37,9 +36,7 @@
         :field-type="FormInputTypes.Number"
         fieldRequired
         dataTestId="listing-price" />
-    </fieldset>
 
-    <fieldset>
       <FormDropDownList
         labelId="listing-category-label"
         :labelText="$t('CreateListingView.category')"
@@ -49,16 +46,12 @@
         dataTestId="listing-category"
         fieldName="category"
         :fieldOptions="categories" />
-    </fieldset>
 
-    <fieldset>
       <error-boundary-catcher>
         <div>{{ errors?.location }}</div>
         <create-location-form v-model="location" />
       </error-boundary-catcher>
-    </fieldset>
 
-    <fieldset>
       <ImageUploader v-model="images" />
       <FormInput
         labelId="listing-image-description-label"
@@ -72,7 +65,6 @@
         :buttonText="$t('CreateListingView.submit')"
         dataTestId="create-listing-button"
         @click="submit" />
-    </fieldset>
   </form>
   <error-box v-model="errorMessage" />
 </template>
@@ -193,4 +185,9 @@ const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 </script>
 
-<style scoped></style>
+<style scoped>
+.form {
+  width: 100%;
+}
+
+</style>
