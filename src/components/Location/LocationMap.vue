@@ -1,21 +1,23 @@
 <template>
-  <div style="height: 600px; width: 800px" class="map-container">
-    <l-map
-      id="leaflet-map"
-      ref="map"
-      :zoom="zoom"
-      :center="validMarker(selectedCoords) ? [selectedCoords?.lat, selectedCoords?.lon] : [center.lat, center.lon]">
-      <l-tile-layer :url="url" layer-type="base" name="OpenStreetMap" :attribution="attribution"> </l-tile-layer>
-      <l-marker v-if="validMarker(selectedCoords)" :lat-lng="[selectedCoords?.lat, selectedCoords?.lon]">
-        <l-icon
-          :icon-url="icon.url"
-          :icon-size="icon.iconSize"
-          :icon-anchor="icon.iconAnchor"
-          :popup-anchor="icon.popupAnchor"
-          :shadow-size="icon.shadowSize"></l-icon
-      ></l-marker>
-      <l-marker v-for="marker in markerCoordsList" :lat-lng="marker" />
-    </l-map>
+  <div class="container-wrapper">
+    <div class="map-container">
+      <l-map
+        id="leaflet-map"
+        ref="map"
+        :zoom="zoom"
+        :center="validMarker(selectedCoords) ? [selectedCoords?.lat, selectedCoords?.lon] : [center.lat, center.lon]">
+        <l-tile-layer :url="url" layer-type="base" name="OpenStreetMap" :attribution="attribution"> </l-tile-layer>
+        <l-marker v-if="validMarker(selectedCoords)" :lat-lng="[selectedCoords?.lat, selectedCoords?.lon]">
+          <l-icon
+            :icon-url="icon.url"
+            :icon-size="icon.iconSize"
+            :icon-anchor="icon.iconAnchor"
+            :popup-anchor="icon.popupAnchor"
+            :shadow-size="icon.shadowSize"></l-icon
+        ></l-marker>
+        <l-marker v-for="marker in markerCoordsList" :lat-lng="marker" />
+      </l-map>
+    </div>
   </div>
 </template>
 
@@ -77,4 +79,17 @@ export default defineComponent({
 #leaflet-map {
   z-index: 0;
 }
+
+.map-container {
+  width: 90%;
+  height: 30em;
+  display: flex;
+  align-items: center;
+}
+
+.container-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
