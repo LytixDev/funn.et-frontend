@@ -102,6 +102,7 @@
     "submitUpdate": "Update listing",
     "submitcreate": "Publish listing",
     "submitupdate": "Update listing",
+    "all": "All",
     "Error": {
       "titleRequired": "Title is required",
       "titleMax": "Title is too large",

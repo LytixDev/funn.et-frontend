@@ -35,15 +35,7 @@
       fieldRequired
       dataTestId="listing-price" />
 
-    <FormDropDownList
-      labelId="listing-category-label"
-      :labelText="$t('ListingForm.category')"
-      fieldId="listing-category"
-      v-model="category"
-      fieldRequired
-      dataTestId="listing-category"
-      fieldName="category"
-      :fieldOptions="categories" />
+    <CategoryDropDownList v-model:category="categoryId" />
 
     <error-boundary-catcher>
       <div>{{ errors?.location }}</div>
@@ -79,10 +71,11 @@ import { object as yupObject, string as yupString, number as yupNumber } from 'y
 import { computed, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { ListingCreateDTO, ListingDTO, LocationResponseDTO } from '@/api/backend';
+import { ListingCreateDTO, ListingDTO, LocationResponseDTO, CategoryControllerService } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
+import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 
 const { t } = useI18n();
 const userStore = useUserInfoStore();
@@ -119,7 +112,7 @@ const schema = computed(() =>
       .max(128, t('ListingForm.Error.briefDescriptionMax')),
     description: yupString().max(512, t('ListingForm.Error.descriptionMax')),
     price: yupNumber().required(t('ListingForm.Error.priceRequired')).min(0, t('ListingForm.Error.priceMin')),
-    category: yupString().default('OTHER'),
+    category: yupNumber().required(t('ListingForm.Error.categoryRequired')),
     location: yupObject<LocationResponseDTO>().required(t('ListingForm.Error.locationRequired')),
   }),
 );
@@ -162,22 +155,21 @@ const submit = handleSubmit((values) => {
   onSubmit(payload);
 });
 
-const categories = computed(() => {
-  const listOfCategories = [] as DropDownItem[];
-  for (const value in ListingDTO.category) {
-    listOfCategories.push({
-      value: value,
-      displayedValue: t('ListingListView.Categories.' + value),
-    });
-  }
-  return listOfCategories;
-});
+/* promise noob */
+let listOfCategories = ref([] as DropDownItem[]);
+const categories = async () => {
+  const response = await CategoryControllerService.getAllCategories();
+  response.forEach((category) => {
+    listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
+  });
+};
+categories();
 
 const { value: title } = useField('title') as FieldContext<string>;
 const { value: briefDescription } = useField('briefDescription') as FieldContext<string>;
 const { value: description } = useField('description') as FieldContext<string>;
 const { value: price } = useField('price') as FieldContext<string>;
-const { value: category } = useField('category') as FieldContext<string>;
+const { value: categoryId } = useField('category') as FieldContext<number>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
@@ -190,7 +182,7 @@ if (listingPayload) {
   briefDescription.value = listingPayload.briefDescription;
   description.value = listingPayload.fullDescription ?? '';
   price.value = listingPayload.price?.toString() ?? '';
-  category.value = listingPayload.category;
+  categoryId.value = listingPayload.category.id ?? 0;
   images.value = [];
   imageDescription.value = '';
 }

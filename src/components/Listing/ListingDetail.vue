@@ -19,7 +19,7 @@
         <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
         <LocationMap class="location-map" v-if="coords !== null" :center="coords" :selectedCoords="coords" :zoom="10" />
         <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
-        <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category }}</p>
+        <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
       </div>
       <hr />
 
