@@ -93,6 +93,12 @@ h2 {
   box-sizing: border-box;
 }
 
+#error {
+  color: var(--red-color);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
 body,
 html {
   margin: 0;

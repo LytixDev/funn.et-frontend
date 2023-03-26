@@ -1,7 +1,7 @@
 <template>
   <p>{{ $t('UserDetailView.editPasswordLong', { username: user.username }) }}</p>
 
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form">
     <FormInput
       labelId="old-password-label"
       :labelText="$t('UserForm.oldPassword')"
