@@ -13,8 +13,8 @@ cache:
 install:
   stage: install
   script:
-    - npm install
-    - npm run build
+    - yarn
+    - yarn build
   artifacts:
     paths:
       - node_modules/
@@ -26,12 +26,12 @@ prettier:
     - job: install
       artifacts: true
   script:
-    - npm run prettier
+    - yarn prettier
 
 test:unit:
   stage: test:unit
   script:
-    - npm run test:unit
+    - yarn test:unit
 
 test:e2e:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge

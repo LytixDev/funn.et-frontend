@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'listing', params: { id: listingData.id } }">
     <div class="listing-card">
       <div class="listing-image">
-        <img :src="imageLocation" />
+        <img :src="image.imageLocation" :alt="image.imageAlt === 'undefined' ? 'listing image' : image.imageAlt" />
       </div>
 
       <div class="listing-info">
@@ -30,9 +30,13 @@ const props = defineProps({
   },
 });
 
-const imageLocation = computed(() => {
-  if (props.listingData.imageResponse?.length !== 0) return props.listingData.imageResponse![0].url;
-  return '/src/assets/images/default-placeholder.png';
+const image = computed(() => {
+  if (props.listingData.imageResponse?.length !== 0)
+    return {
+      imageLocation: props.listingData.imageResponse![0].url,
+      imageAlt: props.listingData.imageResponse![0].alt,
+    };
+  return { imageLocation: '/src/assets/images/default-placeholder.png', imageAlt: 'placeholder image' };
 });
 </script>
 

@@ -44,6 +44,12 @@ export const routes = [
         component: () => import('@/views/Listing/ListingDetailView.vue'),
       },
       {
+        path: '/listing/:id/chat/:username',
+        name: 'chat',
+        component: () => import('@/views/Chat/ChatView.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         path: '/:pathMatch(.*)*',
         name: 'not-found',
         component: () => import('@/views/NotFoundView.vue'),

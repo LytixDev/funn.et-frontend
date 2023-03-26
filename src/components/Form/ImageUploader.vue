@@ -9,13 +9,6 @@
         </div>
       </div>
     </div>
-
-    <div v-if="previewImage && images" class="upload-preview">
-      <img v-for="image in images" :src="image.url" class="file-image" alt="" />
-    </div>
-    <div v-if="images">
-      <button @click="resetImage">{{ $t('Form.ImageUpload.clear') }}</button>
-    </div>
   </div>
 </template>
 
@@ -27,6 +20,7 @@ export type Image = {
   size: number;
   type: string;
   url: string;
+  alt?: string;
   data?: Blob;
   isUploaded: boolean;
 };
