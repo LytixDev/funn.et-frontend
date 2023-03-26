@@ -3,7 +3,7 @@ apiUrl = Cypress.env('apiUrl');
 describe('Listing list view', () => {
   it('The listing list should display next pagination button with 20 listings', () => {
     const listings = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 24; i++) {
       listings.push({
         id: i,
         briefDescription: `Listing ${i}`,
