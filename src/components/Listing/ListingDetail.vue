@@ -44,6 +44,7 @@
     <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
       $t('ListingDetailView.edit')
     }}</router-link>
+    <button @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
   </div>
   <router-link
     v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
@@ -54,13 +55,23 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { Ref, ref, computed } from 'vue';
-import { ListingControllerService, LocationControllerService, LocationResponseDTO, ListingDTO, ListingCreateDTO } from '@/api/backend';
+import {
+  ListingControllerService,
+  LocationControllerService,
+  LocationResponseDTO,
+  ListingDTO,
+  ListingCreateDTO,
+} from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
-import LocationMap, { Coords }from '@/components/Location/LocationMap.vue';
+import LocationMap, { Coords } from '@/components/Location/LocationMap.vue';
 import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
 import { BiHeartFill, BiHeart } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import router from '@/router';
+
+const t = useI18n().t;
 
 addIcons(BiHeart, BiHeartFill);
 const listing = ref<ListingDTO>();
@@ -105,6 +116,14 @@ const updateStatus = async (status: ListingDTO.status) => {
   listingCpy.status = status;
   const response: ListingDTO = await ListingControllerService.updateListing({ id: id, formData: listingCpy });
   if (response) listing.value = response;
+};
+
+const deleteListing = async () => {
+  const rc = confirm(t('ListingDetailView.confirmDelete'));
+  if (rc) {
+    await ListingControllerService.deleteListing({ id: id });
+    router.push({ name: 'home' });
+  }
 };
 </script>
 
@@ -166,5 +185,4 @@ button {
 button:hover {
   background-color: #3e8e41;
 }
-
 </style>
