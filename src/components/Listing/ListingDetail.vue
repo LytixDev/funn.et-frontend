@@ -57,9 +57,15 @@
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Ref, ref, computed } from 'vue';
-import { ListingControllerService, LocationControllerService, LocationResponseDTO, ListingDTO, ListingCreateDTO } from '@/api/backend';
+import {
+  ListingControllerService,
+  LocationControllerService,
+  LocationResponseDTO,
+  ListingDTO,
+  ListingCreateDTO,
+} from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
-import LocationMap, { Coords }from '@/components/Location/LocationMap.vue';
+import LocationMap, { Coords } from '@/components/Location/LocationMap.vue';
 import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
 import { BiHeartFill, BiHeart } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
@@ -179,5 +185,4 @@ button {
 button:hover {
   background-color: #3e8e41;
 }
-
 </style>
