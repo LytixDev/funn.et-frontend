@@ -48,7 +48,7 @@ const { t } = useI18n();
 
 addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
 
-const pageSize = 20;
+const pageSize = 24;
 const firstPage = 1;
 
 const errorMessage = ref('');
