@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="owner-actions" v-if="isOwner">
+  <div class="owner-actions" v-if="isOwner || isAdmin">
     <button v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
       {{ $t('ListingDetailView.sold') }}
     </button>
@@ -80,6 +80,7 @@ const id: number = +(route.params.id as string);
 
 const user = useUserInfoStore();
 const username = computed(() => user.username) || '';
+const isAdmin = computed(() => user.role === 'ADMIN');
 
 listing.value = await ListingControllerService.getListing({ id: id });
 location.value = await LocationControllerService.getLocationById({ id: listing.value?.location as number });
