@@ -3,9 +3,9 @@
     <div class="page-content">
       <div class="mobile-buttons">
         <router-link class="attention" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
-        <button @click="() => showFilter = !showFilter">{{ $t('ListingListView.filterButton') }}</button>
+        <button @click="() => (showFilter = !showFilter)">{{ $t('ListingListView.filterButton') }}</button>
       </div>
-      <div class="buttons" :class="showFilter ? 'show' : ''" >
+      <div class="buttons" :class="showFilter ? 'show' : ''">
         <listing-filter v-model="filterData" />
         <router-link class="attention desktop" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
       </div>
@@ -139,7 +139,7 @@ watchEffect(async () => {
   .form {
     margin-top: 0;
     margin-bottom: 0;
-    border-bottom: var(--secondary-color) 2px solid ;
+    border-bottom: var(--secondary-color) 2px solid;
 
     box-shadow: none;
   }

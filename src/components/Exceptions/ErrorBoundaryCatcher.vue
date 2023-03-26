@@ -40,6 +40,4 @@ onErrorCaptured((err, _vm, _info): boolean => {
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

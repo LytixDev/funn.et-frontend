@@ -189,5 +189,4 @@ watch([searchMessage, chosenCategory, priceMin, priceMax, chosenSorting], () => 
   width: 80%;
   margin: 0;
 }
-
 </style>

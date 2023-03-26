@@ -37,7 +37,6 @@ const imageLocation = computed(() => {
 </script>
 
 <style scoped>
-
 a {
   text-decoration: none;
   color: inherit;
