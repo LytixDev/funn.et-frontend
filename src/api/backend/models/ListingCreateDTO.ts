@@ -2,13 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Category } from './Category';
+
 export type ListingCreateDTO = {
   username: string;
   location?: number;
   title: string;
   briefDescription: string;
   fullDescription?: string;
-  category: ListingCreateDTO.category;
+  category: Category;
   status?: ListingCreateDTO.status;
   price?: number;
   publicationDate?: string;
@@ -18,15 +20,6 @@ export type ListingCreateDTO = {
 };
 
 export namespace ListingCreateDTO {
-  export enum category {
-    ELECTRONICS = 'ELECTRONICS',
-    CLOTHING = 'CLOTHING',
-    BOOKS = 'BOOKS',
-    SPORTS = 'SPORTS',
-    FURNITURE = 'FURNITURE',
-    OTHER = 'OTHER',
-  }
-
   export enum status {
     SOLD = 'SOLD',
     ARCHIVED = 'ARCHIVED',
