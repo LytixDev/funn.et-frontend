@@ -11,6 +11,7 @@
   overflow-x: hidden;
 }
 
+
 .form_input,
 .form_input_dropdown,
 .form_input_textarea {
@@ -22,7 +23,8 @@
 
 .form_input input,
 .form_input_textarea textarea,
-.form_input_dropdown select {
+.form_input_dropdown select,
+input[type='file'] {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -65,6 +67,16 @@ form {
   border-radius: 1em;
   width: min(400px, 100%);
   height: fit-content;
+}
+
+
+.leaflet-control a {
+  box-shadow: none;
+  background: none;  
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  
 }
 
 h2 {
@@ -146,3 +158,4 @@ footer {
   text-align: center;
   height: 5em;
 }
+

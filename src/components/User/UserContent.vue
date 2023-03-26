@@ -1,11 +1,13 @@
 <template>
-  <component :is="activePageComponent" v-model:activePage="activePage" :user="user" />
-  <div v-if="isMe && activePage === 'UserDetail'">
-    <button @click="activePage = 'UserEdit'">{{ $t('UserDetailView.edit') }}</button>
-    <button @click="activePage = 'UserEditPassword'">{{ $t('UserDetailView.editPassword') }}</button>
-  </div>
-  <div v-else>
-    <button @click="activePage = 'UserDetail'">{{ $t('UserDetailView.goBack') }}</button>
+  <div class="user-details-page">
+    <component :is="activePageComponent" v-model:activePage="activePage" :user="user" />
+    <div v-if="isMe && activePage === 'UserDetail'" class="utility-buttons">
+      <button @click="activePage = 'UserEdit'">{{ $t('UserDetailView.edit') }}</button>
+      <button @click="activePage = 'UserEditPassword'">{{ $t('UserDetailView.editPassword') }}</button>
+    </div>
+    <div v-else>
+      <button @click="activePage = 'UserDetail'">{{ $t('UserDetailView.goBack') }}</button>
+    </div>
   </div>
 </template>
 
@@ -44,3 +46,11 @@ const isMe: Ref<boolean> = computed(() => {
   return username.toLowerCase() === userStore.$state.username.toLowerCase();
 });
 </script>
+
+<style scoped>
+.user-details-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

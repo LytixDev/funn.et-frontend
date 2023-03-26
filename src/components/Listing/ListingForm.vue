@@ -9,6 +9,24 @@
       :error="errors?.title"
       fieldRequired
       dataTestId="listing-title" />
+    <div class="break"></div>
+    <div class="image-upload">
+      <h3>Last opp bilder</h3>
+      <ImageUploader v-model="images" />
+      <div v-for="(image, key) in images" class="images">
+        <div class="mini-break"></div>
+        <img :src="image.url" />
+        <button type="button" @click="images.splice(key, 1)">{{ $t('ListingForm.removeImage') }}</button>
+        <FormInput
+          :key="key"
+          :labelId="'listing-image-description-label-'.concat(key.toString())"
+          :labelText="$t('ListingForm.imageDescription').concat(' for ').concat(image.name)"
+          :fieldId="'listing-image-description-'.concat(key.toString())"
+          v-model="images[key].alt"
+          :dataTestId="'listing-image-description-'.concat(key.toString())" />
+      </div>
+    </div>
+    <div class="break"></div>
     <FormInput
       labelId="listing-brief-description-label"
       :labelText="$t('ListingForm.briefDescription')"
@@ -37,18 +55,14 @@
 
     <CategoryDropDownList v-model:category="categoryId" />
 
+    <div class="break"></div>
+
     <error-boundary-catcher>
       <div>{{ errors?.location }}</div>
       <create-location-form v-model="location" />
     </error-boundary-catcher>
 
-    <ImageUploader v-model="images" />
-    <FormInput
-      labelId="listing-image-description-label"
-      :labelText="$t('ListingForm.imageDescription')"
-      fieldId="listing-image-description"
-      v-model="imageDescription"
-      dataTestId="listing-image-description" />
+    <div class="break"></div>
     <FormButton
       :buttonId="`${formType}-listing-button`"
       :buttonText="$t(`ListingForm.submit${formType}`)"
@@ -194,6 +208,36 @@ if (listingPayload) {
 }
 
 img {
-  width: 500px;
+  width: min(500px, 100%);
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.break {
+  background-color: var(--primary-color);
+  width: 100%;
+  height: 2px;
+  margin: 1rem 0;
+}
+
+.mini-break {
+  background-color: var(--secondary-color);
+  width: 100%;
+  height: 1px;
+  margin: 0.5rem 0;
+}
+
+.image-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>

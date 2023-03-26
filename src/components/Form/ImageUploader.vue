@@ -1,7 +1,10 @@
 <template>
   <div class="image-uploader">
     <div class="image-upload-area">
-      <input type="file" multiple @change="handleImageChange($event)" />
+      <label for="file-upload" class="custom-file-upload">
+        {{ $t('ListingForm.uploadImage') }}
+      </label>
+      <input id="file-upload" type="file" multiple @change="handleImageChange($event)" />
 
       <div v-if="errors.length > 0">
         <div class="file-upload-error" v-for="error in errors">
@@ -98,4 +101,17 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;    
+    display: inline-block;
+    cursor: pointer;
+}
+</style>
