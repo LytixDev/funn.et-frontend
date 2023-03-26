@@ -30,10 +30,9 @@
       >: {{ modelValue?.address }}
     </p>
 
-  <div v-if="!!modelValue" style="margin-bottom: 2em">
-    <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
-  </div>
-
+    <div v-if="!!modelValue" style="margin-bottom: 2em">
+      <button @click="removeLocation">{{ $t('CreateLocationForm.removeLocationButton') }}</button>
+    </div>
   </form>
 
   <location-map
@@ -180,7 +179,4 @@ watchEffect(async () => {
 });
 </script>
 
-<style>
-
-
-</style>
+<style></style>

@@ -1,5 +1,11 @@
+apiUrl = Cypress.env('apiUrl');
+
 describe('Test user using the login page', () => {
   beforeEach(() => {
+    cy.intercept('GET', `${apiUrl}api/v1/public/categories`, {
+      statusCode: 200,
+      body: [{ id: 0, name: 'All' }],
+    });
     cy.wait(1000);
   });
 

@@ -10,6 +10,9 @@
           <li>
             <router-link to="/">{{ $t('navigation.home') }}</router-link>
           </li>
+          <li v-if="role === 'ADMIN'">
+            <router-link :to="{ name: 'admin' }">{{ $t('navigation.manage') }}</router-link>
+          </li>
           <li v-if="!loggedIn">
             <router-link to="/login" class="attention">{{ $t('navigation.login') }}</router-link>
           </li>
@@ -43,7 +46,7 @@ addIcons(CoHamburgerMenu);
 const user = useUserInfoStore();
 const router = useRouter();
 const loggedIn = computed(() => user.isLoggedIn);
-
+const role = computed(() => user.role);
 const showMobileMenu = ref(false);
 
 watch(router.currentRoute, () => {

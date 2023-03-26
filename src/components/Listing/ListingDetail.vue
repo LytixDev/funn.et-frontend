@@ -1,10 +1,14 @@
 <template>
   <div class="listing-detail-view" v-if="listing">
+    <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
+      {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
+    </h2>
+
     <div class="listing-details">
       <div class="listing-head">
-        <h1 class="listing-title">{{ listing.title }} </h1>
+        <h1 class="listing-title">{{ listing.title }}</h1>
         <div v-if="user.isLoggedIn && !isOwner && listing.status === ListingDTO.status.ACTIVE" class="listing-actions">
-          <OhVueIcon color="var(--red-color)" @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
+          <OhVueIcon @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
         </div>
       </div>
       <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
@@ -12,10 +16,11 @@
         {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
       </h2>
       <ImageCarousel class="carousel" :images="images" :alts="alts" :displayAlt="true" />
+      <LocationMap v-if="coords" :center="coords" :selectedCoords="coords" :zoom="10" />
 
       <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
-      <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category }}</p>
-      <hr>
+      <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
+      <hr />
       <div class="listing-description">
         <h2>{{ $t('ListingDetailView.description') }}</h2>
         <p>{{ listing.briefDescription }}</p>
@@ -23,30 +28,27 @@
           <p>{{ listing.fullDescription }}</p>
         </div>
       </div>
-
-      <LocationMap class="location-map" v-if="coords !== null" :center="coords" :selectedCoords="coords" :zoom="10" />
       <hr />
-
     </div>
-
-    <div class="owner-actions" v-if="isOwner">
-      <button class="attention" v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
-        {{ $t('ListingDetailView.sold') }}
-      </button>
-      <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
-        {{ $t('ListingDetailView.archive') }}
-      </button>
-      <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
-        $t('ListingDetailView.edit')
-      }}</router-link>
-      <button class="red-attention" @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
-    </div>
-    <router-link class="owner-actions"
-      v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
-      :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
-      >{{ $t('ListingDetailView.sendMessage') }}</router-link
-    >
   </div>
+
+  <div class="owner-actions" v-if="isOwner">
+    <button v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
+      {{ $t('ListingDetailView.sold') }}
+    </button>
+    <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+      {{ $t('ListingDetailView.archive') }}
+    </button>
+    <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
+      $t('ListingDetailView.edit')
+    }}</router-link>
+    <button @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
+  </div>
+  <router-link
+    v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
+    :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
+    >{{ $t('ListingDetailView.sendMessage') }}</router-link
+  >
 </template>
 
 <script setup lang="ts">
@@ -168,9 +170,17 @@ h2 {
   margin-right: 10px;
 }
 
-.owner-actions {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-around;
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+button:hover {
+  background-color: #3e8e41;
 }
 </style>
