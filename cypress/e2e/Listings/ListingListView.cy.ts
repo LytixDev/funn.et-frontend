@@ -2,7 +2,10 @@ apiUrl = Cypress.env('apiUrl');
 
 describe('Listing list view', () => {
   beforeEach(() => {
-    cy.once('uncaught:exception', () => false);
+    cy.intercept('GET', `${apiUrl}api/v1/public/categories`, {
+      statusCode: 200,
+      body: [{ id: 0, name: 'All' }],
+    });
   });
   it('The listing list should display next pagination button with 24 listings', () => {
     const listings = [];
