@@ -142,6 +142,11 @@
       "empty": "You have no favorites",
       "findListings": "Find listings and favorite them"
     },
+    "createdListings": {
+      "title": "Created listings",
+      "empty": "You have not created any listings yet",
+      "findListings": "Create a listing now"
+    },
     "chats": {
       "title": "Chats",
       "empty": "You have no messages",

@@ -2,9 +2,9 @@
   <div class="favorites-wrapper">
     <listing-list :listings="listings" v-if="!!listings && listings?.length > 0" />
     <div v-else class="empty-body">
-      <h3>{{ $t('UserDetailView.favorites.empty') }}</h3>
-      <router-link :to="{ name: 'home' }" class="to-listings-router">
-        {{ $t('UserDetailView.favorites.findListings') }}
+      <h3>{{ $t(`UserDetailView.${listingsType}.empty`) }}</h3>
+      <router-link :to="{ name: linkOnEmpty }" class="to-listings-router">
+        {{ $t(`UserDetailView.${listingsType}.findListings`) }}
       </router-link>
     </div>
   </div>
@@ -13,10 +13,14 @@
 <script setup lang="ts">
 import { ListingDTO } from '@/api/backend';
 import ListingList from '@/components/Listing/ListingList.vue';
+import { PropType, computed } from 'vue';
 
-const { listings } = defineProps({
+const { listings, listingsType } = defineProps({
   listings: { type: Array<ListingDTO> },
+  listingsType: { type: String as PropType<'createdListings' | 'favorites'>, required: true },
 });
+
+const linkOnEmpty = computed(() => (listingsType === 'createdListings' ? 'create-listing' : 'home'));
 </script>
 
 <style scoped>
