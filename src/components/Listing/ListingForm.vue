@@ -83,7 +83,7 @@ import { DropDownItem } from '@/types/FormTypes';
 import { FormInputTypes } from '@/enums/FormEnums';
 import ImageUploader, { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
-import { computed, ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ListingCreateDTO, ListingDTO, LocationResponseDTO } from '@/api/backend';
@@ -96,13 +96,15 @@ const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
 const errorMessage = ref('');
 
+type OnSubmitFunction = (payload: ListingCreateDTO) => void;
+
 const { listingPayload, onSubmit, foundLocation } = defineProps({
   listingPayload: {
     type: Object as () => ListingCreateDTO,
     required: false,
   },
   onSubmit: {
-    type: Function,
+    type: Function as PropType<OnSubmitFunction>,
     required: true,
   },
   foundLocation: {

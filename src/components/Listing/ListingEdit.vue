@@ -37,6 +37,9 @@ const images = ref([] as Array<Blob>);
 
 try {
   listing.value = await ListingControllerService.getListing({ id: listingId });
+  if (!userStore.isLoggedIn || username.value !== listing.value?.username) {
+    router.go(-1);
+  }
   foundLocation.value = await LocationControllerService.getLocationById({ id: listing.value.location!! });
   for (const image of listing.value.imageResponse!!) {
     images.value.push(await ImageControllerService.getImage({ id: image.id!! }));
@@ -47,6 +50,7 @@ try {
   }
   throw error;
 }
+
 const payload = ref({
   title: listing.value!!.title,
   username: username.value,
