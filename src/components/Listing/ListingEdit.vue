@@ -1,16 +1,17 @@
 <template>
   <h2>{{ $t('navigation.createListing') }}</h2>
 
-  <listing-form v-model="listingPayload" :location="foundLocation" :on-submit="updateListing" />
+  <listing-form :listing-payload="payload" :found-location="foundLocation" :on-submit="updateListing" />
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 import ListingForm from '@/components/Listing/ListingForm.vue';
 import {
   ApiError,
+  ImageControllerService,
   ListingControllerService,
   ListingCreateDTO,
   ListingDTO,
@@ -29,32 +30,38 @@ const errorMessage = ref('');
 
 const listing = ref(undefined as ListingDTO | undefined);
 const listingId = +route.params.id;
-const listingPayload = ref({
-  title: '',
-  username: username.value,
-  briefDescription: '',
-  fullDescription: '',
-  price: 0,
-  category: 'OTHER',
-  location: undefined as number | undefined,
-} as ListingCreateDTO);
 
 const foundLocation = ref(undefined as LocationResponseDTO | undefined);
+
+const images = ref([] as Array<Blob>);
 
 try {
   listing.value = await ListingControllerService.getListing({ id: listingId });
   foundLocation.value = await LocationControllerService.getLocationById({ id: listing.value.location!! });
+  for (const image of listing.value.imageResponse!!) {
+    images.value.push(await ImageControllerService.getImage({ id: image.id!! }));
+  }
 } catch (error) {
   if (error instanceof ApiError) {
     errorMessage.value = error.body.detail;
   }
   throw error;
 }
+const payload = ref({
+  title: listing.value!!.title,
+  username: username.value,
+  briefDescription: listing.value!!.briefDescription,
+  fullDescription: listing.value!!.fullDescription,
+  price: listing.value!!.price,
+  category: listing.value!!.category,
+  location: foundLocation.value!!.id,
+  images: images.value,
+} as ListingCreateDTO);
 
-const updateListing = () => {
-  ListingControllerService.updateListing({ id: listingId, formData: listingPayload.value })
+const updateListing = (payload: ListingCreateDTO) => {
+  ListingControllerService.updateListing({ id: listingId, formData: payload })
     .then(() => {
-      router.push({ name: 'Listing', params: { id: listingId } });
+      router.push({ name: 'listing', params: { id: listingId } });
     })
     .catch((error) => {
       if (error instanceof ApiError) {
@@ -63,15 +70,6 @@ const updateListing = () => {
       throw error;
     });
 };
-
-watchEffect(() => {
-  listingPayload.value.title = listing.value?.title!!;
-  listingPayload.value.briefDescription = listing.value?.briefDescription!!;
-  listingPayload.value.fullDescription = listing.value?.fullDescription ?? '';
-  listingPayload.value.price = listing.value?.price;
-  listingPayload.value.category = listing.value?.category!!;
-  listingPayload.value.location = foundLocation.value?.id;
-});
 </script>
 
 <style scoped></style>

@@ -83,10 +83,10 @@ import { DropDownItem } from '@/types/FormTypes';
 import { FormInputTypes } from '@/enums/FormEnums';
 import ImageUploader, { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
 import { object as yupObject, string as yupString, number as yupNumber } from 'yup';
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { ApiError, ListingCreateDTO, ListingDTO, LocationControllerService, LocationResponseDTO } from '@/api/backend';
+import { ListingCreateDTO, ListingDTO, LocationResponseDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
@@ -96,10 +96,10 @@ const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
 const errorMessage = ref('');
 
-const { modelValue, onSubmit, foundLocation } = defineProps({
-  modelValue: {
+const { listingPayload, onSubmit, foundLocation } = defineProps({
+  listingPayload: {
     type: Object as () => ListingCreateDTO,
-    required: true,
+    required: false,
   },
   onSubmit: {
     type: Function,
@@ -108,12 +108,8 @@ const { modelValue, onSubmit, foundLocation } = defineProps({
   foundLocation: {
     type: Object as () => LocationResponseDTO,
     required: false,
-  }
+  },
 });
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: ListingCreateDTO): void;
-}>();
 
 const schema = computed(() =>
   yupObject({
@@ -136,7 +132,7 @@ const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
-const submit = handleSubmit((values) => {
+const submit = handleSubmit(async (values) => {
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
@@ -165,7 +161,8 @@ const submit = handleSubmit((values) => {
     images: images,
     imageAlts: imageAlts,
   } as ListingCreateDTO;
-  emit('update:modelValue', payload);
+
+  await onSubmit(payload);
 });
 
 const categories = computed(() => {
@@ -187,26 +184,18 @@ const { value: category } = useField('category') as FieldContext<string>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
-
-watchEffect(() => {
-  title.value = modelValue.title;
-  briefDescription.value = modelValue.briefDescription;
-  description.value = modelValue.fullDescription ?? '';
-  price.value = modelValue.price?.toString() ?? '';
-  category.value = modelValue.category;
+if (foundLocation) {
   location.value = foundLocation!!;
-});
-
-const payload = computed(() => ({
-  title: modelValue.title,
-  briefDescription: modelValue.briefDescription,
-  description: modelValue.fullDescription,
-  price: modelValue.price,
-  category: modelValue.category,
-  location: modelValue.location,
-  images: modelValue.images,
-  imageDescription: modelValue.imageAlts,
-}));
+}
+if (listingPayload) {
+  title.value = listingPayload.title;
+  briefDescription.value = listingPayload.briefDescription;
+  description.value = listingPayload.fullDescription ?? '';
+  price.value = listingPayload.price?.toString() ?? '';
+  category.value = listingPayload.category;
+  images.value = [];
+  imageDescription.value = '';
+}
 </script>
 
 <style scoped></style>
