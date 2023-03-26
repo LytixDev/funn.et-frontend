@@ -40,7 +40,7 @@
     <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
       {{ $t('ListingDetailView.archive') }}
     </button>
-    <router-link v-if="isOwner" :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
+    <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
       $t('ListingDetailView.edit')
     }}</router-link>
   </div>

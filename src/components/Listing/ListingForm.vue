@@ -156,6 +156,7 @@ const submit = handleSubmit((values) => {
     expirationDate: dateStr,
     images: images,
     imageAlts: imageAlts,
+    status: listingPayload?.status || 'ACTIVE',
   } as ListingCreateDTO;
 
   onSubmit(payload);

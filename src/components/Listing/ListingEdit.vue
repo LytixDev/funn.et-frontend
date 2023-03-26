@@ -1,7 +1,7 @@
 <template>
   <h2>{{ $t('navigation.editListing') }}</h2>
 
-  <listing-form :listing-payload="payload" :found-location="foundLocation" :on-submit="updateListing" />
+  <listing-form :listing-payload="initialPayload" :found-location="foundLocation" :on-submit="updateListing" />
 </template>
 
 <script lang="ts" setup>
@@ -22,7 +22,6 @@ import { useUserInfoStore } from '@/stores/UserStore';
 
 const route = useRoute();
 
-const { t } = useI18n();
 const router = useRouter();
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
@@ -37,8 +36,9 @@ const images = ref([] as Array<Blob>);
 
 try {
   listing.value = await ListingControllerService.getListing({ id: listingId });
-  if (!userStore.isLoggedIn || username.value !== listing.value?.username) {
-    router.go(-1);
+  // Go back if the user is not the owner of the listing
+  if (username.value !== listing.value?.username && userStore.role !== 'ADMIN') {
+    router.push({ name: 'listing', params: { id: listingId } });
   }
   foundLocation.value = await LocationControllerService.getLocationById({ id: listing.value.location!! });
   for (const image of listing.value.imageResponse!!) {
@@ -51,7 +51,7 @@ try {
   throw error;
 }
 
-const payload = ref({
+const initialPayload = ref({
   title: listing.value!!.title,
   username: username.value,
   briefDescription: listing.value!!.briefDescription,
@@ -60,6 +60,7 @@ const payload = ref({
   category: listing.value!!.category,
   location: foundLocation.value!!.id,
   images: images.value,
+  status: listing.value!!.status,
 } as ListingCreateDTO);
 
 const updateListing = (payload: ListingCreateDTO) => {
