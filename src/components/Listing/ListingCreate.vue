@@ -1,64 +1,56 @@
 <template>
-  <h2>{{ $t('navigation.createListing') }}</h2>
+  <form @submit.prevent="submit" enctype="multipart/form-data" class="form">
+    <h2>{{ $t('navigation.createListing') }}</h2>
+    <FormInput
+      labelId="listing-title-label"
+      :labelText="$t('CreateListingView.title')"
+      fieldId="listing-title"
+      v-model="title"
+      :error="errors?.title"
+      fieldRequired
+      dataTestId="listing-title" />
+    <FormInput
+      labelId="listing-brief-description-label"
+      :labelText="$t('CreateListingView.briefDescription')"
+      fieldId="listing-brief-description"
+      v-model="briefDescription"
+      :error="errors?.briefDescription"
+      fieldRequired
+      dataTestId="listing-brief-description" />
+    <FormInput
+      labelId="listing-description-label"
+      :labelText="$t('CreateListingView.description')"
+      fieldId="listing-description"
+      v-model="description"
+      :error="errors?.description"
+      fieldRequired
+      dataTestId="listing.description"
+      :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
+    <FormInput
+      labelId="listing-price-label"
+      :labelText="$t('CreateListingView.price')"
+      fieldId="listing-price"
+      v-model="price"
+      :error="errors?.price"
+      :field-type="FormInputTypes.Number"
+      fieldRequired
+      dataTestId="listing-price" />
 
-  <form @submit.prevent="submit" enctype="multipart/form-data">
-    <fieldset>
-      <FormInput
-        labelId="listing-title-label"
-        :labelText="$t('CreateListingView.title')"
-        fieldId="listing-title"
-        v-model="title"
-        :error="errors?.title"
-        fieldRequired
-        dataTestId="listing-title" />
-      <FormInput
-        labelId="listing-brief-description-label"
-        :labelText="$t('CreateListingView.briefDescription')"
-        fieldId="listing-brief-description"
-        v-model="briefDescription"
-        :error="errors?.briefDescription"
-        fieldRequired
-        dataTestId="listing-brief-description" />
-      <FormInput
-        labelId="listing-description-label"
-        :labelText="$t('CreateListingView.description')"
-        fieldId="listing-description"
-        v-model="description"
-        :error="errors?.description"
-        fieldRequired
-        dataTestId="listing.description"
-        :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
-      <FormInput
-        labelId="listing-price-label"
-        :labelText="$t('CreateListingView.price')"
-        fieldId="listing-price"
-        v-model="price"
-        :error="errors?.price"
-        :field-type="FormInputTypes.Number"
-        fieldRequired
-        dataTestId="listing-price" />
-    </fieldset>
+    <FormDropDownList
+      labelId="listing-category-label"
+      :labelText="$t('CreateListingView.category')"
+      fieldId="listing-category"
+      v-model="category"
+      fieldRequired
+      dataTestId="listing-category"
+      fieldName="category"
+      :fieldOptions="categories" />
 
-    <fieldset>
-      <FormDropDownList
-        labelId="listing-category-label"
-        :labelText="$t('CreateListingView.category')"
-        fieldId="listing-category"
-        v-model="category"
-        fieldRequired
-        dataTestId="listing-category"
-        fieldName="category"
-        :fieldOptions="categories" />
-    </fieldset>
+    <error-boundary-catcher>
+      <div>{{ errors?.location }}</div>
+      <create-location-form v-model="location" />
+    </error-boundary-catcher>
 
-    <fieldset>
-      <error-boundary-catcher>
-        <div>{{ errors?.location }}</div>
-        <create-location-form v-model="location" />
-      </error-boundary-catcher>
-    </fieldset>
-
-    <fieldset>
       <ImageUploader v-model="images" />
       <div v-for="(image, key) in images">
         <img :src="image.url" />
@@ -72,12 +64,11 @@
           :dataTestId="'listing-image-description-'.concat(key.toString())" />
       </div>
 
-      <FormButton
-        buttonId="create-listing-button"
-        :buttonText="$t('CreateListingView.submit')"
-        dataTestId="create-listing-button"
-        @click="submit" />
-    </fieldset>
+    <FormButton
+      buttonId="create-listing-button"
+      :buttonText="$t('CreateListingView.submit')"
+      dataTestId="create-listing-button"
+      @click="submit" />
   </form>
   <error-box v-model="errorMessage" />
 </template>
@@ -194,6 +185,10 @@ const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 </script>
 
 <style scoped>
+.form {
+  width: 100%;
+}
+
 img {
   width: 500px;
 }

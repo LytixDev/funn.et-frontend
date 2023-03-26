@@ -1,5 +1,5 @@
 <template>
-  <div class="listing-filters">
+  <div class="listing-filters form">
     <form-input
       labelId="listing-search-label"
       fieldId="liting-search"
@@ -15,7 +15,7 @@
       :field-options="categories"
       option-all
       data-testid="category-filter" />
-    <span>
+    <div class="price-range">
       <!--Two inputs to select price between with form-input -->
       <form-input
         labelId="listing-price-min-label"
@@ -31,7 +31,7 @@
         :field-type="FormInputTypes.Number"
         v-model="priceMax"
         data-testid="max-price-filter" />
-    </span>
+    </div>
     <form-drop-down-list
       labelId="listing-sorting-label"
       fieldId="listing-sorting"
@@ -175,8 +175,18 @@ watch([searchMessage, chosenCategory, priceMin, priceMax, chosenSorting], () => 
 
 <style scoped>
 .listing-filters {
-  margin: 2rem;
   display: flex;
   justify-content: space-between;
+  padding: 2em;
+}
+
+.price-range {
+  width: 90%;
+  margin-bottom: 1em;
+}
+
+.price-range > * {
+  width: 80%;
+  margin: 0;
 }
 </style>

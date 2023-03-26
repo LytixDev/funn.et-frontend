@@ -1,9 +1,6 @@
 <template>
-  <router-link to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
   <div class="listing-grid">
-    <div v-for="listing in listings" :key="listing.id" class="listing-div">
-      <listing-card :listingData="listing" data-testid="listing-card" />
-    </div>
+    <listing-card v-for="listing in listings" :key="listing.id" :listingData="listing" data-testid="listing-card" />
   </div>
 </template>
 
@@ -18,12 +15,6 @@ const { listings } = defineProps({ listings: { type: Object as () => ListingDTO[
 <style scoped>
 .listing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-}
-
-.listing-div {
-  height: 450px;
-  margin-top: 5px;
-  border-radius: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 </style>

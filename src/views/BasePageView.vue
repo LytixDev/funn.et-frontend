@@ -8,9 +8,7 @@ import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.v
   <Header />
   <div class="app-wrapper">
     <div class="app-content">
-      <error-boundary-catcher>
-        <router-view />
-      </error-boundary-catcher>
+      <router-view />
     </div>
   </div>
   <Footer />
@@ -18,12 +16,11 @@ import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.v
 
 <style scoped>
 .app-wrapper {
-  width: 100vw;
-  min-width: 100vw;
   display: flex;
   justify-content: center;
   min-height: 90vh;
   height: max(100%, 100vh);
+  margin: 0;
 }
 
 .app-content {

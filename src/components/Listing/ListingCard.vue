@@ -8,7 +8,7 @@
       <div class="listing-info">
         <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
         <h3>{{ listingData.title }}</h3>
-        <h3>{{ listingData.price }} kr</h3>
+        <h3 class="attention-text">{{ listingData.price }} kr</h3>
         <p>{{ listingData.briefDescription }}</p>
       </div>
     </div>
@@ -41,7 +41,14 @@ const image = computed(() => {
 </script>
 
 <style scoped>
-.listing-card:hover {
+a {
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--large-box-shadow);
+  margin: 0.5em;
+}
+
+a:hover {
   transform: scale(1.02);
   transition: all 0.1s ease-in;
   cursor: pointer;
@@ -49,9 +56,10 @@ const image = computed(() => {
 }
 
 .listing-card {
+  display: grid;
+  grid-template-rows: 3fr 1fr;
   min-width: 180px;
   max-width: 480px;
-  min-height: 240px;
   margin: auto;
   padding: 10px;
   box-sizing: border-box;
