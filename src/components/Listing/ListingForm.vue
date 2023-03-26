@@ -128,7 +128,7 @@ const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
-const submit = handleSubmit(async (values) => {
+const submit = handleSubmit((values) => {
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
@@ -158,7 +158,7 @@ const submit = handleSubmit(async (values) => {
     imageAlts: imageAlts,
   } as ListingCreateDTO;
 
-  await onSubmit(payload);
+  onSubmit(payload);
 });
 
 const categories = computed(() => {
