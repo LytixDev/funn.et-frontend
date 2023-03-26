@@ -102,16 +102,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
-input[type="file"] {
-    display: none;
+input[type='file'] {
+  display: none;
 }
 
 .custom-file-upload {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;    
-    display: inline-block;
-    cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  display: inline-block;
+  cursor: pointer;
 }
 </style>

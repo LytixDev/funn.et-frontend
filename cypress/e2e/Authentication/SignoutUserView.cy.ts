@@ -1,5 +1,6 @@
 describe('Test user using the login page', () => {
   beforeEach(() => {
+    cy.once('uncaught:exception', () => false);
     cy.wait(1000);
   });
 

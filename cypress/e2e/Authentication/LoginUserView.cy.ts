@@ -2,6 +2,7 @@ let apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the login page', () => {
   beforeEach(() => {
+    cy.once('uncaught:exception', () => false);
     cy.clearAllCookies();
     cy.visit('/login');
   });

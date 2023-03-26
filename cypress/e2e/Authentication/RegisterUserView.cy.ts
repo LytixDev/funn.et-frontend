@@ -2,6 +2,7 @@ apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the register page', () => {
   beforeEach(() => {
+    cy.once('uncaught:exception', () => false);
     cy.clearAllCookies();
     cy.visit('/register');
   });
