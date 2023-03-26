@@ -15,7 +15,9 @@
             :popup-anchor="icon.popupAnchor"
             :shadow-size="icon.shadowSize"></l-icon
         ></l-marker>
-        <l-marker v-for="marker in markerCoordsList" :lat-lng="marker" />
+        <div v-for="marker in markerCoordsList" :key="marker?.lat">
+          <l-marker v-if="validMarker(marker)" :lat-lng="marker" />
+        </div>
       </l-map>
     </div>
   </div>
@@ -39,9 +41,8 @@ export default defineComponent({
     return {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      selectedColor: 'red',
       icon: {
-        url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        url: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png`,
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
