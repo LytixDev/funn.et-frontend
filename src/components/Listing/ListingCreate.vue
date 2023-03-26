@@ -23,6 +23,4 @@ const createListing = (payload: ListingCreateDTO) => {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
