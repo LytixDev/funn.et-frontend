@@ -15,6 +15,7 @@
 import { ref } from 'vue';
 import { BiArrowLeftCircle, BiArrowRightCircle } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { computed } from '@vue/reactivity';
 
 addIcons(BiArrowLeftCircle, BiArrowRightCircle);
 
@@ -32,6 +33,10 @@ const props = defineProps({
   },
 });
 const currentIndex = ref(0);
+
+const imageShownLocation = computed(() => {
+  return props.images[currentIndex.value] || '/src/assets/images/default-placeholder.png';
+});
 
 function nextSlide() {
   if (currentIndex.value === props.images.length - 1) currentIndex.value = 0;

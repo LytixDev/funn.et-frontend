@@ -17,6 +17,7 @@
       </div>
       <div>
         <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
+        <LocationMap class="location-map" v-if="coords !== null" :center="coords" :selectedCoords="coords" :zoom="10" />
         <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
         <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category }}</p>
       </div>
@@ -40,8 +41,10 @@
     <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
       {{ $t('ListingDetailView.archive') }}
     </button>
+    <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
+      $t('ListingDetailView.edit')
+    }}</router-link>
     <button @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
-    <button>{{ $t('ListingDetailView.edit') }}</button>
   </div>
   <router-link
     v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
@@ -54,9 +57,9 @@
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Ref, ref, computed } from 'vue';
-import { ListingControllerService } from '@/api/backend';
-import { ListingDTO, ListingCreateDTO } from '@/api/backend';
+import { ListingControllerService, LocationControllerService, LocationResponseDTO, ListingDTO, ListingCreateDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
+import LocationMap, { Coords }from '@/components/Location/LocationMap.vue';
 import ImageCarousel from '@/components/Misc/ImageCarousel.vue';
 import { BiHeartFill, BiHeart } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
@@ -66,6 +69,7 @@ const t = useI18n().t;
 
 addIcons(BiHeart, BiHeartFill);
 const listing = ref<ListingDTO>();
+const location = ref<LocationResponseDTO>();
 const isFavorite = ref<boolean>(false);
 const route = useRoute();
 const id: number = +(route.params.id as string);
@@ -74,6 +78,11 @@ const user = useUserInfoStore();
 const username = computed(() => user.username) || '';
 
 listing.value = await ListingControllerService.getListing({ id: id });
+location.value = await LocationControllerService.getLocationById({ id: listing.value?.location as number });
+const coords = computed(() => {
+  if (location.value) return { lat: location.value.latitude, lon: location.value.longitude } as Coords;
+  return null;
+});
 if (listing.value.isFavorite) isFavorite.value = listing.value.isFavorite;
 
 const isOwner: Ref<boolean> = computed(() => listing.value?.username === username.value);
@@ -170,4 +179,5 @@ button {
 button:hover {
   background-color: #3e8e41;
 }
+
 </style>
