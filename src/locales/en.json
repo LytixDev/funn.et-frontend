@@ -96,6 +96,7 @@
     "image": "Image",
     "imageDescription": "Image description",
     "submit": "Publish listing",
+    "removeImage": "Remove image",
     "Error": {
       "titleRequired": "Title is required",
       "titleMax": "Title is too large",

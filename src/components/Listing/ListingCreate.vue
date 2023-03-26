@@ -62,7 +62,7 @@
       <ImageUploader v-model="images" />
       <div v-for="(image, key) in images">
         <img :src="image.url" />
-        <button type="button" @click="images.splice(key, 1)">remove image</button>
+        <button type="button" @click="images.splice(key, 1)">{{ $t('CreateListingView.removeImage') }}</button>
         <FormInput
           :key="key"
           :labelId="'listing-image-description-label-'.concat(key.toString())"

@@ -96,6 +96,7 @@
     "image": "Bilde",
     "imageDescription": "Bildebeskrivelse",
     "submit": "Legg ut annonse",
+    "removeImage": "Fjern bilde",
     "Error": {
       "titleRequired": "Tittel er obligatorisk",
       "titleMax": "Tittelen er for stor",
