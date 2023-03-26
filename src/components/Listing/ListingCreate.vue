@@ -51,18 +51,18 @@
       <create-location-form v-model="location" />
     </error-boundary-catcher>
 
-      <ImageUploader v-model="images" />
-      <div v-for="(image, key) in images">
-        <img :src="image.url" />
-        <button type="button" @click="images.splice(key, 1)">{{ $t('CreateListingView.removeImage') }}</button>
-        <FormInput
-          :key="key"
-          :labelId="'listing-image-description-label-'.concat(key.toString())"
-          :labelText="$t('CreateListingView.imageDescription').concat(' for ').concat(image.name)"
-          :fieldId="'listing-image-description-'.concat(key.toString())"
-          v-model="images[key].alt"
-          :dataTestId="'listing-image-description-'.concat(key.toString())" />
-      </div>
+    <ImageUploader v-model="images" />
+    <div v-for="(image, key) in images">
+      <img :src="image.url" />
+      <button type="button" @click="images.splice(key, 1)">{{ $t('CreateListingView.removeImage') }}</button>
+      <FormInput
+        :key="key"
+        :labelId="'listing-image-description-label-'.concat(key.toString())"
+        :labelText="$t('CreateListingView.imageDescription').concat(' for ').concat(image.name)"
+        :fieldId="'listing-image-description-'.concat(key.toString())"
+        v-model="images[key].alt"
+        :dataTestId="'listing-image-description-'.concat(key.toString())" />
+    </div>
 
     <FormButton
       buttonId="create-listing-button"
