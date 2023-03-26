@@ -12,7 +12,6 @@
   overflow-x: hidden;
 }
 
-
 .form_input,
 .form_input_dropdown,
 .form_input_textarea {
@@ -75,14 +74,12 @@ form {
   height: fit-content;
 }
 
-
 .leaflet-control a {
   box-shadow: none;
-  background: none;  
+  background: none;
   padding: 0;
   border-radius: 0;
   border: none;
-  
 }
 
 h2 {
@@ -167,4 +164,3 @@ footer {
   text-align: center;
   height: 5em;
 }
-

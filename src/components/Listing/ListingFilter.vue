@@ -6,15 +6,8 @@
       :labelText="$t('ListingListView.searchLabel') + ': '"
       v-model="searchMessage"
       data-testid="search-filter" />
-    <form-drop-down-list
-      labelId="listing-category-label"
-      fieldId="listing-category"
-      :labelText="$t('ListingListView.categoryLabel') + ': '"
-      v-model="chosenCategory"
-      field-name="category-filter"
-      :field-options="categories"
-      option-all
-      data-testid="category-filter" />
+    <category-drop-down-list v-model:category="chosenCategory" :add-all-option="true" />
+
     <div class="price-range">
       <!--Two inputs to select price between with form-input -->
       <form-input
@@ -62,6 +55,7 @@ import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import { useI18n } from 'vue-i18n';
 import { FormInputTypes } from '@/enums/FormEnums';
+import CategoryDropDownList from '../Form/CategoryDropDownList.vue';
 
 const { t } = useI18n();
 
@@ -69,25 +63,13 @@ defineProps({ modelValue: { type: Object as () => ListingFilterType } });
 
 const emit = defineEmits(['update:modelValue']);
 
-// Category filters
-const categories = computed(() => {
-  const listOfCategories = [] as DropDownItem[];
-  for (const value in ListingDTO.category) {
-    listOfCategories.push({
-      value: value,
-      displayedValue: t('ListingListView.Categories.' + value),
-    });
-  }
-  return listOfCategories;
-});
-
-const chosenCategory = ref('');
+const chosenCategory = ref(0);
 let categoryRequest = computed(() =>
-  chosenCategory.value == '' || chosenCategory.value == 'all'
+  chosenCategory.value == 0
     ? undefined
     : ({
         keyWord: 'category',
-        value: chosenCategory.value,
+        value: chosenCategory.value.toString(),
         operator: FilterRequest.operator.EQUAL,
         fieldType: FilterRequest.fieldType.STRING,
       } as FilterRequest),

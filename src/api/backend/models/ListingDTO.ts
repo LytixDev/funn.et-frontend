@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { CategoryDTO } from './CategoryDTO';
 import type { ImageResponseDTO } from './ImageResponseDTO';
 
 export type ListingDTO = {
@@ -11,7 +12,7 @@ export type ListingDTO = {
   title: string;
   briefDescription: string;
   fullDescription?: string;
-  category: ListingDTO.category;
+  category: CategoryDTO;
   status: ListingDTO.status;
   price?: number;
   publicationDate?: string;
@@ -21,15 +22,6 @@ export type ListingDTO = {
 };
 
 export namespace ListingDTO {
-  export enum category {
-    ELECTRONICS = 'ELECTRONICS',
-    CLOTHING = 'CLOTHING',
-    BOOKS = 'BOOKS',
-    SPORTS = 'SPORTS',
-    FURNITURE = 'FURNITURE',
-    OTHER = 'OTHER',
-  }
-
   export enum status {
     SOLD = 'SOLD',
     ARCHIVED = 'ARCHIVED',

@@ -180,7 +180,4 @@ watchEffect(async () => {
 });
 </script>
 
-<style>
-
-
-</style>
+<style></style>

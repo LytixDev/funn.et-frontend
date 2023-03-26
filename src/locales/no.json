@@ -103,6 +103,7 @@
     "submitcreate": "Legg ut annonse",
     "submitupdate": "Oppdater annonse",
     "uploadImage": "Last opp",
+    "all": "Alle",
     "Error": {
       "titleRequired": "Tittel er obligatorisk",
       "titleMax": "Tittelen er for stor",

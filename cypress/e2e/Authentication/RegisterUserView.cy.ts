@@ -2,6 +2,10 @@ apiUrl = Cypress.env('apiUrl');
 
 describe('Test user using the register page', () => {
   beforeEach(() => {
+    cy.intercept('GET', `${apiUrl}api/v1/public/categories`, {
+      statusCode: 200,
+      body: [{ id: 0, name: 'All' }],
+    });
     cy.clearAllCookies();
     cy.visit('/register');
   });
