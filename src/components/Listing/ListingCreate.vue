@@ -51,15 +51,6 @@
       <create-location-form v-model="location" />
     </error-boundary-catcher>
 
-<<<<<<< HEAD
-    <ImageUploader v-model="images" />
-    <FormInput
-      labelId="listing-image-description-label"
-      :labelText="$t('CreateListingView.imageDescription')"
-      fieldId="listing-image-description"
-      v-model="imageDescription"
-      dataTestId="listing-image-description" />
-=======
       <ImageUploader v-model="images" />
       <div v-for="(image, key) in images">
         <img :src="image.url" />
@@ -72,7 +63,6 @@
           v-model="images[key].alt"
           :dataTestId="'listing-image-description-'.concat(key.toString())" />
       </div>
->>>>>>> 1426fbcb53df6bf47ee75dbae093d49b497f9674
 
     <FormButton
       buttonId="create-listing-button"
