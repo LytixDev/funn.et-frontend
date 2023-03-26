@@ -1,69 +1,62 @@
 <template>
-  <form @submit.prevent="submit" enctype="multipart/form-data">
-    <fieldset>
-      <FormInput
-        labelId="listing-title-label"
-        :labelText="$t('CreateListingView.title')"
-        fieldId="listing-title"
-        v-model="title"
-        :error="errors?.title"
-        fieldRequired
-        dataTestId="listing-title" />
-      <FormInput
-        labelId="listing-brief-description-label"
-        :labelText="$t('CreateListingView.briefDescription')"
-        fieldId="listing-brief-description"
-        v-model="briefDescription"
-        :error="errors?.briefDescription"
-        fieldRequired
-        dataTestId="listing-brief-description" />
-      <FormInput
-        labelId="listing-description-label"
-        :labelText="$t('CreateListingView.description')"
-        fieldId="listing-description"
-        v-model="description"
-        :error="errors?.description"
-        dataTestId="listing.description"
-        :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
-      <FormInput
-        labelId="listing-price-label"
-        :labelText="$t('CreateListingView.price')"
-        fieldId="listing-price"
-        v-model="price"
-        :error="errors?.price"
-        :field-type="FormInputTypes.Number"
-        fieldRequired
-        dataTestId="listing-price" />
-    </fieldset>
+  <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
+    <h2>{{ $t('navigation.createListing') }}</h2>
+    <FormInput
+      labelId="listing-title-label"
+      :labelText="$t('CreateListingView.title')"
+      fieldId="listing-title"
+      v-model="title"
+      :error="errors?.title"
+      fieldRequired
+      dataTestId="listing-title" />
+    <FormInput
+      labelId="listing-brief-description-label"
+      :labelText="$t('CreateListingView.briefDescription')"
+      fieldId="listing-brief-description"
+      v-model="briefDescription"
+      :error="errors?.briefDescription"
+      fieldRequired
+      dataTestId="listing-brief-description" />
+    <FormInput
+      labelId="listing-description-label"
+      :labelText="$t('CreateListingView.description')"
+      fieldId="listing-description"
+      v-model="description"
+      :error="errors?.description"
+      dataTestId="listing.description"
+      :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
+    <FormInput
+      labelId="listing-price-label"
+      :labelText="$t('CreateListingView.price')"
+      fieldId="listing-price"
+      v-model="price"
+      :error="errors?.price"
+      :field-type="FormInputTypes.Number"
+      fieldRequired
+      dataTestId="listing-price" />
 
-    <fieldset>
-      <FormDropDownList
-        labelId="listing-category-label"
-        :labelText="$t('CreateListingView.category')"
-        fieldId="listing-category"
-        v-model="category"
-        fieldRequired
-        dataTestId="listing-category"
-        fieldName="category"
-        :fieldOptions="categories" />
-    </fieldset>
+    <FormDropDownList
+      labelId="listing-category-label"
+      :labelText="$t('CreateListingView.category')"
+      fieldId="listing-category"
+      v-model="category"
+      fieldRequired
+      dataTestId="listing-category"
+      fieldName="category"
+      :fieldOptions="categories" />
 
-    <fieldset>
-      <error-boundary-catcher>
-        <div>{{ errors?.location }}</div>
-        <create-location-form v-model="location" />
-      </error-boundary-catcher>
-    </fieldset>
+    <error-boundary-catcher>
+      <div>{{ errors?.location }}</div>
+      <create-location-form v-model="location" />
+    </error-boundary-catcher>
 
-    <fieldset>
-      <ImageUploader v-model="images" />
-      <FormInput
-        labelId="listing-image-description-label"
-        :labelText="$t('CreateListingView.imageDescription')"
-        fieldId="listing-image-description"
-        v-model="imageDescription"
-        dataTestId="listing-image-description" />
-    </fieldset>
+    <ImageUploader v-model="images" />
+    <FormInput
+      labelId="listing-image-description-label"
+      :labelText="$t('CreateListingView.imageDescription')"
+      fieldId="listing-image-description"
+      v-model="imageDescription"
+      dataTestId="listing-image-description" />
     <FormButton
       buttonId="update-listing-button"
       :buttonText="$t('CreateListingView.submitUpdate')"
@@ -200,4 +193,12 @@ if (listingPayload) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.form {
+  width: 100%;
+}
+
+img {
+  width: 500px;
+}
+</style>
