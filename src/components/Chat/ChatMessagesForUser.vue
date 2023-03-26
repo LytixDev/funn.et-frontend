@@ -59,10 +59,11 @@ const userToDisplay = (username: string | undefined, listingUsername: string | u
 
 .to-listings-router,
 .chat_link {
-  margin: 2em 0;
+  margin: 2em 0.5em;
   padding: 1em 2em;
   border-radius: 4px;
   background-color: var(--primary-color);
+  text-align: center;
 }
 
 h3 {

@@ -1,5 +1,5 @@
 <template>
-  <div class="favorites-wrapper">
+  <div class="listings-wrapper">
     <listing-list :listings="listings" v-if="!!listings && listings?.length > 0" />
     <div v-else class="empty-body">
       <h3>{{ $t(`UserDetailView.${listingsType}.empty`) }}</h3>
@@ -24,7 +24,7 @@ const linkOnEmpty = computed(() => (listingsType === 'createdListings' ? 'create
 </script>
 
 <style scoped>
-.favorites-wrapper {
+.listings-wrapper {
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -39,14 +39,14 @@ const linkOnEmpty = computed(() => (listingsType === 'createdListings' ? 'create
 }
 
 .to-listings-router {
-  margin: 2em 0;
+  margin: 2em 0.5em;
   padding: 1em 2em;
-  border: none;
   border-radius: 4px;
-  text-decoration: none;
+  background-color: var(--primary-color);
+  text-align: center;
 }
 
 h3 {
-  margin-bottom: 10px;
+  margin: 1em;
 }
 </style>

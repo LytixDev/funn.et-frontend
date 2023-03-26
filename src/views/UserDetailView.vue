@@ -6,17 +6,10 @@
       </template>
       <user-content />
     </Suspense>
-    <Suspense>
-      <template #fallback>
-        <h2>{{ $t('UserDetailView.loading') }}</h2>
-      </template>
-      <user-detail-accordion />
-    </Suspense>
   </div>
 </template>
 
 <script setup lang="ts">
-import UserDetailAccordion from '@/components/User/UserDetailAccordion.vue';
 import UserContent from '@/components/User/UserContent.vue';
 </script>
 

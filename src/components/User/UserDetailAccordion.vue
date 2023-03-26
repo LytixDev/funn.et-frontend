@@ -4,19 +4,19 @@
       <template #header>
         <h2>{{ $t('UserDetailView.chats.title') }}</h2>
       </template>
-      <chat-messages-for-user :chats="chats" />
+      <chat-messages-for-user :chats="openChats" />
     </accordion-item>
     <accordion-item :expanded="expandedFavorites" @click="clickOnAccordion('favorites')">
       <template #header>
         <h2>{{ $t('UserDetailView.favorites.title') }}</h2>
       </template>
-      <listings-by-user :listings="favoriteListings" listings-type="favorites" />
+      <user-connected-listings :listings="favoriteListings" listings-type="favorites" />
     </accordion-item>
     <accordion-item :expanded="expandedCreatedListings" @click="clickOnAccordion('createdListings')">
       <template #header>
         <h2>{{ $t('UserDetailView.createdListings.title') }}</h2>
       </template>
-      <listings-by-user :listings="createdListings" listings-type="createdListings" />
+      <user-connected-listings :listings="createdListings" listings-type="createdListings" />
     </accordion-item>
   </div>
 
@@ -26,8 +26,8 @@
 <script setup lang="ts">
 import AccordionItem from '@/components/Misc/AccordionItem.vue';
 import ChatMessagesForUser from '@/components/Chat/ChatMessagesForUser.vue';
-import ListingsByUser from '@/components/User/ListingsByUser.vue';
-import { ref } from 'vue';
+import UserConnectedListings from '@/components/User/UserConnectedListings.vue';
+import { ref, computed } from 'vue';
 import { ListingDTO, ListingControllerService, ChatControllerService, ChatDTO, ApiError } from '@/api/backend';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { AxiosError } from 'axios';
@@ -36,24 +36,52 @@ const expandedChats = ref(false);
 const expandedFavorites = ref(false);
 const expandedCreatedListings = ref(false);
 
+const { username } = defineProps({
+  username: {
+    type: String,
+    required: true,
+  },
+});
+
 const errorMessage = ref('');
 
+const openChats = ref([] as ChatDTO[] | undefined);
 const favoriteListings = ref([] as ListingDTO[] | undefined);
-const chats = ref([] as ChatDTO[] | undefined);
 const createdListings = ref([] as ListingDTO[] | undefined);
 
-try {
-  favoriteListings.value = await ListingControllerService.getFavoriteListings();
-  chats.value = await ChatControllerService.getChats();
-} catch (error) {
+ChatControllerService.getChats()
+  .then((chats) => {
+    openChats.value = chats;
+  })
+  .catch((error) => {
+    handleError(error);
+  });
+ListingControllerService.getFavoriteListings()
+  .then((listings) => {
+    favoriteListings.value = listings;
+  })
+  .catch((error) => {
+    handleError(error);
+  });
+ListingControllerService.getListingsByUser({ username: username })
+  .then((listings) => {
+    createdListings.value = listings;
+  })
+  .catch((error) => {
+    handleError(error);
+  });
+
+const handleError = (error: ApiError | AxiosError | Error): void => {
+  let errorTag = 'Exceptions.';
   if (error instanceof ApiError) {
-    errorMessage.value = error.body.detail!!;
+    errorTag += error.body.detail!!;
   } else if (error instanceof AxiosError) {
-    errorMessage.value = error.code!!;
+    errorTag += error.code!!;
   } else {
-    errorMessage.value = 'ContextErrorMessage';
+    errorTag += 'ContextErrorMessage';
   }
-}
+  errorMessage.value = errorTag;
+};
 
 // Function to open accordion but close others
 const clickOnAccordion = (accordion: string): void => {
@@ -81,8 +109,11 @@ h2 {
 }
 
 .accordions {
-  margin: 4em 20em;
+  margin: 1em;
   padding: 2em;
-  width: min(100%, 1700px);
+  width: min(100%, 1300px);
+  border-radius: 3%;
+  border-left: 0.2em solid var(--primary-color);
+  border-right: 0.2em solid var(--primary-color);
 }
 </style>
