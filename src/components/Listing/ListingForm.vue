@@ -3,7 +3,7 @@
     <h2>{{ $t('navigation.createListing') }}</h2>
     <FormInput
       labelId="listing-title-label"
-      :labelText="$t('CreateListingView.title')"
+      :labelText="$t('ListingForm.title')"
       fieldId="listing-title"
       v-model="title"
       :error="errors?.title"
@@ -11,7 +11,7 @@
       dataTestId="listing-title" />
     <FormInput
       labelId="listing-brief-description-label"
-      :labelText="$t('CreateListingView.briefDescription')"
+      :labelText="$t('ListingForm.briefDescription')"
       fieldId="listing-brief-description"
       v-model="briefDescription"
       :error="errors?.briefDescription"
@@ -19,7 +19,7 @@
       dataTestId="listing-brief-description" />
     <FormInput
       labelId="listing-description-label"
-      :labelText="$t('CreateListingView.description')"
+      :labelText="$t('ListingForm.description')"
       fieldId="listing-description"
       v-model="description"
       :error="errors?.description"
@@ -27,7 +27,7 @@
       :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
     <FormInput
       labelId="listing-price-label"
-      :labelText="$t('CreateListingView.price')"
+      :labelText="$t('ListingForm.price')"
       fieldId="listing-price"
       v-model="price"
       :error="errors?.price"
@@ -37,7 +37,7 @@
 
     <FormDropDownList
       labelId="listing-category-label"
-      :labelText="$t('CreateListingView.category')"
+      :labelText="$t('ListingForm.category')"
       fieldId="listing-category"
       v-model="category"
       fieldRequired
@@ -53,7 +53,7 @@
     <ImageUploader v-model="images" />
     <FormInput
       labelId="listing-image-description-label"
-      :labelText="$t('CreateListingView.imageDescription')"
+      :labelText="$t('ListingForm.imageDescription')"
       fieldId="listing-image-description"
       v-model="imageDescription"
       dataTestId="listing-image-description" />
