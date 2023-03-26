@@ -11,14 +11,18 @@
   overflow-x: hidden;
 }
 
-.form_input {
+.form_input,
+.form_input_dropdown,
+.form_input_textarea {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   width: 90%;
 }
 
-.form_input input {
+.form_input input,
+.form_input_textarea textarea,
+.form_input_dropdown select {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -44,6 +48,10 @@ form {
 .form-header {
   color: var(--primary-color);
   margin-bottom: 1.5em;
+}
+
+.error-boundary {
+  width: 100%;
 }
 
 .form {
