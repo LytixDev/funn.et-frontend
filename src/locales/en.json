@@ -71,6 +71,7 @@
     "newPassword": "New password",
     "password": "Password",
     "repeatPassword": "Repeat password",
+    "updatePassword": "Update password",
     "Error": {
       "usernameMin": "Username must be larger than 3 characters",
       "usernameMax": "Username can be no larger than 32 characters",

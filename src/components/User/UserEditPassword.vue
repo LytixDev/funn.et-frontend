@@ -33,7 +33,7 @@
     <FormButton
       buttonId="create-user-button"
       class="attention"
-      :buttonText="$t('RegisterUserView.submit')"
+      :buttonText="$t('UserForm.updatePassword')"
       :class="{ attention: !submitIsDisabled }"
       :disabled="submitIsDisabled"
       dataTestid="create-user-button"
