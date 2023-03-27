@@ -17,6 +17,7 @@ import {
   ListingControllerService,
   ListingCreateDTO,
   ListingDTO,
+  ListingUpdateDTO,
   LocationControllerService,
   LocationResponseDTO,
 } from '@/api/backend';
@@ -76,8 +77,12 @@ const initialPayload = ref({
   status: listing.value!!.status,
 } as ListingCreateDTO);
 
-const updateListing = (payload: ListingCreateDTO) => {
-  ListingControllerService.updateListing({ id: listingId, formData: payload })
+const updateListing = (payload: ListingUpdateDTO) => {
+  const formData = {
+    imagesToKeep: listing.value?.imageResponse?.map((image) => image.id),
+    ...payload,
+  } as ListingUpdateDTO;
+  ListingControllerService.updateListing({ id: listingId, formData: formData })
     .then(() => {
       router.push({ name: 'listing', params: { id: listingId } });
     })
