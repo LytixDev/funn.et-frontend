@@ -12,7 +12,6 @@ import { computed, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import ListingForm from '@/components/Listing/ListingForm.vue';
 import {
-  ApiError,
   ImageControllerService,
   ListingControllerService,
   ListingCreateDTO,
@@ -23,13 +22,16 @@ import {
 } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const route = useRoute();
 
 const router = useRouter();
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
-const errorMessage = ref('');
 
 const listing = ref(undefined as ListingDTO | undefined);
 const listingId = +route.params.id;
@@ -59,11 +61,15 @@ try {
       isUploaded: true,
     } as ImageUpload);
   }
-} catch (error) {
-  if (error instanceof ApiError) {
-    errorMessage.value = error.body.detail;
+} catch (error: any) {
+  if (error.status === 401) {
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
   }
-  throw error;
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
 }
 
 const initialPayload = ref({
@@ -83,10 +89,14 @@ const updateListing = (payload: ListingUpdateDTO) => {
       router.push({ name: 'listing', params: { id: listingId } });
     })
     .catch((error) => {
-      if (error instanceof ApiError) {
-        errorMessage.value = error.body.detail;
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
       }
-      throw error;
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 </script>

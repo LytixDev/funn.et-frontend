@@ -24,15 +24,31 @@ import UserEdit from '@/components/User/UserEdit.vue';
 import UserEditPassword from './UserEditPassword.vue';
 import { computed, ref, Ref, watch } from 'vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { UserService } from '@/api/backend';
 import { UserDTO } from '@/api/backend/models/UserDTO';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
+const router = useRouter();
 
 const userStore = useUserInfoStore();
 const route = useRoute();
 const username = route.params.id as string;
 const user = ref<UserDTO>();
-user.value = await UserService.getUser({ username: username });
+try {
+  user.value = await UserService.getUser({ username: username });
+} catch (error: any) {
+  if (error.status === 401) {
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
+  }
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
+}
 
 const activePage = ref('UserDetail');
 const components: Record<string, any> = {

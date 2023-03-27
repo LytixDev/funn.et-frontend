@@ -7,8 +7,8 @@ describe('Test error box message', async () => {
   test('Clicking minus button on error message hides it', async () => {
     const wrapper = mount(ErrorBox, {
       props: {
-        modelValue: 'Error message',
-        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e }),
+        errorMessage: 'Error message',
+        'onUpdate:errorMessage': (e: string) => wrapper.setProps({ errorMessage: e }),
       },
       global: {
         plugins: [i18n],

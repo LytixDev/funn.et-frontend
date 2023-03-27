@@ -3,13 +3,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ListingControllerService, ListingCreateDTO } from '@/api/backend';
 import ListingForm from '@/components/Listing/ListingForm.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+import { useUserInfoStore } from '@/stores/UserStore';
 
 const router = useRouter();
-const errorMessage = ref('');
+const errorStore = useErrorStore();
+const userStore = useUserInfoStore();
 
 const createListing = (payload: ListingCreateDTO) => {
   ListingControllerService.createListing({ formData: payload })
@@ -17,7 +20,14 @@ const createListing = (payload: ListingCreateDTO) => {
       router.push({ name: 'listing', params: { id: response.id } });
     })
     .catch((error) => {
-      errorMessage.value = error.message;
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
+      }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 </script>

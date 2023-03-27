@@ -16,6 +16,14 @@ import FormDropDownList from './FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import { ref } from 'vue';
 import { CategoryControllerService } from '@/api/backend';
+import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
+import { useErrorStore } from '@/stores/ErrorStore';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+
+const router = useRouter();
+const userStore = useUserInfoStore();
+const errorStore = useErrorStore();
 
 const props = defineProps({
   category: {
@@ -34,10 +42,21 @@ let listOfCategories = ref([] as DropDownItem[]);
 if (props.addAllOption) listOfCategories.value.push({ value: '0', displayedValue: 'All' });
 /* promise noob */
 const categories = async () => {
-  const response = await CategoryControllerService.getAllCategories();
-  response.forEach((category) => {
-    listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
-  });
+  try {
+    const response = await CategoryControllerService.getAllCategories();
+    response.forEach((category) => {
+      listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
+    });
+  } catch (error: any) {
+    if (error.status === 401) {
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
+    }
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
+  }
 };
 categories();
 </script>

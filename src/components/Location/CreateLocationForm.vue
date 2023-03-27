@@ -46,13 +46,21 @@
 import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
-import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
-import { ApiError, LocationControllerService, LocationResponseDTO } from '@/api/backend';
+import { ApiError, DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
+import { LocationControllerService, LocationResponseDTO } from '@/api/backend';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import LocationMap from '@/components/Location/LocationMap.vue';
-import { AxiosError } from 'axios';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
+
+const userStore = useUserInfoStore();
+
+const errorStore = useErrorStore();
+const router = useRouter();
 
 const { modelValue } = defineProps({
   modelValue: {
@@ -137,12 +145,13 @@ const createLocation = async () => {
     .then((data) => {
       emit('update:modelValue', data);
     })
-    .catch((error: any) => {
-      if (error instanceof AxiosError) {
-        errorMessage.value = `Exceptions.${error.code!!}`;
-        return;
+    .catch((error) => {
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
       }
-      Promise.reject(error);
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 
@@ -163,9 +172,8 @@ watchEffect(async () => {
     });
   } catch (error: any) {
     if (error instanceof ApiError) {
-      errorMessage.value = error.body.detail;
+      errorMessage.value = error.body;
     }
-    Promise.reject(error);
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;
@@ -179,4 +187,8 @@ watchEffect(async () => {
 });
 </script>
 
-<style></style>
+<style>
+.container-wrapper {
+  width: 100%;
+}
+</style>

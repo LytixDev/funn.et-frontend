@@ -27,7 +27,6 @@
           @click="submit" />
       </form>
     </div>
-    <error-box v-model="errorBoxMsg" />
   </div>
 </template>
 
@@ -38,29 +37,29 @@ import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import Message from '@/components/Chat/Message.vue';
 import ChatHeader from '@/components/Chat/ChatHeader.vue';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ChatDTO, MessageDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
 import { ChatControllerService } from '@/api/backend';
-import { useRoute } from 'vue-router';
-import { FormButtonClasses, FormButtonTypes, FormInputWrapperClasses } from '@/enums/FormEnums';
+import { useRoute, useRouter } from 'vue-router';
+import { FormButtonClasses, FormButtonTypes } from '@/enums/FormEnums';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
+const router = useRouter();
 
 const { t } = useI18n();
 
 const route = useRoute();
-
-const errorBoxMsg = ref('');
 
 const updateRefSideBar = ref(0);
 const updateRefHeader = ref(0);
 const updateRefMessages = ref(0);
 
 const message_div = ref<HTMLElement>();
-
-console.log(message_div);
 
 const chatIdParam = computed(() => route.params.id);
 
@@ -72,6 +71,9 @@ let chatDTOs: ChatDTO[];
 watch(
   () => route.params,
   async () => {
+    if (route.params.id === undefined || route.params.username === undefined) {
+      return;
+    }
     try {
       chatData = await ChatControllerService.getChatByListingAndUser({
         id: chatIdParam.value as unknown as number,
@@ -79,8 +81,15 @@ watch(
       });
       updateRefMessages.value++;
       updateRefHeader.value++;
-    } catch (error) {
-      errorBoxMsg.value = t('ChatView.Error.chatFailed');
+    } catch (error: any) {
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
+      }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     }
   },
 );
@@ -90,20 +99,34 @@ try {
     id: chatIdParam.value as unknown as number,
     username: usernameParam.value as string,
   });
-} catch (error) {
+} catch (error: any) {
   try {
     chatData = await ChatControllerService.createChat({
       id: chatIdParam.value as unknown as number,
     });
-  } catch (error) {
-    errorBoxMsg.value = t('ChatView.Error.chatFailed');
+  } catch (error: any) {
+    if (error.status === 401) {
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
+    }
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   }
 }
 
 try {
   chatDTOs = await ChatControllerService.getChats();
-} catch (error) {
-  errorBoxMsg.value = t('ChatView.Error.chatFailed');
+} catch (error: any) {
+  if (error.status === 401) {
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
+  }
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
 }
 
 const schema = computed(() =>
@@ -135,8 +158,15 @@ const submit = handleSubmit(async (values) => {
       requestBody: messagePayload,
     });
     chatData.messages.push(received);
-  } catch (error) {
-    errorBoxMsg.value = t('ChatView.Error.messageFailed');
+  } catch (error: any) {
+    if (error.status === 401) {
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
+    }
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   }
   sendMessage.value = '';
   chatDTOs = chatDTOs.filter((chatDTO: ChatDTO) => chatDTO.id !== chatData.id);

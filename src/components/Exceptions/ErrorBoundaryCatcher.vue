@@ -1,44 +1,19 @@
 <template>
-  <div class="error-boundary">
-    <slot v-if="errorMessage" name="fallback">
-      <div>
-        <h3>{{ $t('Exceptions.ExceptionOccurred') }}</h3>
-        <p>{{ $t(`Exceptions.${errorMessage}`, errorContext) }}</p>
-      </div>
-    </slot>
-    <slot v-else />
-  </div>
+  <error-box :error-message="errorStore.getFirstError" @update:errorMessage="errorStore.removeCurrentError" />
+  <slot />
 </template>
 
 <script setup lang="ts">
-import { ApiError } from '@/api/backend';
-import { AxiosError } from 'axios';
-import { onErrorCaptured, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserInfoStore } from '@/stores/UserStore';
+import { onErrorCaptured } from 'vue';
+import { useErrorStore } from '@/stores/ErrorStore';
+import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
-const router = useRouter();
-const userStore = useUserInfoStore();
-
-const errorMessage = ref('');
-const errorContext = ref({} as { [key: string]: string });
+const errorStore = useErrorStore();
 
 onErrorCaptured((err, _vm, _info): boolean => {
-  errorContext.value = {};
-  if (err instanceof ApiError) {
-    if (err.status == 401) {
-      errorMessage.value = err.body.detail;
-      userStore.clearUserInfo();
-      router.push({ name: 'login' });
-      return false;
-    }
-    errorMessage.value = err.body.detail;
-  } else if (err instanceof AxiosError) {
-    errorMessage.value = err.code!!;
-  } else if (err instanceof Error) {
-    errorMessage.value = 'ErrorWithContext';
-    errorContext.value = { message: err === undefined || err === null ? 'ContextErrorMessage' : err.message };
-  }
+  const message = handleUnknownError(err);
+  errorStore.addError(message);
   return false;
 });
 </script>

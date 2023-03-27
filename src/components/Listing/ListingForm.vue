@@ -11,7 +11,7 @@
       dataTestid="title" />
     <div class="break"></div>
     <div class="image-upload">
-      <h3>Last opp bilder</h3>
+      <h3>{{ $t('ListingForm.uploadImages') }}</h3>
       <ImageUploader v-model="images" />
       <div v-for="(image, key) in images" class="images">
         <div class="mini-break"></div>
@@ -57,10 +57,8 @@
 
     <div class="break"></div>
 
-    <error-boundary-catcher>
-      <div>{{ errors?.location }}</div>
-      <create-location-form v-model="location" />
-    </error-boundary-catcher>
+    <create-location-form v-model="location" />
+    <div id="error">{{ errors?.location }}</div>
 
     <div class="break"></div>
     <FormButton
@@ -69,7 +67,6 @@
       :dataTestid="`${formType}-listing-button`"
       @click="submit" />
   </form>
-  <error-box v-model="errorMessage" />
 </template>
 
 <script lang="ts" setup>
@@ -88,7 +85,12 @@ import { CategoryControllerService, ListingCreateDTO, ListingUpdateDTO, Location
 import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
-import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useRouter } from 'vue-router';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const router = useRouter();
+const errorStore = useErrorStore();
 
 const { t } = useI18n();
 const userStore = useUserInfoStore();
@@ -196,10 +198,21 @@ const submit = handleSubmit((values) => {
 });
 
 let listOfCategories = ref([] as DropDownItem[]);
-const response = await CategoryControllerService.getAllCategories();
-response.forEach((category) => {
-  listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
-});
+try {
+  const response = await CategoryControllerService.getAllCategories();
+  response.forEach((category) => {
+    listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
+  });
+} catch (error: any) {
+  if (error.status === 401) {
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
+  }
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
+}
 
 images.value = [];
 if (foundLocation) {

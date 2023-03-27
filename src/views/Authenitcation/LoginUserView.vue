@@ -29,7 +29,6 @@
     </form>
     <span>{{ $t('LoginUserView.register') }}</span>
     <router-link to="/register">{{ $t('navigation.register') }}</router-link>
-    <error-box v-model="errorBoxMsg" />
   </div>
 </template>
 
@@ -41,10 +40,13 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { TokenControllerService, AuthenticateDTO, OpenAPI, ApiError, UserService } from '@/api/backend';
+import { TokenControllerService, AuthenticateDTO, OpenAPI, UserService } from '@/api/backend';
 import { useRouter, useRoute } from 'vue-router';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -90,14 +92,22 @@ const submit = handleSubmit(async (values) => {
     });
 
     router.push((route.query.redirect as string) || '/');
-  } catch (authError: any) {
-    if (authError.detail !== undefined) {
-      errorBoxMsg.value = authError.detail;
-    } else if (authError.message !== undefined) {
-      errorBoxMsg.value = authError.message;
-    } else {
-      errorBoxMsg.value = 'Could not log with the given credentials';
+  } catch (error: any) {
+    if (error.status === 401) {
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
     }
+    const message = handleUnknownError(error);
+    if (message == 'UsernameAlreadyExistsException') {
+      errors.value.username = 'UserForm.Error.usernameAlreadyExists';
+      return;
+    } else if (message == 'EmailAlreadyExistsException') {
+      errors.value.username = 'UserForm.Error.emailAlreadyExists';
+      return;
+    }
+    errorStore.addError(message);
   }
 });
 

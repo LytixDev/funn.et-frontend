@@ -1,11 +1,11 @@
 <template>
-  <div class="error-box" v-if="modelValue" data-testid="error-box">
+  <div class="error-box" v-if="errorMessage" data-testid="error-box">
     <span>
       <v-icon name="bi-exclamation-triangle" />
       <button @click="wrapText = !wrapText" class="error-message-button">
-        <h4>{{ $t(modelValue) }}</h4>
+        <h4>{{ $t(errorMessage) }}</h4>
       </button>
-      <button @click="$emit('update:modelValue', '')" data-testid="hide-button">
+      <button class="error-remove-button" @click="$emit('update:errorMessage', '')" data-testid="hide-button">
         <v-icon scale="2" name="bi-dash" />
       </button>
     </span>
@@ -24,7 +24,7 @@ export default defineComponent({
     'v-icon': OhVueIcon,
   },
   props: {
-    modelValue: {
+    errorMessage: {
       type: String,
       default: '',
     },
@@ -40,12 +40,12 @@ export default defineComponent({
 <style scoped>
 .error-box {
   position: fixed;
-  left: 20px;
-  bottom: 20px;
-  right: 20px;
-  max-width: 700px;
-  background-color: rgb(202, 60, 60);
-  padding: 10px;
+  top: 2em;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: min(100%, 700px);
+  background-color: var(--red-color);
+  padding: 7px;
   border-radius: 5px;
   z-index: 1000;
 }
@@ -59,6 +59,7 @@ export default defineComponent({
 .error-message-button {
   white-space: v-bind('wrapText ? "normal" : "nowrap"');
   overflow: hidden;
+  border: none;
 }
 
 .error-message-button h4 {
@@ -67,17 +68,23 @@ export default defineComponent({
 }
 
 .error-box * {
-  margin: 4px;
+  margin: 2px;
 }
 
 .error-box button {
   background-color: transparent;
-  border: none;
+  box-shadow: none;
   color: black;
   cursor: pointer;
 }
 
-.error-box button:hover {
+.error-remove-button {
   color: rgb(79, 77, 77);
+  border: solid black 0.5px;
+  padding: 0.3em;
+}
+
+.error-box button:hover {
+  color: rgb(40, 38, 38);
 }
 </style>

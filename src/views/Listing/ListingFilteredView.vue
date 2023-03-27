@@ -10,13 +10,11 @@
         <router-link class="attention desktop" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
       </div>
 
-      <error-boundary-catcher>
-        <div class="listings-wrapper">
-          <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => (activeTab = data)" />
-          <listing-list v-if="activeTab === 'List'" :listings="listings" />
-          <ListingMap v-if="activeTab === 'Map'" :listings="listings" />
-        </div>
-      </error-boundary-catcher>
+      <div class="listings-wrapper">
+        <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => (activeTab = data)" />
+        <listing-list v-if="activeTab === 'List'" :listings="listings" />
+        <ListingMap v-if="activeTab === 'Map'" :listings="listings" />
+      </div>
     </div>
 
     <span v-if="listings.length > 0 && listings.length === pageSize">
@@ -31,7 +29,6 @@
       </button>
     </span>
   </div>
-  <error-box v-model="errorMessage" />
 </template>
 
 <script setup lang="ts">
@@ -43,20 +40,27 @@ import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
 import ListingFilter from '@/components/Listing/ListingFilter.vue';
 import { ListingFilterType } from '@/components/Listing/ListingFilter.vue';
-import { AxiosError } from 'axios';
 import ListingList from '@/components/Listing/ListingList.vue';
-import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 import { useI18n } from 'vue-i18n';
 import TabSelector from '@/components/Listing/TabSelector.vue';
 import ListingMap from '@/components/Listing/ListingMap.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
+
+const userStore = useUserInfoStore();
+
 const { t } = useI18n();
+
+const errorStore = useErrorStore();
+const router = useRouter();
 
 addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
 
 const pageSize = 24;
 const firstPage = 1;
 
-const errorMessage = ref('');
 const currentPage = ref(firstPage);
 const showFilter = ref(false);
 
@@ -69,8 +73,8 @@ const filterData = ref<ListingFilterType>({
 });
 
 const tabs = ref([
-  { id: 'List', name: 'ListingListView.list'},
-  { id: 'Map', name: 'ListingListView.map'},
+  { id: 'List', name: 'ListingListView.list' },
+  { id: 'Map', name: 'ListingListView.map' },
 ]);
 
 const activeTab = ref('List');
@@ -86,11 +90,14 @@ const getListings = async ({ page, size, filterRequests, sortRequests }: SearchR
       listings.value = data;
     })
     .catch((error) => {
-      if (error instanceof AxiosError) {
-        errorMessage.value = `Exceptions.${error.code!!}`;
-      } else {
-        Promise.reject(error?.body?.detail);
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
       }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 
