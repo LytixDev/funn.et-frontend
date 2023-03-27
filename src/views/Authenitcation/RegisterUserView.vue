@@ -61,10 +61,8 @@
         dataTestid="create-user-button"
         @click="submit" />
     </form>
-    <div id="login">
-      <span>{{ $t('RegisterUserView.login') }}</span>
-      <router-link to="/login">{{ $t('navigation.login') }}</router-link>
-    </div>
+    <span>{{ $t('RegisterUserView.login') }}</span>
+    <router-link to="/login">{{ $t('navigation.login') }}</router-link>
   </div>
   <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
 </template>
@@ -172,7 +170,7 @@ const { value: repeatPassword } = useField('repeatPassword') as FieldContext<str
 </script>
 
 <style scoped>
-#login {
-  margin-top: 1rem;
+span {
+  margin: 2em 0em 0.5em 0em;
 }
 </style>

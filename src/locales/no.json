@@ -6,7 +6,7 @@
   },
   "navigation": {
     "home": "Hjem",
-    "register": "Registrer ny bruker",
+    "register": "Registrer bruker",
     "login": "Logg inn",
     "signout": "Logg ut",
     "createListing": "Ny annonse",
