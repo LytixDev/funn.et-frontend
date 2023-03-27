@@ -43,9 +43,8 @@ export default defineComponent({
   top: 2em;
   left: 50%;
   transform: translate(-50%, 0);
-  top: 2em;
-  max-width: 700px;
-  background-color: rgb(202, 60, 60);
+  width: min(100%, 700px);
+  background-color: var(--red-color);
   padding: 7px;
   border-radius: 5px;
   z-index: 1000;

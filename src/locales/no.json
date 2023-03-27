@@ -219,6 +219,7 @@
     "ObjectNotFoundException": "Den forespurte ressursen ble ikke funnet",
     "BadSearchException": "The search query was not valid",
     "BadInputException": "The input was not valid",
+    "MethodArgumentTypeMismatchException": "Could correctly make a call to the server",
     "Exception": "Det oppstod et uløselelig problem med tjeneren",
     "undifined": "Det oppstod et uløselelig problem",
     "ExceptionOccurred": "Feil oppstod",

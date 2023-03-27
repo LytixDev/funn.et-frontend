@@ -215,6 +215,7 @@
     "ObjectNotFoundException": "The requested resource was not found",
     "BadSearchException": "The search query was not valid",
     "BadInputException": "The input was not valid",
+    "MethodArgumentTypeMismatchException": "Klarte ikke å gjøre et riktig kall til tjeneren",
     "Exception": "An unresolveable error occurred with the server",
     "undifined": "An unresolveable error occurred",
     "ExceptionOccurred": "An error occurred",

@@ -65,8 +65,6 @@ const updateRefMessages = ref(0);
 
 const message_div = ref<HTMLElement>();
 
-console.log(message_div);
-
 const chatIdParam = computed(() => route.params.id);
 
 const usernameParam = computed(() => route.params.username);
