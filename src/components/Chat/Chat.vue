@@ -116,13 +116,9 @@ const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
-let messageDiv: HTMLElement;
-
-// onMounted(() => {
-//   // TODO: Fix this
-//   messageDiv = document.getElementById('messages') as HTMLElement;
-//   messageDiv.scrollTop = 9999999;
-// });
+onMounted(() => {
+  message_div.value?.scrollTo(0, message_div.value.scrollHeight);
+});
 
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);

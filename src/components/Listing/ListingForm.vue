@@ -154,13 +154,18 @@ const { value: categoryId } = useField('category') as FieldContext<number>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 
-const submit = handleSubmit((values) => {
+const getDate = (monthsToAdd: number): string => {
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
-  let month: string = (date.getMonth() + 1).toString();
+  let month: string = (date.getMonth() + 1 + monthsToAdd).toString();
   if (month.length == 1) month = '0'.concat(month);
-  const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
+  return date.getFullYear() + '-' + month + '-' + date.getDate();
+};
+
+const submit = handleSubmit((values) => {
+  const dateStr: string = getDate(0);
+  const expDateStr: string = getDate(3);
 
   const images = [] as Array<Blob>;
   const imageAlts = [] as Array<string>;
@@ -180,7 +185,7 @@ const submit = handleSubmit((values) => {
     category: values.category,
     price: values.price,
     publicationDate: dateStr,
-    expirationDate: expirationDateStr,
+    expirationDate: expDateStr,
     images: images,
     imageAlts: imageAlts,
     imagesToKeep: imagesToKeep.value,
