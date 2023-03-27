@@ -11,7 +11,11 @@
       </div>
 
       <error-boundary-catcher>
-        <listing-list :listings="listings" />
+        <div class="listings-wrapper">
+          <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => activeTab = data"/>
+          <listing-list v-if="activeTab === 'List'" :listings="listings" />
+          <ListingMap v-if="activeTab === 'Map'" :listings="listings"/>
+        </div>
       </error-boundary-catcher>
     </div>
 
@@ -43,7 +47,8 @@ import { AxiosError } from 'axios';
 import ListingList from '@/components/Listing/ListingList.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 import { useI18n } from 'vue-i18n';
-
+import TabSelector from '@/components/Listing/TabSelector.vue';
+import ListingMap from '@/components/Listing/ListingMap.vue';
 const { t } = useI18n();
 
 addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
@@ -62,6 +67,13 @@ const filterData = ref<ListingFilterType>({
   priceRequest: undefined,
   sortRequests: [],
 });
+
+const tabs = ref([
+  { id: 'List', name: t('ListingListView.list') },
+  { id: 'Map', name: t('ListingListView.map') },
+]);
+
+const activeTab = ref('List');
 
 // Create api request
 let listings = ref([] as ListingDTO[]);
@@ -109,6 +121,10 @@ watchEffect(async () => {
   width: 100%;
 }
 
+.tab-selector {
+  margin: auto !important;
+  margin-bottom: 2em !important;
+}
 .mobile-buttons {
   display: none;
 }
