@@ -80,6 +80,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0);
   let user = useUserInfoStore();
   const isAuthenticated = user.isLoggedIn;
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
