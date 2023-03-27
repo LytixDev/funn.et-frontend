@@ -189,6 +189,8 @@
   },
   "Exceptions": {
     "DatabaseException": "There was an error communicating with the database",
+    "AccessDeniedException": "You do not have access to this resource",
+    "PermissionDeniedException": "You do not have the required permissions",
     "NullPointerException": "The request you sent was not valid",
     "IllegalArgumentException": "Your request was not valid",
     "IllegalStateException": "There was a conflict with the current state of the server",
@@ -209,6 +211,8 @@
     "PostCodeDoesntExistException": "The post code was not found",
     "FileNotFoundException": "The requested file was not found",
     "ObjectNotFoundException": "The requested resource was not found",
+    "BadSearchException": "The search query was not valid",
+    "BadInputException": "The input was not valid",
     "Exception": "An unresolveable error occurred with the server",
     "undifined": "An unresolveable error occurred",
     "ExceptionOccurred": "An error occurred",

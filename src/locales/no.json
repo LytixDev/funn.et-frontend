@@ -192,6 +192,8 @@
   },
   "Exceptions": {
     "DatabaseException": "Det oppstod en feil i kommunikasjon med databasen",
+    "AccessDeniedException": "You do not have access to this resource",
+    "PermissionDeniedException": "You do not have the required permissions",
     "NullPointerException": "Din forespørsel var ikke gyldig",
     "IllegalArgumentException": "Din forespørsel var ikke gyldig",
     "IllegalStateException": "Det oppsto en konflikt med den nåværende tilstanden av tjeneren",
@@ -212,6 +214,8 @@
     "PostCodeDoesntExistException": "Postnummeret ble ikke funnet",
     "FileNotFoundException": "Den forespurte filen ble ikke funnet",
     "ObjectNotFoundException": "Den forespurte ressursen ble ikke funnet",
+    "BadSearchException": "The search query was not valid",
+    "BadInputException": "The input was not valid",
     "Exception": "Det oppstod et uløselelig problem med tjeneren",
     "undifined": "Det oppstod et uløselelig problem",
     "ExceptionOccurred": "Feil oppstod",
