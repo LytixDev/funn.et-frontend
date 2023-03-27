@@ -65,7 +65,7 @@ a:hover {
 
 .listing-image img {
   border-radius: 5%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   aspect-ratio: 1;
 }
