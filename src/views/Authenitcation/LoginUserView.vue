@@ -102,6 +102,13 @@ const submit = handleSubmit(async (values) => {
       }, 100);
     }
     const message = handleUnknownError(error);
+    if (message == 'UsernameAlreadyExistsException') {
+      errors.value.username = 'UserForm.Error.usernameAlreadyExists';
+      return;
+    } else if (message == 'EmailAlreadyExistsException') {
+      errors.value.username = 'UserForm.Error.emailAlreadyExists';
+      return;
+    }
     errorStore.addError(message);
   }
 });
