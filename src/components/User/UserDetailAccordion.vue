@@ -28,6 +28,9 @@ import UserConnectedListings from '@/components/User/UserConnectedListings.vue';
 import { ref } from 'vue';
 import { ListingDTO, ListingControllerService, ChatControllerService, ChatDTO } from '@/api/backend';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const expandedChats = ref(false);
 const expandedFavorites = ref(false);
@@ -50,21 +53,24 @@ ChatControllerService.getChats()
     openChats.value = chats;
   })
   .catch((error) => {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   });
 ListingControllerService.getFavoriteListings()
   .then((listings) => {
     favoriteListings.value = listings;
   })
   .catch((error) => {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   });
 ListingControllerService.getListingsByUser({ username: username })
   .then((listings) => {
     createdListings.value = listings;
   })
   .catch((error) => {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   });
 
 // Function to open accordion but close others

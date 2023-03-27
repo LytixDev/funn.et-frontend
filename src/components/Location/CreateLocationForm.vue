@@ -53,6 +53,9 @@ import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import LocationMap from '@/components/Location/LocationMap.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const { modelValue } = defineProps({
   modelValue: {
@@ -138,7 +141,8 @@ const createLocation = async () => {
       emit('update:modelValue', data);
     })
     .catch((error) => {
-      handleUnknownError(error);
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 
@@ -158,7 +162,8 @@ watchEffect(async () => {
       fuzzy: address.value?.length > 12,
     });
   } catch (error: any) {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;

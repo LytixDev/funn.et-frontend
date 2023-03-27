@@ -24,6 +24,9 @@ import {
 import { useUserInfoStore } from '@/stores/UserStore';
 import { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const route = useRoute();
 
@@ -60,7 +63,8 @@ try {
     } as ImageUpload);
   }
 } catch (error) {
-  handleUnknownError(error);
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
 }
 
 const initialPayload = ref({
@@ -80,7 +84,8 @@ const updateListing = (payload: ListingUpdateDTO) => {
       router.push({ name: 'listing', params: { id: listingId } });
     })
     .catch((error) => {
-      handleUnknownError(error);
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 </script>

@@ -6,26 +6,26 @@ export const useErrorStore = defineStore('ErrorStore', {
   }),
   actions: {
     addError(error: string) {
-        this.errors.push(error);
+      this.errors.push(error);
     },
     removeCurrentError() {
       if (this.errors.length > 0) {
         this.errors.shift();
       }
-    }
+    },
   },
   getters: {
     getFirstError(): string {
-        if (this.errors.length > 0) {
-            return `Exceptions.${this.errors[0]}`;
-        }
-        return '';
+      if (this.errors.length > 0) {
+        return `Exceptions.${this.errors[0]}`;
+      }
+      return '';
     },
     getLastError(): string {
-        if (this.errors.length > 0) {
-            return `Exceptions.${this.errors[this.errors.length - 1]}`;
-        }
-        return '';
-    }
-  }
+      if (this.errors.length > 0) {
+        return `Exceptions.${this.errors[this.errors.length - 1]}`;
+      }
+      return '';
+    },
+  },
 });

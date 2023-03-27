@@ -48,6 +48,9 @@ import { ChatControllerService } from '@/api/backend';
 import { useRoute } from 'vue-router';
 import { FormButtonClasses, FormButtonTypes } from '@/enums/FormEnums';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const { t } = useI18n();
 
@@ -81,7 +84,8 @@ watch(
       updateRefMessages.value++;
       updateRefHeader.value++;
     } catch (error) {
-      handleUnknownError(error);
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     }
   },
 );
@@ -97,14 +101,16 @@ try {
       id: chatIdParam.value as unknown as number,
     });
   } catch (error) {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   }
 }
 
 try {
   chatDTOs = await ChatControllerService.getChats();
 } catch (error) {
-  handleUnknownError(error);
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
 }
 
 const schema = computed(() =>
@@ -137,7 +143,8 @@ const submit = handleSubmit(async (values) => {
     });
     chatData.messages.push(received);
   } catch (error) {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   }
   sendMessage.value = '';
   chatDTOs = chatDTOs.filter((chatDTO: ChatDTO) => chatDTO.id !== chatData.id);

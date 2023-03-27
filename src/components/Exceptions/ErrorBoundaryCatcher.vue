@@ -13,7 +13,7 @@ const errorStore = useErrorStore();
 
 onErrorCaptured((err, _vm, _info): boolean => {
   const error = handleUnknownError(err);
-  errorStore.addError(error);
+  errorStore.addError(message);
   return false;
 });
 </script>

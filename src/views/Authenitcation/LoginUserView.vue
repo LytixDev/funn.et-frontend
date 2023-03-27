@@ -46,6 +46,9 @@ import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO, OpenAPI, UserService } from '@/api/backend';
 import { useRouter, useRoute } from 'vue-router';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -92,7 +95,8 @@ const submit = handleSubmit(async (values) => {
 
     router.push((route.query.redirect as string) || '/');
   } catch (error) {
-    handleUnknownError(error);
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
   }
 });
 

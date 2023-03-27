@@ -45,7 +45,11 @@ import { useI18n } from 'vue-i18n';
 import TabSelector from '@/components/Listing/TabSelector.vue';
 import ListingMap from '@/components/Listing/ListingMap.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
 const { t } = useI18n();
+
+const errorStore = useErrorStore();
 
 addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
 
@@ -81,7 +85,8 @@ const getListings = async ({ page, size, filterRequests, sortRequests }: SearchR
       listings.value = data;
     })
     .catch((error) => {
-      handleUnknownError(error);
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 

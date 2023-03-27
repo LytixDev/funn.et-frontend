@@ -16,7 +16,8 @@ const createListing = (payload: ListingCreateDTO) => {
       router.push({ name: 'listing', params: { id: response.id } });
     })
     .catch((error) => {
-      handleUnknownError(error);
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 };
 </script>
