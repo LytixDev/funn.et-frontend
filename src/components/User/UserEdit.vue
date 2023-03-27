@@ -53,6 +53,12 @@ import { FormInputTypes } from '@/enums/FormEnums';
 import { PxWarningBox } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { useUserInfoStore } from '@/stores/UserStore';
+import { useRouter } from 'vue-router';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
+const router = useRouter();
 
 addIcons(PxWarningBox);
 const { t } = useI18n();
@@ -98,14 +104,25 @@ const submit = handleSubmit(async (values) => {
     lastName: props.user.lastName === values.firstName ? undefined : values.lastName,
   } as UserPatchDTO;
 
-  await UserService.updateUser({ username: props.user.username!, requestBody: payload }).then((user: UserDTO) => {
-    userStore.setUserInfo({
-      firstname: user.firstName,
-      lastname: user.lastName,
-      role: user.role,
+  UserService.updateUser({ username: props.user.username!, requestBody: payload })
+    .then((user: UserDTO) => {
+      userStore.setUserInfo({
+        firstname: user.firstName,
+        lastname: user.lastName,
+        role: user.role,
+      });
+      emit('update:activePage', 'UserDetail');
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
+      }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
-    emit('update:activePage', 'UserDetail');
-  });
 });
 
 const { value: email } = useField('email') as FieldContext<string>;

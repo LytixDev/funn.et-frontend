@@ -52,6 +52,12 @@ import { useI18n } from 'vue-i18n';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { UserDTO, UserPatchDTO, UserService } from '@/api/backend';
 import { PropType } from 'vue';
+import { useRouter } from 'vue-router';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const errorStore = useErrorStore();
+const router = useRouter();
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -95,9 +101,20 @@ const submit = handleSubmit(async (values) => {
     newPassword: values.password,
   } as UserPatchDTO;
 
-  await UserService.updateUser({ username: props.user.username!, requestBody: payload }).then(() => {
-    emit('update:activePage', 'UserDetail');
-  });
+  await UserService.updateUser({ username: props.user.username!, requestBody: payload })
+    .then(() => {
+      emit('update:activePage', 'UserDetail');
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
+      }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
+    });
 });
 
 /* form values */

@@ -86,6 +86,12 @@ import { CategoryControllerService, ListingCreateDTO, ListingUpdateDTO, Location
 import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useRouter } from 'vue-router';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const router = useRouter();
+const errorStore = useErrorStore();
 
 const { t } = useI18n();
 const userStore = useUserInfoStore();
@@ -193,10 +199,21 @@ const submit = handleSubmit((values) => {
 });
 
 let listOfCategories = ref([] as DropDownItem[]);
-const response = await CategoryControllerService.getAllCategories();
-response.forEach((category) => {
-  listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
-});
+try {
+  const response = await CategoryControllerService.getAllCategories();
+  response.forEach((category) => {
+    listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
+  });
+} catch (error: any) {
+  if (error.status === 401) {
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
+  }
+  const message = handleUnknownError(error);
+  errorStore.addError(message);
+}
 
 images.value = [];
 if (foundLocation) {

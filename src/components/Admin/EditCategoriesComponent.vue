@@ -58,25 +58,64 @@ import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
 import { MdDeleteRound, FaSave } from 'oh-vue-icons/icons';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
+
+const router = useRouter();
+const userStore = useUserInfoStore();
+const errorStore = useErrorStore();
 
 addIcons(MdDeleteRound, FaSave);
 const { t } = useI18n();
 const categories = ref<CategoryDTO[]>([]);
 
-CategoryControllerService.getAllCategories().then((response) => {
-  categories.value = response;
-});
+CategoryControllerService.getAllCategories()
+  .then((response) => {
+    categories.value = response;
+  })
+  .catch((error) => {
+    if (error.status === 401) {
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
+    }
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
+  });
 
 const deleteCategory = (category: CategoryDTO) => {
   if (!confirm(t('Admin.confirm'))) return;
-  CategoryControllerService.deleteCategory({ id: category.id }).then(() => {
-    categories.value = categories.value.filter((c) => c.id !== category.id);
-  });
+  CategoryControllerService.deleteCategory({ id: category.id })
+    .then(() => {
+      categories.value = categories.value.filter((c) => c.id !== category.id);
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
+      }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
+    });
 };
 
 const editCategory = (category: CategoryDTO) => {
   if (!confirm(t('Admin.confirmSave'))) return;
-  CategoryControllerService.updateCategory({ id: category.id, requestBody: category });
+  CategoryControllerService.updateCategory({ id: category.id, requestBody: category }).catch((error) => {
+    if (error.status === 401) {
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
+    }
+    const message = handleUnknownError(error);
+    errorStore.addError(message);
+  });
 };
 
 /* form */
@@ -94,10 +133,21 @@ const submit = handleSubmit(async (values) => {
   const category: CategoryCreateDTO = {
     name: values.name,
   };
-  CategoryControllerService.createCategory({ requestBody: category }).then((response) => {
-    categories.value.push(response);
-    name.value = '';
-  });
+  CategoryControllerService.createCategory({ requestBody: category })
+    .then((response) => {
+      categories.value.push(response);
+      name.value = '';
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
+      }
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
+    });
 });
 
 const { value: name } = useField('name') as FieldContext<string>;
