@@ -164,7 +164,7 @@ const submit = handleSubmit((values) => {
   values.images.forEach((image: any) => {
     if (!imagesToKeep.value.includes(+image.name)) {
       images.push(new Blob([image.data], { type: image.type }));
-      imageAlts.push(image.alt || undefined);
+      imageAlts.push(image.alt);
     }
   });
 
