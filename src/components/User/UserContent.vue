@@ -9,9 +9,16 @@
       <button @click="activePage = 'UserDetail'">{{ $t('UserDetailView.goBack') }}</button>
     </div>
   </div>
+  <Suspense v-if="isMe && activePage === 'UserDetail'">
+    <template #fallback>
+      <h2>{{ $t('UserDetailView.loading') }}</h2>
+    </template>
+    <user-detail-accordion :username="username" />
+  </Suspense>
 </template>
 
 <script setup lang="ts">
+import UserDetailAccordion from '@/components/User/UserDetailAccordion.vue';
 import UserDetail from '@/components/User/UserDetail.vue';
 import UserEdit from '@/components/User/UserEdit.vue';
 import UserEditPassword from './UserEditPassword.vue';
@@ -52,5 +59,8 @@ const isMe: Ref<boolean> = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: min(100%, 1300px);
 }
 </style>

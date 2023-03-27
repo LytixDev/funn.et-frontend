@@ -142,7 +142,22 @@
     "usernameCannotChange": "Du kan ikke endre brukernavnet ditt",
     "submit": "Lagre endringer",
     "title": "Endre bruker",
-    "goBack": "Gå tilbake"
+    "goBack": "Gå tilbake",
+    "favorites": {
+      "title": "Favoritter",
+      "empty": "Du har ingen favoritter",
+      "findListings": "Finn annonser og favoriser dem"
+    },
+    "createdListings": {
+      "title": "Lagde annonser",
+      "empty": "Du har ikke laget noen annonser enda",
+      "findListings": "Lag en annonse nå"
+    },
+    "chats": {
+      "title": "Meldinger",
+      "empty": "Du har ingen meldinger",
+      "findListings": "Finn annonser og send meldinger"
+    }
   },
   "ListingDetailView": {
     "loading": "Laster inn annonse ...",
