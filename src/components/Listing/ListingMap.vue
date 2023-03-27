@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { ListingDTO, LocationResponseDTO } from '@/api/backend';
 import { LMap, LTileLayer, LMarker, LCircle, LIcon, LTooltip } from '@vue-leaflet/vue-leaflet';
-import { ref, defineProps, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { LocationControllerService } from '@/api/backend';
 import ListingCard from './ListingCard.vue';
 import router from '@/router';
