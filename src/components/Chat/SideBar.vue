@@ -189,7 +189,6 @@ export default {
   }
 
   .sidebar-icon:hover {
-    color: var(--primary-color);
     cursor: pointer;
   }
 }

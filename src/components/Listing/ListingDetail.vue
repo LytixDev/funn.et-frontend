@@ -8,7 +8,7 @@
       <div class="listing-head">
         <h1 class="listing-title">{{ listing.title }}</h1>
         <div v-if="user.isLoggedIn && !isOwner && listing.status === ListingDTO.status.ACTIVE" class="listing-actions">
-          <OhVueIcon @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
+          <OhVueIcon color="var(--red-color)" @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
         </div>
       </div>
       <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
@@ -16,7 +16,6 @@
         {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
       </h2>
       <ImageCarousel class="carousel" :images="images" :alts="alts" :displayAlt="true" />
-      <LocationMap v-if="coords" :center="coords" :selectedCoords="coords" :zoom="10" />
 
       <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
       <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
@@ -29,26 +28,29 @@
         </div>
       </div>
       <hr />
+      <LocationMap v-if="coords" :center="coords" :selectedCoords="coords" :zoom="10" />
     </div>
-  </div>
 
-  <div class="owner-actions" v-if="isOwner || isAdmin">
-    <button v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
-      {{ $t('ListingDetailView.sold') }}
-    </button>
-    <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
-      {{ $t('ListingDetailView.archive') }}
-    </button>
-    <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
-      $t('ListingDetailView.edit')
-    }}</router-link>
-    <button @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
+    <hr />
+
+    <div class="owner-actions" v-if="isOwner || isAdmin">
+      <button class="attention" v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
+        {{ $t('ListingDetailView.sold') }}
+      </button>
+      <button  v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+        {{ $t('ListingDetailView.archive') }}
+      </button>
+      <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
+        $t('ListingDetailView.edit')
+      }}</router-link>
+      <button class="red-attention" @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
+    </div>
+    <router-link class="owner-actions"
+      v-if="!isOwner && listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
+      :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
+      >{{ $t('ListingDetailView.sendMessage') }}</router-link
+    >
   </div>
-  <router-link
-    v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
-    :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
-    >{{ $t('ListingDetailView.sendMessage') }}</router-link
-  >
 </template>
 
 <script setup lang="ts">
@@ -171,17 +173,10 @@ h2 {
   margin-right: 10px;
 }
 
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-right: 1rem;
+.owner-actions {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-around;
 }
 
-button:hover {
-  background-color: #3e8e41;
-}
 </style>
