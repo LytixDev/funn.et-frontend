@@ -26,7 +26,7 @@ prettier:
     - job: install
       artifacts: true
   script:
-    - yarn prettier
+    - yarn prettier --check .
 
 test:unit:
   stage: test:unit

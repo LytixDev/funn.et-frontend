@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { ListingCreateDTO } from '../models/ListingCreateDTO';
 import type { ListingDTO } from '../models/ListingDTO';
+import type { ListingUpdateDTO } from '../models/ListingUpdateDTO';
 import type { SearchRequest } from '../models/SearchRequest';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -19,7 +20,7 @@ export class ListingControllerService {
     formData,
   }: {
     id: number;
-    formData?: ListingCreateDTO;
+    formData?: ListingUpdateDTO;
   }): CancelablePromise<ListingDTO> {
     return __request(OpenAPI, {
       method: 'PUT',

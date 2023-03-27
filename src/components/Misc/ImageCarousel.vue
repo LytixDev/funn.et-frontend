@@ -1,7 +1,7 @@
 <template>
   <div class="carousel">
     <div class="carousel-inner">
-      <img :src="images[currentIndex]" :alt="alts![currentIndex] ? alts![currentIndex] : 'carousel image'" />
+      <img :src="imageShownLocation" :alt="!alts![currentIndex] ? alts![currentIndex] : 'carousel image'" />
       <div v-if="images.length > 1">
         <OhVueIcon name="bi-arrow-left-circle" class="prev-button" @click="prevSlide" />
         <OhVueIcon name="bi-arrow-right-circle" class="next-button" @click="nextSlide" />

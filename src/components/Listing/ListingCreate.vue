@@ -4,7 +4,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { ListingControllerService, ListingCreateDTO } from '@/api/backend';
 import ListingForm from '@/components/Listing/ListingForm.vue';
