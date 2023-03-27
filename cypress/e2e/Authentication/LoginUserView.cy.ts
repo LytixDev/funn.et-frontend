@@ -17,7 +17,7 @@ describe('Test user using the login page', () => {
       statusCode: 200,
       body: testToken,
     });
-    cy.intercept('GET', `${apiUrl}api/v1/private/user/me`, {
+    cy.intercept('GET', `${apiUrl}api/v1/private/users/me`, {
       statusCode: 200,
       body: {
         id: 1,

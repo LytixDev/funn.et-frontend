@@ -21,10 +21,10 @@ describe('Test user using the register page', () => {
       statusCode: 201,
       body: testToken,
     });
-    cy.intercept('POST', `${apiUrl}api/v1/public/user`, {
+    cy.intercept('POST', `${apiUrl}api/v1/public/users`, {
       statusCode: 201,
     });
-    cy.intercept('GET', `${apiUrl}api/v1/private/user/me`, {
+    cy.intercept('GET', `${apiUrl}api/v1/private/users/me`, {
       statusCode: 200,
       body: { username: username, firstName: firstName, lastName: lastName, email: email, roles: ['user'] },
     });
@@ -49,7 +49,7 @@ describe('Test user using the register page', () => {
       statusCode: 201,
       body: 'TestTokenFromMockBackend',
     });
-    cy.intercept('POST', `${apiUrl}api/v1/public/user`, {
+    cy.intercept('POST', `${apiUrl}api/v1/public/users`, {
       statusCode: 409,
     });
 

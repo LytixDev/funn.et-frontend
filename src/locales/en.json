@@ -146,7 +146,7 @@
       "findListings": "Find listings and favorite them"
     },
     "createdListings": {
-      "title": "Created listings",
+      "title": "Your listings",
       "empty": "You have not created any listings yet",
       "findListings": "Create a listing now"
     },

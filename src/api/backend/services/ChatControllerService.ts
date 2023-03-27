@@ -16,7 +16,7 @@ export class ChatControllerService {
   public static createChat({ id }: { id: number }): CancelablePromise<ChatDTO> {
     return __request(OpenAPI, {
       method: 'POST',
-      url: '/api/v1/private/listing/{id}/chat',
+      url: '/api/v1/private/listings/{id}/chat',
       path: {
         id: id,
       },
@@ -81,7 +81,7 @@ export class ChatControllerService {
   }): CancelablePromise<ChatDTO> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/v1/private/listing/{id}/chat/{username}',
+      url: '/api/v1/private/listings/{id}/chat/{username}',
       path: {
         id: id,
         username: username,

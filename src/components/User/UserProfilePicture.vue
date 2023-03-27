@@ -1,12 +1,24 @@
 <template>
-  <router-link :to="{ path: link }" class="user-profile-picture" :style="{ backgroundColor: bgcolor }">
+  <component
+    :to="{ path: link }"
+    class="user-profile-picture"
+    :style="{ backgroundColor: bgcolor }"
+    :is="clickable ? 'router-link' : 'span'">
     <span class="initials" :style="{ color: text_color }">{{ initials }}</span>
-  </router-link>
+  </component>
 </template>
 
 <script setup lang="ts">
 import { useUserInfoStore } from '@/stores/UserStore';
 import { ref } from 'vue';
+
+const props = defineProps({
+  clickable: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+});
 
 const user = useUserInfoStore();
 const { username, firstname, lastname } = user;
@@ -58,7 +70,8 @@ const text_color = ref(chooseBlackOrWhite(hexToRgb(bgcolor.value) as { r: number
 </script>
 
 <style scoped>
-a {
+a,
+span {
   display: flex;
   text-decoration: none;
   width: 2em;
