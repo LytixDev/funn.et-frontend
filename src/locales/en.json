@@ -115,6 +115,7 @@
       "descriptionMax": "Description can not be larger than 512 characters",
       "priceRequired": "Price is required",
       "priceMin": "Price must be larger than 0",
+      "priceMax": "Price can not be larger than 1000000",
       "locationRequired": "Choose a location"
     }
   },
@@ -247,7 +248,8 @@
     "confirm": "Are you sure you want to delete this category?",
     "confirmSave": "Are you sure you want to edit this category?",
     "Error": {
-      "nameRequired": "Category name is required"
+      "nameRequired": "Category name is required",
+      "nameTooLong": "Category name is too long"
     }
   }
 }

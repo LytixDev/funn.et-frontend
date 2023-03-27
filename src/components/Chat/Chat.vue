@@ -108,7 +108,7 @@ try {
 
 const schema = computed(() =>
   yupObject({
-    sendMessage: yupString().required(t('ChatView.Error.messageRequired')).max(256, t('ChatView.Error.messageMax')),
+    sendMessage: yupString().required(t('ChatView.Error.messageRequired')).max(255, t('ChatView.Error.messageMax')),
   }),
 );
 

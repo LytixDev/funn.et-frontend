@@ -128,12 +128,15 @@ const imagesToKeep = computed(() =>
 
 const schema = computed(() =>
   yupObject({
-    title: yupString().required(t('ListingForm.Error.titleRequired')).max(256, t('ListingForm.Error.titleMax')),
+    title: yupString().required(t('ListingForm.Error.titleRequired')).max(64, t('ListingForm.Error.titleMax')),
     briefDescription: yupString()
       .required(t('ListingForm.Error.briefDescriptionRequired'))
-      .max(128, t('ListingForm.Error.briefDescriptionMax')),
+      .max(255, t('ListingForm.Error.briefDescriptionMax')),
     description: yupString().max(512, t('ListingForm.Error.descriptionMax')),
-    price: yupNumber().required(t('ListingForm.Error.priceRequired')).min(0, t('ListingForm.Error.priceMin')),
+    price: yupNumber()
+      .required(t('ListingForm.Error.priceRequired'))
+      .min(0, t('ListingForm.Error.priceMin'))
+      .max(100000000, t('ListingForm.Error.priceMax')),
     category: yupString().default('OTHER'),
     location: yupObject<LocationResponseDTO>().required(t('ListingForm.Error.locationRequired')),
   }),

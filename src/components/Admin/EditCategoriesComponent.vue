@@ -82,7 +82,7 @@ const editCategory = (category: CategoryDTO) => {
 /* form */
 const schema = computed(() =>
   yupObject({
-    name: yupString().required(t('Admin.Error.nameRequired')),
+    name: yupString().required(t('Admin.Error.nameRequired')).max(255, t('Admin.Error.nameTooLong')),
   }),
 );
 
