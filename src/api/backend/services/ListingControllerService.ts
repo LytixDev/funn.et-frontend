@@ -135,7 +135,7 @@ export class ListingControllerService {
   public static getListingsByUser({ username }: { username: string }): CancelablePromise<Array<ListingDTO>> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/v1/public/listings/user/{username}',
+      url: '/api/v1/public/listings/users/{username}',
       path: {
         username: username,
       },

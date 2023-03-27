@@ -19,7 +19,7 @@ export class UserService {
   public static createUser({ requestBody }: { requestBody: RegisterDTO }): CancelablePromise<string> {
     return __request(OpenAPI, {
       method: 'POST',
-      url: '/api/v1/public/user',
+      url: '/api/v1/public/users',
       body: requestBody,
       mediaType: 'application/json',
       errors: {
@@ -43,7 +43,7 @@ export class UserService {
   }): CancelablePromise<UserDTO> {
     return __request(OpenAPI, {
       method: 'PATCH',
-      url: '/api/v1/private/user/{username}',
+      url: '/api/v1/private/users/{username}',
       path: {
         username: username,
       },
@@ -64,7 +64,7 @@ export class UserService {
   public static getUser({ username }: { username: string }): CancelablePromise<UserDTO> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/v1/public/user/{username}',
+      url: '/api/v1/public/users/{username}',
       path: {
         username: username,
       },
@@ -83,7 +83,7 @@ export class UserService {
   public static getUser1(): CancelablePromise<UserDTO> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/v1/private/user/me',
+      url: '/api/v1/private/users/me',
       errors: {
         500: `Internal Server Error`,
       },
