@@ -180,7 +180,7 @@ const submit = handleSubmit((values) => {
     category: values.category,
     price: values.price,
     publicationDate: dateStr,
-    expirationDate: dateStr,
+    expirationDate: expirationDateStr,
     images: images,
     imageAlts: imageAlts,
     imagesToKeep: imagesToKeep.value,
