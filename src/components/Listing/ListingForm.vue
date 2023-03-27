@@ -161,7 +161,7 @@ const submit = handleSubmit((values) => {
   });
   const imageAlts = [] as Array<string>;
   values.images.forEach((image: any) => {
-    imageAlts.push(image.alt || undefined);
+    imageAlts.push(image.alt || '');
   });
   let payload = {
     username: username.value,

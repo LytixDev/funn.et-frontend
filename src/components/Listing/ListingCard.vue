@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'listing', params: { id: listingData.id } }">
     <div class="listing-card">
       <div class="listing-image">
-        <img :src="image.imageLocation" :alt="image.imageAlt === 'undefined' ? 'listing image' : image.imageAlt" />
+        <img :src="image.imageLocation" :alt="image.imageAlt === '' ? 'listing image' : image.imageAlt" />
       </div>
 
       <div class="listing-info">
