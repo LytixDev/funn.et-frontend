@@ -1,11 +1,7 @@
 <template>
   <div class="container-wrapper">
     <div class="map-container">
-      <l-map
-        id="leaflet-map"
-        ref="map"
-        :zoom="zoom"
-        :center="[center.lat, center.lon]">
+      <l-map id="leaflet-map" ref="map" :zoom="zoom" :center="[center.lat, center.lon]">
         <l-tile-layer :url="url" layer-type="base" name="OpenStreetMap" :attribution="attribution"> </l-tile-layer>
 
         <l-marker
@@ -13,8 +9,7 @@
           :lat-lng="[listing.coords?.lat, listing.coords?.lon]"
           :key="listing.id"
           @click="() => router.push({ name: 'listing', params: { id: listing.id } })">
-          >
-          >
+          > >
           <l-icon
             :icon-url="icon.url"
             :icon-size="icon.iconSize"
@@ -73,18 +68,16 @@ const listingWithLocation = ref([] as ListingWithLocation[]);
 watchEffect(() => {
   listingWithLocation.value = [];
   props.listings.forEach((listing) => {
-  if (listing.location) {
-    LocationControllerService.getLocationById({ id: listing.location }).then((response: LocationResponseDTO) => {
-      listingWithLocation.value.push({ ...listing, coords: { lat: response.latitude, lon: response.longitude } });
-    });
-  }
+    if (listing.location) {
+      LocationControllerService.getLocationById({ id: listing.location }).then((response: LocationResponseDTO) => {
+        listingWithLocation.value.push({ ...listing, coords: { lat: response.latitude, lon: response.longitude } });
+      });
+    }
+  });
 });
-});
-
 </script>
 
 <style scoped>
-
 a {
   box-shadow: none;
 }
