@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ListingDTO, LocationResponseDTO } from '@/api/backend';
 import { LMap, LTileLayer, LMarker, LCircle, LIcon, LTooltip } from '@vue-leaflet/vue-leaflet';
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, watchEffect } from 'vue';
 import { LocationControllerService } from '@/api/backend';
 import ListingCard from './ListingCard.vue';
 import router from '@/router';
@@ -70,13 +70,17 @@ interface ListingWithLocation extends ListingDTO {
 
 const listingWithLocation = ref([] as ListingWithLocation[]);
 
-props.listings.forEach((listing) => {
+watchEffect(() => {
+  listingWithLocation.value = [];
+  props.listings.forEach((listing) => {
   if (listing.location) {
     LocationControllerService.getLocationById({ id: listing.location }).then((response: LocationResponseDTO) => {
       listingWithLocation.value.push({ ...listing, coords: { lat: response.latitude, lon: response.longitude } });
     });
   }
 });
+});
+
 </script>
 
 <style scoped>
