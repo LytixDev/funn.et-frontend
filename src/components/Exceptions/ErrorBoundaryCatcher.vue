@@ -1,5 +1,5 @@
 <template>
-  <error-box v-model="errorMessage" />
+  <error-box :error-message="errorStore.getFirstError" @update:errorMessage="errorStore.removeCurrentError" />
   <slot />
 </template>
 
@@ -11,10 +11,9 @@ import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const errorStore = useErrorStore();
 
-const errorMessage = ref(`Exceptions.${errorStore.getFirstError}`);
-
 onErrorCaptured((err, _vm, _info): boolean => {
   const error = handleUnknownError(err);
+  errorStore.addError(error);
   return false;
 });
 </script>

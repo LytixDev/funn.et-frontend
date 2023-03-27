@@ -64,7 +64,6 @@
     <span>{{ $t('RegisterUserView.login') }}</span>
     <router-link to="/login">{{ $t('navigation.login') }}</router-link>
   </div>
-  <ErrorBox v-if="errorBoxMsg" v-model="errorBoxMsg" />
 </template>
 
 <script setup lang="ts">
@@ -76,12 +75,13 @@ import { object as yupObject, string as yupString, ref as yupRef } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { UserService, RegisterDTO, OpenAPI } from '@/api/backend';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO } from '@/api/backend';
 import router from '@/router';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
+import { useErrorStore } from '@/stores/ErrorStore';
 
+const errorStore = useErrorStore();
 const userStore = useUserInfoStore();
 const { t } = useI18n();
 let errorBoxMsg = ref<string>('');
@@ -164,18 +164,13 @@ const submit = handleSubmit(async (values) => {
           router.push({ name: 'home' });
         })
         .catch((authError) => {
-          handleUnknownError(authError);
-          errorBoxMsg.value = authError.body;
+          const message = handleUnknownError(authError);
+          errorStore.addError(message);
         });
     })
     .catch((error) => {
-      handleUnknownError(error);
-      errorBoxMsg.value = error.body;
-      //TODO: handle error
-      //switch (
-      //  error.body as string
-      //) {
-      //}
+      const message = handleUnknownError(error);
+      errorStore.addError(message);
     });
 });
 

@@ -19,18 +19,15 @@
       <user-connected-listings :listings="createdListings" listings-type="createdListings" />
     </accordion-item>
   </div>
-
-  <error-box v-model="errorMessage" />
 </template>
 
 <script setup lang="ts">
 import AccordionItem from '@/components/Misc/AccordionItem.vue';
 import ChatMessagesForUser from '@/components/Chat/ChatMessagesForUser.vue';
 import UserConnectedListings from '@/components/User/UserConnectedListings.vue';
-import { ref, computed } from 'vue';
-import { ListingDTO, ListingControllerService, ChatControllerService, ChatDTO, ApiError } from '@/api/backend';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { AxiosError } from 'axios';
+import { ref } from 'vue';
+import { ListingDTO, ListingControllerService, ChatControllerService, ChatDTO } from '@/api/backend';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const expandedChats = ref(false);
 const expandedFavorites = ref(false);
@@ -43,8 +40,6 @@ const { username } = defineProps({
   },
 });
 
-const errorMessage = ref('');
-
 const openChats = ref([] as ChatDTO[] | undefined);
 const favoriteListings = ref([] as ListingDTO[] | undefined);
 const createdListings = ref([] as ListingDTO[] | undefined);
@@ -55,34 +50,22 @@ ChatControllerService.getChats()
     openChats.value = chats;
   })
   .catch((error) => {
-    handleError(error);
+    handleUnknownError(error);
   });
 ListingControllerService.getFavoriteListings()
   .then((listings) => {
     favoriteListings.value = listings;
   })
   .catch((error) => {
-    handleError(error);
+    handleUnknownError(error);
   });
 ListingControllerService.getListingsByUser({ username: username })
   .then((listings) => {
     createdListings.value = listings;
   })
   .catch((error) => {
-    handleError(error);
+    handleUnknownError(error);
   });
-
-const handleError = (error: ApiError | AxiosError | Error): void => {
-  let errorTag = 'Exceptions.';
-  if (error instanceof ApiError) {
-    errorTag += error.body.detail!!;
-  } else if (error instanceof AxiosError) {
-    errorTag += error.code!!;
-  } else {
-    errorTag += 'ContextErrorMessage';
-  }
-  errorMessage.value = errorTag;
-};
 
 // Function to open accordion but close others
 const clickOnAccordion = (accordion: string): void => {

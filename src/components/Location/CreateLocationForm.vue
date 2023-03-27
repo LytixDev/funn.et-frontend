@@ -52,7 +52,7 @@ import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import LocationMap from '@/components/Location/LocationMap.vue';
-import { AxiosError } from 'axios';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const { modelValue } = defineProps({
   modelValue: {
@@ -137,12 +137,8 @@ const createLocation = async () => {
     .then((data) => {
       emit('update:modelValue', data);
     })
-    .catch((error: any) => {
-      if (error instanceof AxiosError) {
-        errorMessage.value = `Exceptions.${error.code!!}`;
-        return;
-      }
-      Promise.reject(error);
+    .catch((error) => {
+      handleUnknownError(error);
     });
 };
 
@@ -162,10 +158,7 @@ watchEffect(async () => {
       fuzzy: address.value?.length > 12,
     });
   } catch (error: any) {
-    if (error instanceof ApiError) {
-      errorMessage.value = error.body.detail;
-    }
-    Promise.reject(error);
+    handleUnknownError(error);
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;

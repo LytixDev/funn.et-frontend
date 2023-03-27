@@ -1,11 +1,11 @@
 <template>
-  <div class="error-box" v-if="modelValue" data-testid="error-box">
+  <div class="error-box" v-if="errorMessage" data-testid="error-box">
     <span>
       <v-icon name="bi-exclamation-triangle" />
       <button @click="wrapText = !wrapText" class="error-message-button">
-        <h4>{{ $t(modelValue) }}</h4>
+        <h4>{{ $t(errorMessage) }}</h4>
       </button>
-      <button class="error-remove-button" @click="$emit('update:modelValue', '')" data-testid="hide-button">
+      <button class="error-remove-button" @click="$emit('update:errorMessage', '')" data-testid="hide-button">
         <v-icon scale="2" name="bi-dash" />
       </button>
     </span>
@@ -24,7 +24,7 @@ export default defineComponent({
     'v-icon': OhVueIcon,
   },
   props: {
-    modelValue: {
+    errorMessage: {
       type: String,
       default: '',
     },
@@ -40,15 +40,15 @@ export default defineComponent({
 <style scoped>
 .error-box {
   position: fixed;
-  left: 20px;
-  bottom: 20px;
-  right: 20px;
+  top: 2em;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 2em;
   max-width: 700px;
   background-color: rgb(202, 60, 60);
   padding: 7px;
   border-radius: 5px;
   z-index: 1000;
-  align-self: center;
 }
 
 .error-box span {

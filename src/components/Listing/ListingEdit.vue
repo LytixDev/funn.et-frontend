@@ -23,13 +23,13 @@ import {
 } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const route = useRoute();
 
 const router = useRouter();
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
-const errorMessage = ref('');
 
 const listing = ref(undefined as ListingDTO | undefined);
 const listingId = +route.params.id;
@@ -60,10 +60,7 @@ try {
     } as ImageUpload);
   }
 } catch (error) {
-  if (error instanceof ApiError) {
-    errorMessage.value = error.body.detail;
-  }
-  throw error;
+  handleUnknownError(error);
 }
 
 const initialPayload = ref({
@@ -83,10 +80,7 @@ const updateListing = (payload: ListingUpdateDTO) => {
       router.push({ name: 'listing', params: { id: listingId } });
     })
     .catch((error) => {
-      if (error instanceof ApiError) {
-        errorMessage.value = error.body.detail;
-      }
-      throw error;
+      handleUnknownError(error);
     });
 };
 </script>

@@ -91,8 +91,8 @@ const submit = handleSubmit(async (values) => {
     });
 
     router.push((route.query.redirect as string) || '/');
-  } catch (authError: any) {
-    handleUnknownError(authError);
+  } catch (error) {
+    handleUnknownError(error);
   }
 });
 
