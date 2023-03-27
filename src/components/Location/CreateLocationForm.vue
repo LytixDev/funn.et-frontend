@@ -187,4 +187,8 @@ watchEffect(async () => {
 });
 </script>
 
-<style></style>
+<style>
+.container-wrapper {
+  width: 100%;
+}
+</style>

@@ -75,6 +75,9 @@ let chatDTOs: ChatDTO[];
 watch(
   () => route.params,
   async () => {
+    if (route.params.id === undefined || route.params.username === undefined) {
+      return;
+    }
     try {
       chatData = await ChatControllerService.getChatByListingAndUser({
         id: chatIdParam.value as unknown as number,

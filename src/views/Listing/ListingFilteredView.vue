@@ -10,11 +10,11 @@
         <router-link class="attention desktop" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
       </div>
 
-        <div class="listings-wrapper">
-          <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => (activeTab = data)" />
-          <listing-list v-if="activeTab === 'List'" :listings="listings" />
-          <ListingMap v-if="activeTab === 'Map'" :listings="listings" />
-        </div>
+      <div class="listings-wrapper">
+        <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => (activeTab = data)" />
+        <listing-list v-if="activeTab === 'List'" :listings="listings" />
+        <ListingMap v-if="activeTab === 'Map'" :listings="listings" />
+      </div>
     </div>
 
     <span v-if="listings.length > 0 && listings.length === pageSize">
@@ -73,8 +73,8 @@ const filterData = ref<ListingFilterType>({
 });
 
 const tabs = ref([
-  { id: 'List', name: 'ListingListView.list'},
-  { id: 'Map', name: 'ListingListView.map'},
+  { id: 'List', name: 'ListingListView.list' },
+  { id: 'Map', name: 'ListingListView.map' },
 ]);
 
 const activeTab = ref('List');
