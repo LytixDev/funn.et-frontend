@@ -2,28 +2,31 @@
   <header id="navigation-bar">
     <nav>
       <div class="logo-clickable">
-        <FunnLogo @click="router.push({ name: 'home' })" />
+        <funn-logo @click="router.push({ name: 'home' })" />
       </div>
-      <OhVueIcon name="co-hamburger-menu" class="hamburger-icon" @click="() => (showMobileMenu = !showMobileMenu)" />
+      <oh-vue-icon name="co-hamburger-menu" class="hamburger-icon" @click="() => (showMobileMenu = !showMobileMenu)" />
       <div class="nav-content" :class="showMobileMenu ? 'open-menu' : 'closed-menu'">
         <ul>
           <li>
-            <router-link to="/">{{ $t('navigation.home') }}</router-link>
+            <router-link :to="{ name: 'home' }">{{ $t('navigation.home') }}</router-link>
           </li>
           <li v-if="role === 'ADMIN'">
             <router-link :to="{ name: 'admin' }">{{ $t('navigation.manage') }}</router-link>
           </li>
           <li v-if="!loggedIn">
-            <router-link to="/login" class="attention">{{ $t('navigation.login') }}</router-link>
+            <router-link :to="{ name: 'login' }" class="attention">{{ $t('navigation.login') }}</router-link>
+          </li>
+          <li v-if="!loggedIn">
+            <router-link :to="{ name: 'register' }">{{ $t('navigation.register') }}</router-link>
           </li>
           <li v-else>
-            <router-link to="/signout" class="attention">{{ $t('navigation.signout') }}</router-link>
+            <router-link :to="{ name: 'signout' }">{{ $t('navigation.signout') }}</router-link>
           </li>
           <li>
             <locale-selector />
           </li>
           <li v-if="loggedIn">
-            <UserProfilePicture />
+            <user-profile-picture />
           </li>
         </ul>
       </div>
@@ -59,6 +62,18 @@ watch(router.currentRoute, () => {
   top: 0;
   position: sticky;
   z-index: 100;
+}
+
+.router-link-exact-active.attention {
+  border-bottom: var(--background-color) solid 4px;
+}
+
+.router-link-exact-active:not(.attention) {
+  border-bottom: var(--primary-color) solid 4px;
+}
+
+nav {
+  justify-content: space-around;
 }
 
 .logo-clickable {

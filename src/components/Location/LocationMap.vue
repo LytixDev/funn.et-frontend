@@ -81,6 +81,9 @@ export default defineComponent({
   z-index: 0;
 }
 
+a {
+  box-shadow: none;
+}
 .map-container {
   width: 90%;
   height: 30em;

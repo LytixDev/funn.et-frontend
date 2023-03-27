@@ -4,7 +4,7 @@
       <label for="file-upload" class="custom-file-upload">
         {{ $t('ListingForm.uploadImage') }}
       </label>
-      <input id="file-upload" type="file" multiple @change="handleImageChange($event)" />
+      <input id="file-upload" type="file" multiple accept=".jpg,.jpeg,.png" @change="handleImageChange($event)" />
 
       <div v-if="errors.length > 0">
         <div class="file-upload-error" v-for="error in errors">
