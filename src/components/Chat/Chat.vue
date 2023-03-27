@@ -2,7 +2,7 @@
   <SideBar :username="username" :key="updateRefSideBar" :chatDTOs="chatDTOs" />
   <div data-testid="chat" class="chat">
     <ChatHeader :username="username" :key="updateRefHeader" :chatData="chatData" />
-    <div data-testid="messages" id="messages" class="chat__messages" :key="updateRefMessages">
+    <div ref="message_div" data-testid="messages" id="messages" class="chat__messages" :key="updateRefMessages">
       <div v-for="message in chatData.messages" :key="message.id">
         <Message :messageData="message" :messageClass="messageClass(message.username)" :key="message.id" />
       </div>
@@ -57,6 +57,10 @@ const errorBoxMsg = ref('');
 const updateRefSideBar = ref(0);
 const updateRefHeader = ref(0);
 const updateRefMessages = ref(0);
+
+const message_div = ref<HTMLElement>();
+
+console.log(message_div);
 
 const chatIdParam = computed(() => route.params.id);
 
@@ -114,10 +118,11 @@ const { handleSubmit, errors } = useForm({
 
 let messageDiv: HTMLElement;
 
-onMounted(() => {
-  messageDiv = document.getElementById('messages') as HTMLElement;
-  messageDiv.scrollTop = 9999999;
-});
+// onMounted(() => {
+//   // TODO: Fix this
+//   messageDiv = document.getElementById('messages') as HTMLElement;
+//   messageDiv.scrollTop = 9999999;
+// });
 
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);

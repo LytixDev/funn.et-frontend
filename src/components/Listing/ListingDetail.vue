@@ -8,7 +8,7 @@
       <div class="listing-head">
         <h1 class="listing-title">{{ listing.title }}</h1>
         <div v-if="user.isLoggedIn && !isOwner && listing.status === ListingDTO.status.ACTIVE" class="listing-actions">
-          <OhVueIcon @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
+          <OhVueIcon color="var(--red-color)" @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
         </div>
       </div>
       <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
@@ -46,7 +46,7 @@
       <button class="red-attention" @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
     </div>
     <router-link class="owner-actions"
-      v-else-if="listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
+      v-if="!isOwner && listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
       :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
       >{{ $t('ListingDetailView.sendMessage') }}</router-link
     >
