@@ -8,7 +8,7 @@
       <div class="listing-info">
         <span> {{ $t('ListingCard.published') }} {{ listingData.username }} </span>
         <h3>{{ listingData.title }}</h3>
-        <h3 class="attention-text">{{ listingData.price }} kr</h3>
+        <h3 class="price">{{ listingData.price }} kr</h3>
         <p>{{ listingData.briefDescription }}</p>
       </div>
     </div>
@@ -53,6 +53,10 @@ a:hover {
   transition: all 0.1s ease-in;
   cursor: pointer;
   background-color: #f3f5fa;
+}
+
+.price {
+  color: var(--primary-color);
 }
 
 .listing-card {
