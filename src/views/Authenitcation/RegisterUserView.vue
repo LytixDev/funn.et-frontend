@@ -88,12 +88,28 @@ let errorBoxMsg = ref<string>('');
 const schema = computed(() =>
   yupObject({
     username: yupString()
-      .min(3, t('UserForm.Error.usernameMin'))
+      .min(4, t('UserForm.Error.usernameMin'))
       .max(32, t('UserForm.Error.usernameMax'))
-      .required(t('UserForm.Error.usernameRequired')),
+      .required(t('UserForm.Error.usernameRequired'))
+      .test('isValidUsername', t('UserForm.Error.usernameInvalid'), (value) => {
+        const regex = /^[a-zA-Z0-9](_(?!(.|_))|.(?!(_|.))|[a-zA-Z0-9]){1,}[a-zA-Z0-9]$/;
+        return regex.test(value);
+      }),
     email: yupString().required(t('UserForm.Error.emailRequired')).email(t('UserForm.Error.emailInvalid')),
-    firstName: yupString().required(t('UserForm.Error.firstNameRequired')),
-    lastName: yupString().required(t('UserForm.Error.lastNameRequired')),
+    firstName: yupString()
+      .required(t('UserForm.Error.firstNameRequired'))
+      .max(64, t('UserForm.Error.firstNameMax'))
+      .test('isValidName', t('UserForm.Error.firstNameIsInvalid'), (value) => {
+        const regex = /^[ÆØÅæøåa-zA-Z]+(([',. -][ÆØÅæøåa-zA-Z ])?[a-zA-Z]*)*$/;
+        return regex.test(value);
+      }),
+    lastName: yupString()
+      .required(t('UserForm.Error.lastNameRequired'))
+      .max(64, t('UserForm.Error.lastNameMax'))
+      .test('isValidName', t('UserForm.Error.lastNameIsInvalid'), (value) => {
+        const regex = /^[ÆØÅæøåa-zA-Z]+(([',. -][ÆØÅæøåa-zA-Z ])?[a-zA-Z]*)*$/;
+        return regex.test(value);
+      }),
     password: yupString()
       .required(t('UserForm.Error.passwordRequired'))
       .min(8, t('UserForm.Error.passwordMin'))

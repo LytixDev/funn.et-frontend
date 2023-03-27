@@ -10,6 +10,8 @@ import { request as __request } from '../core/request';
 
 export class ChatControllerService {
   /**
+   * Create a chat between a user and a listing.
+   * Create a chat between a user and a listing. The chat will be between the user and the listing owner. The user cannot be the listing owner.
    * @returns ChatDTO OK
    * @throws ApiError
    */
@@ -27,6 +29,8 @@ export class ChatControllerService {
   }
 
   /**
+   * Get messages from a chat.
+   * Get messages from a chat.
    * @returns ChatDTO OK
    * @throws ApiError
    */
@@ -69,6 +73,8 @@ export class ChatControllerService {
   }
 
   /**
+   * Gets chat by listing and username.
+   * Gets chat by listing and username. The user must be in the chat, either as the messager or the listing owner.
    * @returns ChatDTO OK
    * @throws ApiError
    */
@@ -93,6 +99,8 @@ export class ChatControllerService {
   }
 
   /**
+   * Get all chats for a user.
+   * Get all chats for a user.
    * @returns ChatDTO OK
    * @throws ApiError
    */

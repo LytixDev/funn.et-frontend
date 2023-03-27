@@ -108,7 +108,7 @@ try {
 
 const schema = computed(() =>
   yupObject({
-    sendMessage: yupString().required(t('ChatView.Error.messageRequired')).max(256, t('ChatView.Error.messageMax')),
+    sendMessage: yupString().required(t('ChatView.Error.messageRequired')).max(255, t('ChatView.Error.messageMax')),
   }),
 );
 
@@ -116,13 +116,9 @@ const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
 
-let messageDiv: HTMLElement;
-
-// onMounted(() => {
-//   // TODO: Fix this
-//   messageDiv = document.getElementById('messages') as HTMLElement;
-//   messageDiv.scrollTop = 9999999;
-// });
+onMounted(() => {
+  message_div.value?.scrollTo(0, message_div.value.scrollHeight);
+});
 
 const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);

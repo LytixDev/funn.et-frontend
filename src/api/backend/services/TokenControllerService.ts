@@ -9,6 +9,8 @@ import { request as __request } from '../core/request';
 
 export class TokenControllerService {
   /**
+   * Generate a JWT token for the given user.
+   * Generate a JWT token for the given user. The token is valid for 30 minutes or the amount of time specified in the JWT_TOKEN_VALIDITY environment variable.
    * @returns string Created
    * @throws ApiError
    */
