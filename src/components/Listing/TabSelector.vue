@@ -6,13 +6,16 @@
       class="tab"
       :class="{ 'active-tab': tab.id === activeTab }"
       @click="() => setActiveTab(tab.id)">
-      <span>{{ tab.id }}</span>
+      <span>{{ $t(tab.name) }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, defineProps, defineEmits } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   tabs: {

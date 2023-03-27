@@ -38,7 +38,9 @@
     "priceMinLabel": "Min pris",
     "priceMaxLabel": "Maks pris",
     "sortingLabel": "Sortering",
-    "filterButton": "Filter"
+    "filterButton": "Filter",
+    "list": "Liste",
+    "map": "Kart"
   },
   "NotFoundView": {
     "title": "Fant ikke siden",

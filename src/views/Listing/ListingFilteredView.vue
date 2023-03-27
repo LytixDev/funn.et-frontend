@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ListingControllerService, ListingDTO, SearchRequest } from '@/api/backend';
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watch, watchEffect, computed } from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import { BiArrowLeftSquareFill, BiArrowRightSquareFill } from 'oh-vue-icons/icons';
@@ -69,8 +69,8 @@ const filterData = ref<ListingFilterType>({
 });
 
 const tabs = ref([
-  { id: 'List', name: t('ListingListView.list') },
-  { id: 'Map', name: t('ListingListView.map') },
+  { id: 'List', name: 'ListingListView.list'},
+  { id: 'Map', name: 'ListingListView.map'},
 ]);
 
 const activeTab = ref('List');
