@@ -51,7 +51,7 @@ const createdListings = ref([] as ListingDTO[] | undefined);
 
 ChatControllerService.getChats()
   .then((chats) => {
-    chats = chats?.filter((chat) => chat.listingUser.username !== username);
+    chats = chats?.filter((chat) => !(chat.listingUser.username === username && chat.messager === username));
     openChats.value = chats;
   })
   .catch((error) => {

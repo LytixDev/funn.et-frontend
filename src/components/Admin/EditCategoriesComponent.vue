@@ -30,15 +30,17 @@
             <input
               @keyup.enter="editCategory(category)"
               @input="category.name = ($event.target as HTMLInputElement).value"
-              labelId="lol"
-              fieldId="lol"
+              :data-testid="category.name"
               :value="category.name" />
           </div>
           <div class="category-list-item-save">
-            <OhVueIcon name="fa-save" @click="editCategory(category)" />
+            <OhVueIcon name="fa-save" :data-testid="'save-'.concat(category.name)" @click="editCategory(category)" />
           </div>
           <div class="category-list-item-remove">
-            <OhVueIcon name="md-delete-round" @click="deleteCategory(category)" />
+            <OhVueIcon
+              name="md-delete-round"
+              :data-testid="'delete-'.concat(category.name)"
+              @click="deleteCategory(category)" />
           </div>
         </div>
       </div>

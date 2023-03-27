@@ -4,11 +4,11 @@
     <FormInput
       labelId="listing-title-label"
       :labelText="$t('ListingForm.title')"
-      fieldId="listing-title"
+      fieldId="title"
       v-model="title"
       :error="errors?.title"
       fieldRequired
-      dataTestId="listing-title" />
+      dataTestid="title" />
     <div class="break"></div>
     <div class="image-upload">
       <h3>Last opp bilder</h3>
@@ -23,7 +23,7 @@
           :labelText="$t('ListingForm.imageDescription').concat(' for ').concat(image.name)"
           :fieldId="'listing-image-description-'.concat(key.toString())"
           v-model="images[key].alt"
-          :dataTestId="'listing-image-description-'.concat(key.toString())" />
+          :dataTestid="'listing-image-description-'.concat(key.toString())" />
       </div>
     </div>
     <div class="break"></div>
@@ -34,14 +34,14 @@
       v-model="briefDescription"
       :error="errors?.briefDescription"
       fieldRequired
-      dataTestId="listing-brief-description" />
+      dataTestid="brief-description" />
     <FormInput
       labelId="listing-description-label"
       :labelText="$t('ListingForm.description')"
       fieldId="listing-description"
       v-model="description"
       :error="errors?.description"
-      dataTestId="listing.description"
+      dataTestid="description"
       :inputWrapperClass="FormInputWrapperClasses.FormInputTextArea" />
     <FormInput
       labelId="listing-price-label"
@@ -51,7 +51,7 @@
       :error="errors?.price"
       :field-type="FormInputTypes.Number"
       fieldRequired
-      dataTestId="listing-price" />
+      dataTestid="price" />
 
     <CategoryDropDownList v-model:category="categoryId" />
 
@@ -66,7 +66,7 @@
     <FormButton
       :buttonId="`${formType}-listing-button`"
       :buttonText="$t(`ListingForm.submit${formType}`)"
-      :dataTestId="`${formType}-listing-button`"
+      :dataTestid="`${formType}-listing-button`"
       @click="submit" />
   </form>
   <error-box v-model="errorMessage" />
