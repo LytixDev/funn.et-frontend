@@ -16,6 +16,7 @@ export type ListingUpdateDTO = {
   expirationDate?: string;
   images?: Array<Blob>;
   imageAlts?: Array<string>;
+  username?: string;
   imagesToKeep?: Array<number>;
 };
 

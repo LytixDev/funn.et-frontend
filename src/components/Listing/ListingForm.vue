@@ -122,7 +122,9 @@ const { listingPayload, onSubmit, foundLocation, formType, initialImages } = def
   },
 });
 
-const imagesToKeep = ref<number[]>(initialImages.map((image) => +image.name));
+const imagesToKeep = computed(() =>
+  initialImages.map((image) => +image.name).filter((image) => images.value.map((i) => +i.name).indexOf(image) !== -1),
+);
 
 const schema = computed(() =>
   yupObject({
@@ -158,13 +160,14 @@ const submit = handleSubmit((values) => {
   const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
 
   const images = [] as Array<Blob>;
-  values.images.forEach((image: any) => {
-    images.push(new Blob([image.data], { type: image.type }));
-  });
   const imageAlts = [] as Array<string>;
   values.images.forEach((image: any) => {
-    imageAlts.push(image.alt || '');
+    if (!imagesToKeep.value.includes(+image.name)) {
+      images.push(new Blob([image.data], { type: image.type }));
+      imageAlts.push(image.alt || undefined);
+    }
   });
+
   let payload = {
     username: username.value,
     location: values.location.id,
@@ -177,6 +180,7 @@ const submit = handleSubmit((values) => {
     expirationDate: dateStr,
     images: images,
     imageAlts: imageAlts,
+    imagesToKeep: imagesToKeep.value,
     status: listingPayload?.status || 'ACTIVE',
   } as ListingCreateDTO;
 
