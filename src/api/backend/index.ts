@@ -20,6 +20,7 @@ export type { ImageResponseDTO } from './models/ImageResponseDTO';
 export { Listing } from './models/Listing';
 export { ListingCreateDTO } from './models/ListingCreateDTO';
 export { ListingDTO } from './models/ListingDTO';
+export { ListingUpdateDTO } from './models/ListingUpdateDTO';
 export type { Location } from './models/Location';
 export type { LocationCreateDTO } from './models/LocationCreateDTO';
 export type { LocationResponseDTO } from './models/LocationResponseDTO';
