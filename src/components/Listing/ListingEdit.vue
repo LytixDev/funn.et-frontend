@@ -12,7 +12,6 @@ import { computed, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import ListingForm from '@/components/Listing/ListingForm.vue';
 import {
-  ApiError,
   ImageControllerService,
   ListingControllerService,
   ListingCreateDTO,
@@ -62,7 +61,10 @@ try {
       isUploaded: true,
     } as ImageUpload);
   }
-} catch (error) {
+} catch (error: any) {
+  if (error.status === 401) {
+    router.push({ name: 'login' });
+  }
   const message = handleUnknownError(error);
   errorStore.addError(message);
 }
@@ -84,6 +86,9 @@ const updateListing = (payload: ListingUpdateDTO) => {
       router.push({ name: 'listing', params: { id: listingId } });
     })
     .catch((error) => {
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+      }
       const message = handleUnknownError(error);
       errorStore.addError(message);
     });

@@ -46,10 +46,12 @@ import TabSelector from '@/components/Listing/TabSelector.vue';
 import ListingMap from '@/components/Listing/ListingMap.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 import { useErrorStore } from '@/stores/ErrorStore';
+import { useRouter } from 'vue-router';
 
 const { t } = useI18n();
 
 const errorStore = useErrorStore();
+const router = useRouter();
 
 addIcons(BiArrowLeftSquareFill, BiArrowRightSquareFill);
 
@@ -85,6 +87,9 @@ const getListings = async ({ page, size, filterRequests, sortRequests }: SearchR
       listings.value = data;
     })
     .catch((error) => {
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+      }
       const message = handleUnknownError(error);
       errorStore.addError(message);
     });

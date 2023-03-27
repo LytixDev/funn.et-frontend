@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia';
 
+// A userstore which can be used to store several errors at the same time
 export const useErrorStore = defineStore('ErrorStore', {
   state: () => ({
     errors: [] as string[],
   }),
   actions: {
     addError(error: string) {
-      this.errors.push(error);
+      this.errors = [error];
     },
     removeCurrentError() {
       if (this.errors.length > 0) {

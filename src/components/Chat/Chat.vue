@@ -45,12 +45,13 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
 import { ChatControllerService } from '@/api/backend';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { FormButtonClasses, FormButtonTypes } from '@/enums/FormEnums';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 import { useErrorStore } from '@/stores/ErrorStore';
 
 const errorStore = useErrorStore();
+const router = useRouter();
 
 const { t } = useI18n();
 
@@ -83,7 +84,10 @@ watch(
       });
       updateRefMessages.value++;
       updateRefHeader.value++;
-    } catch (error) {
+    } catch (error: any) {
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+      }
       const message = handleUnknownError(error);
       errorStore.addError(message);
     }
@@ -95,12 +99,15 @@ try {
     id: chatIdParam.value as unknown as number,
     username: usernameParam.value as string,
   });
-} catch (error) {
+} catch (error: any) {
   try {
     chatData = await ChatControllerService.createChat({
       id: chatIdParam.value as unknown as number,
     });
-  } catch (error) {
+  } catch (error: any) {
+    if (error.status === 401) {
+      router.push({ name: 'login' });
+    }
     const message = handleUnknownError(error);
     errorStore.addError(message);
   }
@@ -108,7 +115,10 @@ try {
 
 try {
   chatDTOs = await ChatControllerService.getChats();
-} catch (error) {
+} catch (error: any) {
+  if (error.status === 401) {
+    router.push({ name: 'login' });
+  }
   const message = handleUnknownError(error);
   errorStore.addError(message);
 }
@@ -142,7 +152,10 @@ const submit = handleSubmit(async (values) => {
       requestBody: messagePayload,
     });
     chatData.messages.push(received);
-  } catch (error) {
+  } catch (error: any) {
+    if (error.status === 401) {
+      router.push({ name: 'login' });
+    }
     const message = handleUnknownError(error);
     errorStore.addError(message);
   }

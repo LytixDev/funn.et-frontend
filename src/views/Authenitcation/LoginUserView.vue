@@ -94,7 +94,10 @@ const submit = handleSubmit(async (values) => {
     });
 
     router.push((route.query.redirect as string) || '/');
-  } catch (error) {
+  } catch (error: any) {
+    if (error.status === 401) {
+      router.push({ name: 'login' });
+    }
     const message = handleUnknownError(error);
     errorStore.addError(message);
   }

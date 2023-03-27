@@ -169,6 +169,9 @@ const submit = handleSubmit(async (values) => {
         });
     })
     .catch((error) => {
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+      }
       const message = handleUnknownError(error);
       errorStore.addError(message);
     });

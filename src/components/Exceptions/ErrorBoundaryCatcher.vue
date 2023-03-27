@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, ref } from 'vue';
+import { onErrorCaptured } from 'vue';
 import { useErrorStore } from '@/stores/ErrorStore';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
@@ -12,12 +12,10 @@ import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 const errorStore = useErrorStore();
 
 onErrorCaptured((err, _vm, _info): boolean => {
-  const error = handleUnknownError(err);
+  const message = handleUnknownError(err);
   errorStore.addError(message);
   return false;
 });
 </script>
 
-<style scoped>
-/* Fixed component modal for error */
-</style>
+<style scoped></style>

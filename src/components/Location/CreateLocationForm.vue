@@ -47,15 +47,17 @@ import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
 import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
-import { ApiError, LocationControllerService, LocationResponseDTO } from '@/api/backend';
+import { LocationControllerService, LocationResponseDTO } from '@/api/backend';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import LocationMap from '@/components/Location/LocationMap.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 import { useErrorStore } from '@/stores/ErrorStore';
+import { useRouter } from 'vue-router';
 
 const errorStore = useErrorStore();
+const router = useRouter();
 
 const { modelValue } = defineProps({
   modelValue: {
@@ -141,6 +143,9 @@ const createLocation = async () => {
       emit('update:modelValue', data);
     })
     .catch((error) => {
+      if (error.status === 401) {
+        router.push({ name: 'login' });
+      }
       const message = handleUnknownError(error);
       errorStore.addError(message);
     });
@@ -162,6 +167,10 @@ watchEffect(async () => {
       fuzzy: address.value?.length > 12,
     });
   } catch (error: any) {
+    const router = useRouter();
+    if (error.status === 401) {
+      router.push({ name: 'login' });
+    }
     const message = handleUnknownError(error);
     errorStore.addError(message);
   }
