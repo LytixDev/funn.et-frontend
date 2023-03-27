@@ -100,12 +100,14 @@ const schema = computed(() =>
     email: yupString().required(t('UserForm.Error.emailRequired')).email(t('UserForm.Error.emailInvalid')),
     firstName: yupString()
       .required(t('UserForm.Error.firstNameRequired'))
+      .max(64, t('UserForm.Error.firstNameMax'))
       .test('isValidName', t('UserForm.Error.firstNameIsInvalid'), (value) => {
         const regex = /^[ÆØÅæøåa-zA-Z]+(([',. -][ÆØÅæøåa-zA-Z ])?[a-zA-Z]*)*$/;
         return regex.test(value);
       }),
     lastName: yupString()
       .required(t('UserForm.Error.lastNameRequired'))
+      .max(64, t('UserForm.Error.lastNameMax'))
       .test('isValidName', t('UserForm.Error.lastNameIsInvalid'), (value) => {
         const regex = /^[ÆØÅæøåa-zA-Z]+(([',. -][ÆØÅæøåa-zA-Z ])?[a-zA-Z]*)*$/;
         return regex.test(value);
