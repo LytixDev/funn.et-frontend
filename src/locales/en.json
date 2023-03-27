@@ -6,7 +6,7 @@
   },
   "navigation": {
     "home": "Home",
-    "register": "Register user",
+    "register": "Sing up",
     "login": "Login",
     "signout": "Sign out",
     "createListing": "Create new listing",
