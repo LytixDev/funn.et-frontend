@@ -47,6 +47,7 @@ export default defineComponent({
   background-color: rgb(202, 60, 60);
   padding: 10px;
   border-radius: 5px;
+  z-index: 1000;
 }
 
 .error-box span {

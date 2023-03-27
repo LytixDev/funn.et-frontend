@@ -1,6 +1,6 @@
 <template>
   <footer>
-  <p>© Copyright 2023 | Carl J. M. H. Gützkow, Callum Gran, Thomas Svendal, Nicolai H. Brand</p>
+    <p>© Copyright 2023 | Carl J. M. H. Gützkow, Callum Gran, Thomas Svendal, Nicolai H. Brand</p>
   </footer>
 </template>
 
@@ -11,6 +11,6 @@ export default defineComponent({});
 
 <style scoped>
 p {
-padding-top: 1rem;
+  padding-top: 1rem;
 }
 </style>
