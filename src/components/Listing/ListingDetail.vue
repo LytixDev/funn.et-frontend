@@ -1,6 +1,6 @@
 <template>
   <div class="listing-detail-view" v-if="listing">
-    <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
+    <h2 v-if="listing.status != ListingDTO.status.ACTIVE" class="listing-status">
       {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
     </h2>
 
@@ -16,9 +16,6 @@
         </div>
       </div>
       <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
-      <h2 v-if="listing.status != ListingDTO.status.ACTIVE">
-        {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
-      </h2>
       <ImageCarousel class="carousel" :images="images" :alts="alts" :displayAlt="true" />
 
       <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
@@ -71,6 +68,7 @@ import {
   LocationResponseDTO,
   ListingDTO,
   ListingCreateDTO,
+  ListingUpdateDTO,
 } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import LocationMap, { Coords } from '@/components/Location/LocationMap.vue';
@@ -121,7 +119,18 @@ const favorite = async () => {
 
 const updateStatus = async (status: ListingDTO.status) => {
   if (status === listing.value?.status) return;
-  let listingCpy = { ...listing.value } as ListingCreateDTO;
+  let listingCpy = {
+    username: listing.value?.username,
+    location: listing.value?.location,
+    title: listing.value?.title,
+    briefDescription: listing.value?.briefDescription,
+    fullDescription: listing.value?.fullDescription,
+    category: listing.value?.id,
+    price: listing.value?.price,
+    publicationDate: listing.value?.publicationDate,
+    expirationDate: listing.value?.expirationDate,
+    status: status,
+  } as ListingUpdateDTO;
   listingCpy.status = status;
   const response: ListingDTO = await ListingControllerService.updateListing({ id: id, formData: listingCpy });
   if (response) listing.value = response;
@@ -185,5 +194,10 @@ h2 {
   margin-top: 1em;
   display: flex;
   justify-content: space-around;
+}
+
+.listing-status {
+  color: var(--red-color);
+  font-weight: 700;
 }
 </style>
