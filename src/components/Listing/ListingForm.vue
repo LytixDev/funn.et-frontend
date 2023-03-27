@@ -57,10 +57,8 @@
 
     <div class="break"></div>
 
-    <error-boundary-catcher>
-      <div>{{ errors?.location }}</div>
-      <create-location-form v-model="location" />
-    </error-boundary-catcher>
+    <div>{{ errors?.location }}</div>
+    <create-location-form v-model="location" />
 
     <div class="break"></div>
     <FormButton
@@ -88,7 +86,6 @@ import { CategoryControllerService, ListingCreateDTO, ListingUpdateDTO, Location
 import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
-import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 
 const { t } = useI18n();
 const userStore = useUserInfoStore();

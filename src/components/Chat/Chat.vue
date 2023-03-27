@@ -41,12 +41,13 @@ import ChatHeader from '@/components/Chat/ChatHeader.vue';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ChatDTO, MessageDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { object as yupObject, string as yupString } from 'yup';
 import { useI18n } from 'vue-i18n';
 import { ChatControllerService } from '@/api/backend';
 import { useRoute } from 'vue-router';
-import { FormButtonClasses, FormButtonTypes, FormInputWrapperClasses } from '@/enums/FormEnums';
+import { FormButtonClasses, FormButtonTypes } from '@/enums/FormEnums';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const { t } = useI18n();
 
@@ -80,7 +81,7 @@ watch(
       updateRefMessages.value++;
       updateRefHeader.value++;
     } catch (error) {
-      errorBoxMsg.value = t('ChatView.Error.chatFailed');
+      handleUnknownError(error);
     }
   },
 );
@@ -96,14 +97,14 @@ try {
       id: chatIdParam.value as unknown as number,
     });
   } catch (error) {
-    errorBoxMsg.value = t('ChatView.Error.chatFailed');
+    handleUnknownError(error);
   }
 }
 
 try {
   chatDTOs = await ChatControllerService.getChats();
 } catch (error) {
-  errorBoxMsg.value = t('ChatView.Error.chatFailed');
+  handleUnknownError(error);
 }
 
 const schema = computed(() =>
@@ -136,7 +137,7 @@ const submit = handleSubmit(async (values) => {
     });
     chatData.messages.push(received);
   } catch (error) {
-    errorBoxMsg.value = t('ChatView.Error.messageFailed');
+    handleUnknownError(error);
   }
   sendMessage.value = '';
   chatDTOs = chatDTOs.filter((chatDTO: ChatDTO) => chatDTO.id !== chatData.id);

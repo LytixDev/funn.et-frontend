@@ -43,8 +43,9 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
-import { TokenControllerService, AuthenticateDTO, OpenAPI, ApiError, UserService } from '@/api/backend';
+import { TokenControllerService, AuthenticateDTO, OpenAPI, UserService } from '@/api/backend';
 import { useRouter, useRoute } from 'vue-router';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -91,13 +92,7 @@ const submit = handleSubmit(async (values) => {
 
     router.push((route.query.redirect as string) || '/');
   } catch (authError: any) {
-    if (authError.detail !== undefined) {
-      errorBoxMsg.value = authError.detail;
-    } else if (authError.message !== undefined) {
-      errorBoxMsg.value = authError.message;
-    } else {
-      errorBoxMsg.value = 'Could not log with the given credentials';
-    }
+    handleUnknownError(authError);
   }
 });
 

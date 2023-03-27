@@ -80,6 +80,7 @@ import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO } from '@/api/backend';
 import router from '@/router';
+import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 
 const userStore = useUserInfoStore();
 const { t } = useI18n();
@@ -163,10 +164,12 @@ const submit = handleSubmit(async (values) => {
           router.push({ name: 'home' });
         })
         .catch((authError) => {
+          handleUnknownError(authError);
           errorBoxMsg.value = authError.body;
         });
     })
     .catch((error) => {
+      handleUnknownError(error);
       errorBoxMsg.value = error.body;
       //TODO: handle error
       //switch (

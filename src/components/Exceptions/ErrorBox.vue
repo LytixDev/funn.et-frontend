@@ -5,7 +5,7 @@
       <button @click="wrapText = !wrapText" class="error-message-button">
         <h4>{{ $t(modelValue) }}</h4>
       </button>
-      <button @click="$emit('update:modelValue', '')" data-testid="hide-button">
+      <button class="error-remove-button" @click="$emit('update:modelValue', '')" data-testid="hide-button">
         <v-icon scale="2" name="bi-dash" />
       </button>
     </span>
@@ -45,9 +45,10 @@ export default defineComponent({
   right: 20px;
   max-width: 700px;
   background-color: rgb(202, 60, 60);
-  padding: 10px;
+  padding: 7px;
   border-radius: 5px;
   z-index: 1000;
+  align-self: center;
 }
 
 .error-box span {
@@ -59,6 +60,7 @@ export default defineComponent({
 .error-message-button {
   white-space: v-bind('wrapText ? "normal" : "nowrap"');
   overflow: hidden;
+  border: none;
 }
 
 .error-message-button h4 {
@@ -67,17 +69,23 @@ export default defineComponent({
 }
 
 .error-box * {
-  margin: 4px;
+  margin: 2px;
 }
 
 .error-box button {
   background-color: transparent;
-  border: none;
+  box-shadow: none;
   color: black;
   cursor: pointer;
 }
 
-.error-box button:hover {
+.error-remove-button {
   color: rgb(79, 77, 77);
+  border: solid black 0.5px;
+  padding: 0.3em;
+}
+
+.error-box button:hover {
+  color: rgb(40, 38, 38);
 }
 </style>

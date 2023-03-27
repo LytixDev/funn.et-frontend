@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Footer from '@/components/BasePage/Footer.vue';
 import Header from '@/components/BasePage/Header.vue';
-import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 </script>
 
 <template>

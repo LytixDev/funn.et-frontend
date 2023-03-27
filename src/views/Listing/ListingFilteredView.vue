@@ -10,13 +10,11 @@
         <router-link class="attention desktop" to="/create-listing">{{ $t('navigation.createListing') }}</router-link>
       </div>
 
-      <error-boundary-catcher>
         <div class="listings-wrapper">
           <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => (activeTab = data)" />
           <listing-list v-if="activeTab === 'List'" :listings="listings" />
           <ListingMap v-if="activeTab === 'Map'" :listings="listings" />
         </div>
-      </error-boundary-catcher>
     </div>
 
     <span v-if="listings.length > 0 && listings.length === pageSize">
@@ -45,7 +43,6 @@ import ListingFilter from '@/components/Listing/ListingFilter.vue';
 import { ListingFilterType } from '@/components/Listing/ListingFilter.vue';
 import { AxiosError } from 'axios';
 import ListingList from '@/components/Listing/ListingList.vue';
-import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
 import { useI18n } from 'vue-i18n';
 import TabSelector from '@/components/Listing/TabSelector.vue';
 import ListingMap from '@/components/Listing/ListingMap.vue';
