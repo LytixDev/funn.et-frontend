@@ -46,7 +46,7 @@
 import { computed, ref, watchEffect } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import FormInput from '@/components/Form/FormInput.vue';
-import { DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
+import { ApiError, DefaultService, OutputAdresse, OutputAdresseList } from '@/api/geonorge';
 import { LocationControllerService, LocationResponseDTO } from '@/api/backend';
 import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import FormButton from '@/components/Form/FormButton.vue';
@@ -55,6 +55,9 @@ import LocationMap from '@/components/Location/LocationMap.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 import { useErrorStore } from '@/stores/ErrorStore';
 import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
+
+const userStore = useUserInfoStore();
 
 const errorStore = useErrorStore();
 const router = useRouter();
@@ -145,6 +148,7 @@ const createLocation = async () => {
     .catch((error) => {
       if (error.status === 401) {
         router.push({ name: 'login' });
+        userStore.clearUserInfo();
       }
       const message = handleUnknownError(error);
       errorStore.addError(message);
@@ -167,12 +171,9 @@ watchEffect(async () => {
       fuzzy: address.value?.length > 12,
     });
   } catch (error: any) {
-    const router = useRouter();
-    if (error.status === 401) {
-      router.push({ name: 'login' });
+    if (error instanceof ApiError) {
+      errorMessage.value = error.body;
     }
-    const message = handleUnknownError(error);
-    errorStore.addError(message);
   }
   if (locations?.adresser === undefined || locations.metadata?.totaltAntallTreff === 0) {
     return;

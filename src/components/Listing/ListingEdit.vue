@@ -63,7 +63,10 @@ try {
   }
 } catch (error: any) {
   if (error.status === 401) {
-    router.push({ name: 'login' });
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
   }
   const message = handleUnknownError(error);
   errorStore.addError(message);
@@ -87,7 +90,10 @@ const updateListing = (payload: ListingUpdateDTO) => {
     })
     .catch((error) => {
       if (error.status === 401) {
-        router.push({ name: 'login' });
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
       }
       const message = handleUnknownError(error);
       errorStore.addError(message);

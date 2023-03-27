@@ -86,7 +86,10 @@ watch(
       updateRefHeader.value++;
     } catch (error: any) {
       if (error.status === 401) {
-        router.push({ name: 'login' });
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
       }
       const message = handleUnknownError(error);
       errorStore.addError(message);
@@ -106,7 +109,10 @@ try {
     });
   } catch (error: any) {
     if (error.status === 401) {
-      router.push({ name: 'login' });
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
     }
     const message = handleUnknownError(error);
     errorStore.addError(message);
@@ -117,7 +123,10 @@ try {
   chatDTOs = await ChatControllerService.getChats();
 } catch (error: any) {
   if (error.status === 401) {
-    router.push({ name: 'login' });
+    setTimeout(() => {
+      router.push({ name: 'login' });
+      userStore.clearUserInfo();
+    }, 100);
   }
   const message = handleUnknownError(error);
   errorStore.addError(message);
@@ -154,7 +163,10 @@ const submit = handleSubmit(async (values) => {
     chatData.messages.push(received);
   } catch (error: any) {
     if (error.status === 401) {
-      router.push({ name: 'login' });
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
     }
     const message = handleUnknownError(error);
     errorStore.addError(message);

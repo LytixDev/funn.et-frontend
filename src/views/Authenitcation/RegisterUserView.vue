@@ -170,7 +170,10 @@ const submit = handleSubmit(async (values) => {
     })
     .catch((error) => {
       if (error.status === 401) {
-        router.push({ name: 'login' });
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
       }
       const message = handleUnknownError(error);
       errorStore.addError(message);

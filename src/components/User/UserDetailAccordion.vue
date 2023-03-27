@@ -30,6 +30,9 @@ import { ListingDTO, ListingControllerService, ChatControllerService, ChatDTO } 
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 import { useErrorStore } from '@/stores/ErrorStore';
 import { useRouter } from 'vue-router';
+import { useUserInfoStore } from '@/stores/UserStore';
+
+const userStore = useUserInfoStore();
 
 const router = useRouter();
 
@@ -57,7 +60,10 @@ ChatControllerService.getChats()
   })
   .catch((error) => {
     if (error.status === 401) {
-      router.push({ name: 'login' });
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
     }
     const message = handleUnknownError(error);
     errorStore.addError(message);
@@ -68,7 +74,10 @@ ListingControllerService.getFavoriteListings()
   })
   .catch((error) => {
     if (error.status === 401) {
-      router.push({ name: 'login' });
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
     }
     const message = handleUnknownError(error);
     errorStore.addError(message);
@@ -79,7 +88,10 @@ ListingControllerService.getListingsByUser({ username: username })
   })
   .catch((error) => {
     if (error.status === 401) {
-      router.push({ name: 'login' });
+      setTimeout(() => {
+        router.push({ name: 'login' });
+        userStore.clearUserInfo();
+      }, 100);
     }
     const message = handleUnknownError(error);
     errorStore.addError(message);

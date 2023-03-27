@@ -8,9 +8,11 @@ import { ListingControllerService, ListingCreateDTO } from '@/api/backend';
 import ListingForm from '@/components/Listing/ListingForm.vue';
 import handleUnknownError from '@/components/Exceptions/unkownErrorHandler';
 import { useErrorStore } from '@/stores/ErrorStore';
+import { useUserInfoStore } from '@/stores/UserStore';
 
 const router = useRouter();
 const errorStore = useErrorStore();
+const userStore = useUserInfoStore();
 
 const createListing = (payload: ListingCreateDTO) => {
   ListingControllerService.createListing({ formData: payload })
@@ -19,7 +21,10 @@ const createListing = (payload: ListingCreateDTO) => {
     })
     .catch((error) => {
       if (error.status === 401) {
-        router.push({ name: 'login' });
+        setTimeout(() => {
+          router.push({ name: 'login' });
+          userStore.clearUserInfo();
+        }, 100);
       }
       const message = handleUnknownError(error);
       errorStore.addError(message);

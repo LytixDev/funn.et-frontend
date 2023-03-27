@@ -11,7 +11,7 @@
       dataTestid="title" />
     <div class="break"></div>
     <div class="image-upload">
-      <h3>Last opp bilder</h3>
+      <h3>{{ $t('ListingForm.uploadImages') }}</h3>
       <ImageUploader v-model="images" />
       <div v-for="(image, key) in images" class="images">
         <div class="mini-break"></div>
@@ -57,8 +57,8 @@
 
     <div class="break"></div>
 
-    <div>{{ errors?.location }}</div>
     <create-location-form v-model="location" />
+    <div id="error">{{ errors?.location }}</div>
 
     <div class="break"></div>
     <FormButton
