@@ -23,9 +23,10 @@
   <p align="center">
     Frontend for the Funn project, a project for IDATT2105 at NTNU.
     <br />
-    <a href="DocsLinks"><strong>Explore the docs »</strong></a>
+    ![pipeline status](https://gitlab.stud.idi.ntnu.no/ntcc/fullstack-frontend/badges/main/pipeline.svg)
   </p>
 </div>
+
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
