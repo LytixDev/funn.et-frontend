@@ -84,7 +84,7 @@ import { object as yupObject, string as yupString, number as yupNumber } from 'y
 import { computed, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { CategoryControllerService, ListingCreateDTO, LocationResponseDTO } from '@/api/backend';
+import { CategoryControllerService, ListingCreateDTO, ListingUpdateDTO, LocationResponseDTO } from '@/api/backend';
 import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
@@ -95,11 +95,11 @@ const userStore = useUserInfoStore();
 const username = computed(() => userStore.username);
 const errorMessage = ref('');
 
-type OnSubmitFunction = (payload: ListingCreateDTO) => void;
+type OnSubmitFunction = (payload: ListingUpdateDTO) => void;
 
 const { listingPayload, onSubmit, foundLocation, formType, initialImages } = defineProps({
   listingPayload: {
-    type: Object as () => ListingCreateDTO,
+    type: Object as () => ListingUpdateDTO,
     required: false,
   },
   onSubmit: {
@@ -177,7 +177,7 @@ const submit = handleSubmit((values) => {
   });
 
   let payload = {
-    username: username.value,
+    username: formType === 'update' ? listingPayload?.username : username.value,
     location: values.location.id,
     title: values.title,
     briefDescription: values.briefDescription,
