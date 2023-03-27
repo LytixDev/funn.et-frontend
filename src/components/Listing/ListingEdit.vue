@@ -68,14 +68,14 @@ try {
 
 const initialPayload = ref({
   title: listing.value!!.title,
-  username: username.value,
+  username: listing.value!!.username,
   briefDescription: listing.value!!.briefDescription,
   fullDescription: listing.value!!.fullDescription,
   price: listing.value!!.price,
   category: listing.value!!.category,
   location: foundLocation.value!!.id,
   status: listing.value!!.status,
-} as ListingCreateDTO);
+} as ListingUpdateDTO);
 
 const updateListing = (payload: ListingUpdateDTO) => {
   ListingControllerService.updateListing({ id: listingId, formData: payload })
