@@ -29,7 +29,6 @@
     </form>
     <span>{{ $t('LoginUserView.register') }}</span>
     <router-link to="/register">{{ $t('navigation.register') }}</router-link>
-    <error-box v-model="errorBoxMsg" />
   </div>
 </template>
 
@@ -41,7 +40,6 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { TokenControllerService, AuthenticateDTO, OpenAPI, UserService } from '@/api/backend';
 import { useRouter, useRoute } from 'vue-router';

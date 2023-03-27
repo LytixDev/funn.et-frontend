@@ -27,7 +27,6 @@
           @click="submit" />
       </form>
     </div>
-    <error-box v-model="errorBoxMsg" />
   </div>
 </template>
 
@@ -38,7 +37,6 @@ import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import Message from '@/components/Chat/Message.vue';
 import ChatHeader from '@/components/Chat/ChatHeader.vue';
-import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
 import { ChatDTO, MessageDTO } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -56,8 +54,6 @@ const router = useRouter();
 const { t } = useI18n();
 
 const route = useRoute();
-
-const errorBoxMsg = ref('');
 
 const updateRefSideBar = ref(0);
 const updateRefHeader = ref(0);

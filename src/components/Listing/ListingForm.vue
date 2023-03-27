@@ -67,7 +67,6 @@
       :dataTestid="`${formType}-listing-button`"
       @click="submit" />
   </form>
-  <error-box v-model="errorMessage" />
 </template>
 
 <script lang="ts" setup>
