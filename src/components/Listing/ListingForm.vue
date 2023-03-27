@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
-    <h2>{{ $t('navigation.createListing') }}</h2>
+    <h2>{{ $t(`navigation.${formType === 'create' ? 'create' : 'edit'}Listing`) }}</h2>
     <FormInput
       labelId="listing-title-label"
       :labelText="$t('ListingForm.title')"
@@ -77,7 +77,6 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 import { FormInputWrapperClasses } from '@/enums/FormEnums';
-import FormDropDownList from '@/components/Form/FormDropDownList.vue';
 import { DropDownItem } from '@/types/FormTypes';
 import { FormInputTypes } from '@/enums/FormEnums';
 import ImageUploader, { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
@@ -85,11 +84,11 @@ import { object as yupObject, string as yupString, number as yupNumber } from 'y
 import { computed, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ErrorBox from '@/components/Exceptions/ErrorBox.vue';
-import { ListingCreateDTO, ListingDTO, LocationResponseDTO, CategoryControllerService } from '@/api/backend';
+import { CategoryControllerService, ListingCreateDTO, LocationResponseDTO } from '@/api/backend';
+import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 import { useUserInfoStore } from '@/stores/UserStore';
 import CreateLocationForm from '@/components/Location/CreateLocationForm.vue';
 import ErrorBoundaryCatcher from '@/components/Exceptions/ErrorBoundaryCatcher.vue';
-import CategoryDropDownList from '@/components/Form/CategoryDropDownList.vue';
 
 const { t } = useI18n();
 const userStore = useUserInfoStore();
@@ -98,7 +97,7 @@ const errorMessage = ref('');
 
 type OnSubmitFunction = (payload: ListingCreateDTO) => void;
 
-const { listingPayload, onSubmit, foundLocation } = defineProps({
+const { listingPayload, onSubmit, foundLocation, formType, intialImages } = defineProps({
   listingPayload: {
     type: Object as () => ListingCreateDTO,
     required: false,
@@ -116,6 +115,11 @@ const { listingPayload, onSubmit, foundLocation } = defineProps({
     required: false,
     default: 'create',
   },
+  intialImages: {
+    type: Array<ImageUpload>,
+    required: false,
+    default: [],
+  },
 });
 
 const schema = computed(() =>
@@ -126,7 +130,7 @@ const schema = computed(() =>
       .max(128, t('ListingForm.Error.briefDescriptionMax')),
     description: yupString().max(512, t('ListingForm.Error.descriptionMax')),
     price: yupNumber().required(t('ListingForm.Error.priceRequired')).min(0, t('ListingForm.Error.priceMin')),
-    category: yupNumber().required(t('ListingForm.Error.categoryRequired')),
+    category: yupString().default('OTHER'),
     location: yupObject<LocationResponseDTO>().required(t('ListingForm.Error.locationRequired')),
   }),
 );
@@ -134,6 +138,14 @@ const schema = computed(() =>
 const { handleSubmit, errors } = useForm({
   validationSchema: schema,
 });
+
+const { value: title } = useField('title') as FieldContext<string>;
+const { value: briefDescription } = useField('briefDescription') as FieldContext<string>;
+const { value: description } = useField('description') as FieldContext<string>;
+const { value: price } = useField('price') as FieldContext<string>;
+const { value: categoryId } = useField('category') as FieldContext<number>;
+const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
+const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 
 const submit = handleSubmit((values) => {
   const date: Date = new Date();
@@ -169,24 +181,12 @@ const submit = handleSubmit((values) => {
   onSubmit(payload);
 });
 
-/* promise noob */
 let listOfCategories = ref([] as DropDownItem[]);
-const categories = async () => {
-  const response = await CategoryControllerService.getAllCategories();
-  response.forEach((category) => {
-    listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
-  });
-};
-categories();
+const response = await CategoryControllerService.getAllCategories();
+response.forEach((category) => {
+  listOfCategories.value.push({ value: category.id.toString(), displayedValue: category.name });
+});
 
-const { value: title } = useField('title') as FieldContext<string>;
-const { value: briefDescription } = useField('briefDescription') as FieldContext<string>;
-const { value: description } = useField('description') as FieldContext<string>;
-const { value: price } = useField('price') as FieldContext<string>;
-const { value: categoryId } = useField('category') as FieldContext<number>;
-const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
-const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
-const { value: imageDescription } = useField('imageDescription') as FieldContext<string>;
 images.value = [];
 if (foundLocation) {
   location.value = foundLocation!!;
@@ -197,8 +197,7 @@ if (listingPayload) {
   description.value = listingPayload.fullDescription ?? '';
   price.value = listingPayload.price?.toString() ?? '';
   categoryId.value = listingPayload.category.id ?? 0;
-  images.value = [];
-  imageDescription.value = '';
+  images.value = intialImages;
 }
 </script>
 

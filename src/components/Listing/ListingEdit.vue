@@ -1,12 +1,14 @@
 <template>
-  <h2>{{ $t('navigation.editListing') }}</h2>
-
-  <listing-form :listing-payload="initialPayload" :found-location="foundLocation" :on-submit="updateListing" />
+  <listing-form
+    :listing-payload="initialPayload"
+    :found-location="foundLocation"
+    :on-submit="updateListing"
+    form-type="update"
+    :intial-images="images" />
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 import ListingForm from '@/components/Listing/ListingForm.vue';
 import {
@@ -19,6 +21,7 @@ import {
   LocationResponseDTO,
 } from '@/api/backend';
 import { useUserInfoStore } from '@/stores/UserStore';
+import { Image as ImageUpload } from '@/components/Form/ImageUploader.vue';
 
 const route = useRoute();
 
@@ -32,17 +35,28 @@ const listingId = +route.params.id;
 
 const foundLocation = ref(undefined as LocationResponseDTO | undefined);
 
-const images = ref([] as Array<Blob>);
+const images = ref([] as ImageUpload[]);
 
 try {
   listing.value = await ListingControllerService.getListing({ id: listingId });
-  // Go back if the user is not the owner of the listing
+  // Go to listing detail if the user is not the owner of the listing or admin
   if (username.value !== listing.value?.username && userStore.role !== 'ADMIN') {
     router.push({ name: 'listing', params: { id: listingId } });
   }
   foundLocation.value = await LocationControllerService.getLocationById({ id: listing.value.location!! });
+
   for (const image of listing.value.imageResponse!!) {
-    images.value.push(await ImageControllerService.getImage({ id: image.id!! }));
+    const blob = await ImageControllerService.getImage({ id: image.id });
+    const blobWithType = new Blob([blob], { type: 'image/jpg' });
+    images.value.push({
+      name: image.id.toString(),
+      type: blobWithType.type,
+      size: blobWithType.size,
+      url: image.url,
+      alt: image.alt,
+      data: blobWithType,
+      isUploaded: true,
+    } as ImageUpload);
   }
 } catch (error) {
   if (error instanceof ApiError) {
@@ -59,7 +73,6 @@ const initialPayload = ref({
   price: listing.value!!.price,
   category: listing.value!!.category,
   location: foundLocation.value!!.id,
-  images: images.value,
   status: listing.value!!.status,
 } as ListingCreateDTO);
 
