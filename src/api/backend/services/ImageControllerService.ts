@@ -10,6 +10,7 @@ import { request as __request } from '../core/request';
 export class ImageControllerService {
   /**
    * Uploads images to the server
+   * Uploads images to the server and returns a list of image response DTOs.
    * @returns ImageResponseDTO OK
    * @throws ApiError
    */
@@ -34,7 +35,8 @@ export class ImageControllerService {
   }
 
   /**
-   * Gets a specific image from the server
+   * Returns an image from the server.
+   * Returns an image from the server as a resource to be downloaded.
    * @returns binary OK
    * @throws ApiError
    */
@@ -53,10 +55,11 @@ export class ImageControllerService {
 
   /**
    * Deletes an image from the server
-   * @returns string OK
+   * Deletes an image from the server and returns a response entity.
+   * @returns any OK
    * @throws ApiError
    */
-  public static deleteImage({ id }: { id: number }): CancelablePromise<string> {
+  public static deleteImage({ id }: { id: number }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'DELETE',
       url: '/api/v1/private/images/{id}',

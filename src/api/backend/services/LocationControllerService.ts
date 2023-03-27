@@ -11,7 +11,7 @@ import { request as __request } from '../core/request';
 export class LocationControllerService {
   /**
    * Update location by id
-   * Updates a location by id.
+   * Updates a location by id if it exists in the database, and returns the updated location. Only admins can update locations.
    * @returns LocationResponseDTO OK
    * @throws ApiError
    */
@@ -95,7 +95,7 @@ export class LocationControllerService {
 
   /**
    * Get location by id
-   * Returns a location by id.
+   * Returns a location by id if it exists in the database.
    * @returns LocationResponseDTO OK
    * @throws ApiError
    */

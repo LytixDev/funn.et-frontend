@@ -37,6 +37,8 @@ export class ListingControllerService {
   }
 
   /**
+   * Deletes a listing with the given id.
+   * Deletes a listing with the given id. If the user is not and admin or the user is not the owner of the listing, the listing is not deleted.
    * @returns any OK
    * @throws ApiError
    */
@@ -54,6 +56,8 @@ export class ListingControllerService {
   }
 
   /**
+   * Favorites a listing with the given id.
+   * Favorites a listing with the given id. If the listing is already favorited, it is unfavorited.
    * @returns ListingDTO OK
    * @throws ApiError
    */
@@ -71,8 +75,8 @@ export class ListingControllerService {
   }
 
   /**
-   * Get listings by search and filter
-   * Returns all listings in the database. Possible to search for keywords in listing
+   * Get listings by search and filter.
+   * Returns all listings in the database. Possible to search for keywords in listing. Keywords share a name with the variable in the Listing class.
    * @returns ListingDTO OK
    * @throws ApiError
    */
@@ -93,8 +97,8 @@ export class ListingControllerService {
   }
 
   /**
-   * Create listing
-   * Creates a listing from a listing dto
+   * Creates a listing with the given data.
+   * Creates a listing with the given data. Checks that the user exists and that the location exists. Also checks that the listing does not already exist. If the listing is created successfully, it will return the listing with the id and the images uploaded.
    * @returns ListingDTO OK
    * @throws ApiError
    */
@@ -111,6 +115,8 @@ export class ListingControllerService {
   }
 
   /**
+   * Get a listing by id.
+   * Returns a listing with the given id. If user is logged in, it will also return if the user has favorited the listing.
    * @returns ListingDTO OK
    * @throws ApiError
    */
@@ -128,8 +134,8 @@ export class ListingControllerService {
   }
 
   /**
-   * Get listings by user
-   * Returns all listings in the database. Possible to search for keywords in listing
+   * Get all listings published by a user.
+   * Returns all listings in the database that are published by a user.
    * @returns ListingDTO OK
    * @throws ApiError
    */
@@ -147,6 +153,8 @@ export class ListingControllerService {
   }
 
   /**
+   * Gets all favorite listings for a user.
+   * Gets all favorite listings for a user. If the user is not logged in, an empty set is returned.
    * @returns ListingDTO OK
    * @throws ApiError
    */
