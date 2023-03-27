@@ -17,10 +17,10 @@
             <router-link :to="{ name: 'login' }" class="attention">{{ $t('navigation.login') }}</router-link>
           </li>
           <li v-if="!loggedIn">
-            <router-link :to="{ name: 'register' }" class="attention">{{ $t('navigation.register') }}</router-link>
+            <router-link :to="{ name: 'register' }">{{ $t('navigation.register') }}</router-link>
           </li>
           <li v-else>
-            <router-link :to="{ name: 'signout' }" class="attention">{{ $t('navigation.signout') }}</router-link>
+            <router-link :to="{ name: 'signout' }">{{ $t('navigation.signout') }}</router-link>
           </li>
           <li>
             <locale-selector />
