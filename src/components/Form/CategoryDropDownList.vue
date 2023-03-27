@@ -6,7 +6,7 @@
     :modelValue="addAllOption ? (category !== 0 ? category.toString() : '') : category.toString()"
     @update:modelValue="$emit('update:category', +$event)"
     fieldRequired
-    dataTestId="listing-category"
+    dataTestid="listing-category"
     fieldName="category"
     :fieldOptions="listOfCategories" />
 </template>

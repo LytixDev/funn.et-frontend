@@ -1,3 +1,5 @@
+apiUrl = Cypress.env('apiUrl');
+
 describe('Integration tests for the 404 not found page', () => {
   it('Clicking go back button takes you home if home was visited last', () => {
     cy.visit('/');

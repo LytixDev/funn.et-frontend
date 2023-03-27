@@ -14,6 +14,7 @@ describe('Listing list view', () => {
         id: i,
         briefDescription: `Listing ${i}`,
         category: 0,
+        status: 'ACTIVE',
         price: 100,
         title: `Listing ${i}`,
       });
