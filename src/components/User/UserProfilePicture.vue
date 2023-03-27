@@ -1,11 +1,11 @@
 <template>
-  <router-link
+  <component
     :to="{ path: link }"
     class="user-profile-picture"
     :style="{ backgroundColor: bgcolor }"
     :is="clickable ? 'router-link' : 'span'">
     <span class="initials" :style="{ color: text_color }">{{ initials }}</span>
-  </router-link>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -70,7 +70,8 @@ const text_color = ref(chooseBlackOrWhite(hexToRgb(bgcolor.value) as { r: number
 </script>
 
 <style scoped>
-a {
+a,
+span {
   display: flex;
   text-decoration: none;
   width: 2em;
