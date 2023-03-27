@@ -86,6 +86,8 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const requiresRole: String[] = to.matched.flatMap((record) => (record.meta.requiresRole as String[]) || []);
 
+  window.scrollY = 0;
+
   if (requiresAuth) {
     if (!isAuthenticated) {
       next({ name: 'login', query: { redirect: to.fullPath } });
