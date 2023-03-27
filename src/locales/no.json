@@ -76,10 +76,15 @@
       "usernameMin": "Brukernavn må være større en 3 karakterer",
       "usernameMax": "Brukernavn kan ikke være større enn 32 karakterer",
       "usernameRequired": "Brukernavn er obligatorisk",
+      "usernameInvalid": "Brukernavn kan kun inneholde bokstav, tall og understreker",
       "emailRequired": "E-post er obligatorisk",
       "emailInvalid": "E-posten du skrev inn er ugyldig",
       "firstNameRequired": "Fornavn er obligatorisk",
+      "firstNameMax": "Fornavn kan ikke være større enn 64 karakterer",
+      "firstNameIsInvalid": "Fornavn inneholder ulovlige tegn",
       "lastNameRequired": "Etternavn er obligatorisk",
+      "lastNameMax": "Etternavn kan ikke være større enn 64 karakterer",
+      "lastNameIsInvalid": "Etternavn inneholder ulovlige tegn",
       "passwordRequired": "Passord er obligatorisk",
       "passwordMin": "Passord må være større enn 8 karakterer",
       "passwordInvalid": "Passord må inneholde minst en stor bokstav, en liten bokstav og et tall",
@@ -115,6 +120,7 @@
       "descriptionMax": "Beskrivelse kan ikke være større enn 512 karakterer",
       "priceRequired": "Pris er obligatorisk",
       "priceMin": "Pris må være positivt og større enn 0",
+      "priceMax": "Pris kan ikke være større enn 100000000",
       "addressRequired": "Adresse er obligatorisk",
       "cityRequired": "By er obligatorisk",
       "postcodeRequired": "Postnummer er obligatorisk",
@@ -250,7 +256,8 @@
     "confirm": "Er du sikker på at du vil slette denne kategorien?",
     "confirmSave": "Er du sikker på at du vil lagre endringene?",
     "Error": {
-      "nameRequired": "Kategori navn er obligatorisk"
+      "nameRequired": "Kategori navn er obligatorisk",
+      "nameTooLong": "Navnet på kategorien er for langt"
     }
   }
 }

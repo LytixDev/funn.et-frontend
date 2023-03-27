@@ -10,6 +10,8 @@ import { request as __request } from '../core/request';
 
 export class CategoryControllerService {
   /**
+   * Updates a category.
+   * Updates a category if it exists in the database.
    * @returns CategoryDTO OK
    * @throws ApiError
    */
@@ -35,10 +37,12 @@ export class CategoryControllerService {
   }
 
   /**
-   * @returns any OK
+   * Deletes a category.
+   * Deletes a category if it exists in the database.
+   * @returns string OK
    * @throws ApiError
    */
-  public static deleteCategory({ id }: { id: number }): CancelablePromise<any> {
+  public static deleteCategory({ id }: { id: number }): CancelablePromise<string> {
     return __request(OpenAPI, {
       method: 'DELETE',
       url: '/api/v1/private/categories/{id}',
@@ -52,6 +56,8 @@ export class CategoryControllerService {
   }
 
   /**
+   * Creates a category.
+   * Creates a category if it does not already exist in the database.
    * @returns CategoryDTO OK
    * @throws ApiError
    */
@@ -68,6 +74,8 @@ export class CategoryControllerService {
   }
 
   /**
+   * Gets all categories
+   * Gets all categories that are available in the database.
    * @returns CategoryDTO OK
    * @throws ApiError
    */
@@ -82,6 +90,8 @@ export class CategoryControllerService {
   }
 
   /**
+   * Gets a category by id.
+   * Gets a category by id that is given if it is available in the database.
    * @returns CategoryDTO OK
    * @throws ApiError
    */

@@ -128,12 +128,15 @@ const imagesToKeep = computed(() =>
 
 const schema = computed(() =>
   yupObject({
-    title: yupString().required(t('ListingForm.Error.titleRequired')).max(256, t('ListingForm.Error.titleMax')),
+    title: yupString().required(t('ListingForm.Error.titleRequired')).max(64, t('ListingForm.Error.titleMax')),
     briefDescription: yupString()
       .required(t('ListingForm.Error.briefDescriptionRequired'))
-      .max(128, t('ListingForm.Error.briefDescriptionMax')),
+      .max(255, t('ListingForm.Error.briefDescriptionMax')),
     description: yupString().max(512, t('ListingForm.Error.descriptionMax')),
-    price: yupNumber().required(t('ListingForm.Error.priceRequired')).min(0, t('ListingForm.Error.priceMin')),
+    price: yupNumber()
+      .required(t('ListingForm.Error.priceRequired'))
+      .min(0, t('ListingForm.Error.priceMin'))
+      .max(100000000, t('ListingForm.Error.priceMax')),
     category: yupString().default('OTHER'),
     location: yupObject<LocationResponseDTO>().required(t('ListingForm.Error.locationRequired')),
   }),
@@ -151,13 +154,18 @@ const { value: categoryId } = useField('category') as FieldContext<number>;
 const { value: location } = useField('location') as FieldContext<LocationResponseDTO>;
 const { value: images } = useField('images') as FieldContext<ImageUpload[]>;
 
-const submit = handleSubmit((values) => {
+const getDate = (monthsToAdd: number): string => {
   const date: Date = new Date();
   let day: string = date.getDate().toString();
   if (day.length == 1) day = '0'.concat(day);
-  let month: string = (date.getMonth() + 1).toString();
+  let month: string = (date.getMonth() + 1 + monthsToAdd).toString();
   if (month.length == 1) month = '0'.concat(month);
-  const dateStr: string = date.getFullYear() + '-' + month + '-' + date.getDate();
+  return date.getFullYear() + '-' + month + '-' + date.getDate();
+};
+
+const submit = handleSubmit((values) => {
+  const dateStr: string = getDate(0);
+  const expDateStr: string = getDate(3);
 
   const images = [] as Array<Blob>;
   const imageAlts = [] as Array<string>;
@@ -177,7 +185,7 @@ const submit = handleSubmit((values) => {
     category: values.category,
     price: values.price,
     publicationDate: dateStr,
-    expirationDate: dateStr,
+    expirationDate: expDateStr,
     images: images,
     imageAlts: imageAlts,
     imagesToKeep: imagesToKeep.value,
