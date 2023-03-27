@@ -8,7 +8,11 @@
       <div class="listing-head">
         <h1 class="listing-title">{{ listing.title }}</h1>
         <div v-if="user.isLoggedIn && !isOwner && listing.status === ListingDTO.status.ACTIVE" class="listing-actions">
-          <OhVueIcon color="var(--red-color)" @click="favorite" :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'" class="favourite" />
+          <OhVueIcon
+            color="var(--red-color)"
+            @click="favorite"
+            :name="isFavorite ? 'bi-heart-fill' : 'bi-heart'"
+            class="favourite" />
         </div>
       </div>
       <p class="listing-username">{{ $t('ListingDetailView.publishedBy') }}: {{ listing.username }}</p>
@@ -34,10 +38,13 @@
     <hr />
 
     <div class="owner-actions" v-if="isOwner || isAdmin">
-      <button class="attention" v-if="listing?.status !== ListingDTO.status.SOLD" @click="updateStatus(ListingDTO.status.SOLD)">
+      <button
+        class="attention"
+        v-if="listing?.status !== ListingDTO.status.SOLD"
+        @click="updateStatus(ListingDTO.status.SOLD)">
         {{ $t('ListingDetailView.sold') }}
       </button>
-      <button  v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+      <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
         {{ $t('ListingDetailView.archive') }}
       </button>
       <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
@@ -45,7 +52,8 @@
       }}</router-link>
       <button class="red-attention" @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
     </div>
-    <router-link class="owner-actions"
+    <router-link
+      class="owner-actions"
       v-if="!isOwner && listing?.status === ListingDTO.status.ACTIVE && user.isLoggedIn"
       :to="{ name: 'chat', params: { id: listing?.id, username: username } }"
       >{{ $t('ListingDetailView.sendMessage') }}</router-link
@@ -178,5 +186,4 @@ h2 {
   display: flex;
   justify-content: space-around;
 }
-
 </style>
