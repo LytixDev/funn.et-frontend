@@ -5,7 +5,7 @@
         id="leaflet-map"
         ref="map"
         :zoom="zoom"
-        :center="validMarker(selectedCoords) ? [selectedCoords?.lat, selectedCoords?.lon] : [center.lat, center.lon]">
+        :center="[center.lat, center.lon]">
         <l-tile-layer :url="url" layer-type="base" name="OpenStreetMap" :attribution="attribution"> </l-tile-layer>
 
         <l-marker
@@ -26,9 +26,6 @@
             <ListingCard :listingData="listing" />
           </l-tooltip>
         </l-marker>
-        <!-- <div v-for="marker in markerCoordsList" :key="marker?.lat">
-          <l-marker v-if="validMarker(marker)" :lat-lng="marker" />
-        </div> -->
       </l-map>
     </div>
   </div>
@@ -54,8 +51,8 @@ const icon = ref({
 
 type Coords = { lat: number; lon: number };
 
-const zoom = ref(1);
-const center = ref({ lat: 1, lon: 1 });
+const zoom = ref(5);
+const center = ref({ lat: 60.8, lon: 10.4 });
 const selectedCoords = ref({ lat: 10.1, lon: 10.1 });
 const hoveredListing = ref('');
 
