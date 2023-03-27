@@ -97,7 +97,7 @@ const errorMessage = ref('');
 
 type OnSubmitFunction = (payload: ListingCreateDTO) => void;
 
-const { listingPayload, onSubmit, foundLocation, formType, intialImages } = defineProps({
+const { listingPayload, onSubmit, foundLocation, formType, initialImages } = defineProps({
   listingPayload: {
     type: Object as () => ListingCreateDTO,
     required: false,
@@ -115,12 +115,14 @@ const { listingPayload, onSubmit, foundLocation, formType, intialImages } = defi
     required: false,
     default: 'create',
   },
-  intialImages: {
+  initialImages: {
     type: Array<ImageUpload>,
     required: false,
     default: [],
   },
 });
+
+const imagesToKeep = ref<number[]>(initialImages.map((image) => +image.name));
 
 const schema = computed(() =>
   yupObject({
@@ -197,7 +199,7 @@ if (listingPayload) {
   description.value = listingPayload.fullDescription ?? '';
   price.value = listingPayload.price?.toString() ?? '';
   categoryId.value = listingPayload.category.id ?? 0;
-  images.value = intialImages;
+  images.value = initialImages;
 }
 </script>
 

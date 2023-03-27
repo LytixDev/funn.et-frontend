@@ -50,7 +50,7 @@ export default defineComponent({
   data() {
     return {
       isLoading: false,
-      images: [] as Image[],
+      images: this.modelValue || [],
       errors: [] as string[],
     };
   },

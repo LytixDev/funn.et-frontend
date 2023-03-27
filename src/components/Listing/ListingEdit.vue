@@ -4,7 +4,7 @@
     :found-location="foundLocation"
     :on-submit="updateListing"
     form-type="update"
-    :intial-images="images" />
+    :initial-images="images" />
 </template>
 
 <script lang="ts" setup>
@@ -48,7 +48,7 @@ try {
 
   for (const image of listing.value.imageResponse!!) {
     const blob = await ImageControllerService.getImage({ id: image.id });
-    const blobWithType = new Blob([blob], { type: 'image/jpg' });
+    const blobWithType = new Blob([blob], { type: blob.type ?? 'image/png' });
     images.value.push({
       name: image.id.toString(),
       type: blobWithType.type,
@@ -78,11 +78,7 @@ const initialPayload = ref({
 } as ListingCreateDTO);
 
 const updateListing = (payload: ListingUpdateDTO) => {
-  const formData = {
-    imagesToKeep: listing.value?.imageResponse?.map((image) => image.id),
-    ...payload,
-  } as ListingUpdateDTO;
-  ListingControllerService.updateListing({ id: listingId, formData: formData })
+  ListingControllerService.updateListing({ id: listingId, formData: payload })
     .then(() => {
       router.push({ name: 'listing', params: { id: listingId } });
     })
