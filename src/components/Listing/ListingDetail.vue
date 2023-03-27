@@ -16,7 +16,6 @@
         {{ $t('ListingDetailView.note') }} {{ $t('ListingDetailView.'.concat(listing.status)) }}.
       </h2>
       <ImageCarousel class="carousel" :images="images" :alts="alts" :displayAlt="true" />
-      <LocationMap v-if="coords" :center="coords" :selectedCoords="coords" :zoom="10" />
 
       <p class="listing-price">{{ $t('ListingDetailView.price') }}: {{ listing.price }} kr</p>
       <p class="listing-category">{{ $t('ListingDetailView.category') }}: {{ listing.category.name }}</p>
@@ -29,6 +28,7 @@
         </div>
       </div>
       <hr />
+      <LocationMap v-if="coords" :center="coords" :selectedCoords="coords" :zoom="10" />
     </div>
   </div>
 

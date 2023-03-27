@@ -56,8 +56,6 @@ a:hover {
 }
 
 .listing-card {
-  display: grid;
-  grid-template-rows: 3fr 1fr;
   min-width: 180px;
   max-width: 480px;
   margin: auto;
@@ -69,7 +67,7 @@ a:hover {
   border-radius: 5%;
   object-fit: cover;
   width: 100%;
-  max-height: 300px;
+  aspect-ratio: 1;
 }
 
 .listing-info * {
