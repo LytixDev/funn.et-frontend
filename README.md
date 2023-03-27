@@ -146,7 +146,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
+Nicolai H. Brand - nicolahb@stud.ntnu.no
+Callum Gran - callumg@stud.ntnu.no
+Carl Gützkow - carljgu@stud.ntnu.no
 Thomas H. Svendal - thosve@stud.ntnu.no
+
 
 Frontend repo Link: [frontend](https://gitlab.stud.idi.ntnu.no/ntcc/fullstack-frontend)
 
