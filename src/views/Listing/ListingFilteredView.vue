@@ -12,9 +12,9 @@
 
       <error-boundary-catcher>
         <div class="listings-wrapper">
-          <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => activeTab = data"/>
+          <TabSelector :tabs="tabs" :active-tab="activeTab" @update:active-tab="(data) => (activeTab = data)" />
           <listing-list v-if="activeTab === 'List'" :listings="listings" />
-          <ListingMap v-if="activeTab === 'Map'" :listings="listings"/>
+          <ListingMap v-if="activeTab === 'Map'" :listings="listings" />
         </div>
       </error-boundary-catcher>
     </div>

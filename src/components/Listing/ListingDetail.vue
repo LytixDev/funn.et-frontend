@@ -36,15 +36,19 @@
 
     <div class="owner-actions" v-if="isOwner || isAdmin">
       <button
+        data-testid="sold-button"
         class="attention"
         v-if="listing?.status !== ListingDTO.status.SOLD"
         @click="updateStatus(ListingDTO.status.SOLD)">
         {{ $t('ListingDetailView.sold') }}
       </button>
-      <button v-if="listing?.status !== ListingDTO.status.ARCHIVED" @click="updateStatus(ListingDTO.status.ARCHIVED)">
+      <button
+        data-testid="archive-button"
+        v-if="listing?.status !== ListingDTO.status.ARCHIVED"
+        @click="updateStatus(ListingDTO.status.ARCHIVED)">
         {{ $t('ListingDetailView.archive') }}
       </button>
-      <router-link :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
+      <router-link data-testid="edit-button" :to="{ name: 'listing-edit', params: { id: listing?.id } }">{{
         $t('ListingDetailView.edit')
       }}</router-link>
       <button class="red-attention" @click="deleteListing">{{ $t('ListingDetailView.delete') }}</button>
