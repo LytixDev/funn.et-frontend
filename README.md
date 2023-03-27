@@ -137,6 +137,18 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Testing -->
+## Testing
+We have had a lot of pain and issues with Vitest (issues include mounting, stores, and other pains that we did not seem to have with cypress), we have opted to rather use cypress tests, and testing components and integration with these tests instead.
+
+<!-- Known Faults -->
+## Known Faults
+### E2E Running
+Some Systems have issuse with running e2e test, a workaround for this is to run `yarn vite dev --port 4173` and in another terminal run `yarn cypress open --e2e`
+
+### Runners in pipeline
+The runners on the pipeline sometimes fails without a known reason. For this, i recommend re-running the tests.
+
 <!-- LICENSE -->
 ## License
 
