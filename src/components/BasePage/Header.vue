@@ -64,8 +64,14 @@ watch(router.currentRoute, () => {
   z-index: 100;
 }
 
-.router-link-exact-active {
-  border-bottom: var(--primary-color) solid 5px;
+
+
+.router-link-exact-active.attention {
+  border-bottom: var(--background-color) solid 4px;
+}
+
+.router-link-exact-active:not(.attention) {
+  border-bottom: var(--primary-color) solid 4px;
 }
 
 nav {

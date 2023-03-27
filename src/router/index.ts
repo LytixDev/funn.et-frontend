@@ -13,6 +13,10 @@ export const routes = [
         component: () => import('@/views/Listing/ListingFilteredView.vue'),
       },
       {
+        path: 'listing',
+        redirect: { name: 'home' },
+      },
+      {
         path: '/create-listing',
         name: 'create-listing',
         component: () => import('@/views/Listing/ListingCreateView.vue'),
